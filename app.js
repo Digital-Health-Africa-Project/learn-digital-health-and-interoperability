@@ -4,24 +4,222 @@ const $ = id => document.getElementById(id);
 const topics = new Map([...document.querySelectorAll('#topic-nav a')].map(a => [a.hash.slice(1), a.textContent]));
 topics.set('communities', 'Communities and discussion forums');
 const icons = { Course: '▤', Lecture: '▶', Guide: '▣', Publication: '▧', Article: '¶', Exam: '✓', Community: '◇' };
-const fields = ['topic', 'type', 'cost', 'certificate', 'level', 'resource-language', 'time', 'sort'];
+const fields = ['type', 'cost', 'certificate', 'level', 'resource-language', 'time', 'sort'];
 const defaults = { q: '', topic: '', type: '', cost: '', certificate: '', level: '', 'resource-language': '', time: '', sort: 'beginner' };
 const quickFields = { Beginner: 'level', Free: 'cost', yes: 'certificate', Course: 'type' };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let resources = [];
 let french = readStorage('health-hub-language', 'en') === 'fr';
+const strings = {
+  "Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.": "Bienvenue sur ce portail de formation ! Vous y trouverez une sélection de cours, de vidéos, de guides et de rapports sur les normes relatives aux données de santé, l’architecture d’interopérabilité, la gouvernance et les espaces africain et européen des données de santé.",
+  "Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.": "Utilisez les filtres pour trouver des ressources par thème, format, niveau, coût, langue, durée ou disponibilité d’une attestation.",
+  "Browse and filter resources": "Parcourir et filtrer les ressources",
+
+  "Learn Health Data Interoperability and Health Data Spaces": "Découvrir l’interopérabilité et les espaces de données de santé",
+  "Find courses, guides and communities on health data interoperability and health data spaces.": "Trouvez des cours, des guides et des communautés sur l’interopérabilité et les espaces de données de santé.",
+  "Skip to resources": "Aller aux ressources",
+  "GIZ logo": "Logo GIZ",
+  "Dark mode": "Mode sombre",
+  "Addis workshop · 24 November 2026": "Atelier d’Addis-Abeba · 24 novembre 2026",
+  "Explore how health systems exchange, understand and reuse data across organizations and borders.": "Découvrez comment les systèmes de santé échangent, interprètent et réutilisent les données entre organisations et par-delà les frontières.",
+  "Search the collection": "Rechercher dans le catalogue",
+  "Search resources, providers or tags": "Rechercher une ressource, un organisme ou un mot-clé",
+  "Suggested searches": "Suggestions de recherche",
+  "Governance": "Gouvernance",
+  "Start here": "Commencer ici",
+  "Learning topics": "Thèmes d’apprentissage",
+  "Start by understanding interoperability": "Comprendre les bases de l’interopérabilité",
+  "Health data standards and terminologies": "Normes et terminologies des données de santé",
+  "Health data interoperability architectures": "Architectures d’interopérabilité des données de santé",
+  "Laws and regulations": "Lois et réglementations",
+  "Health data spaces": "Espaces de données de santé",
+  "Communities and discussion forums": "Communautés et forums de discussion",
+  "resources": "ressources",
+  "topics": "thèmes",
+  "free": "gratuites",
+  "Explore the collection": "Explorer le catalogue",
+  "Browse courses, lectures, reports, and practical guides, from the fundamentals to implementation.": "Parcourez les cours, conférences, rapports et guides pratiques, des bases à la mise en œuvre.",
+  "Find my path": "Trouver mon parcours",
+  "My learning path": "Mon parcours d’apprentissage",
+  "Find resources": "Trouver des ressources",
+  "Quick filters": "Filtres rapides",
+  "Beginner": "Débutant",
+  "Free": "Gratuit",
+  "Certificate available": "Attestation disponible",
+  "Online courses": "Cours en ligne",
+  "Topic": "Thème",
+  "Resource type": "Type de ressource",
+  "Cost": "Coût",
+  "Certificate availability": "Disponibilité d’une attestation",
+  "Level": "Niveau",
+  "Resource language": "Langue de la ressource",
+  "Time commitment": "Temps à prévoir",
+  "Sort by": "Trier par",
+  "Beginner first": "Débutants d’abord",
+  "Free first": "Ressources gratuites d’abord",
+  "A to Z": "De A à Z",
+  "Provider": "Organisme",
+  "Clear filters": "Effacer les filtres",
+  "Loading resources…": "Chargement des ressources…",
+  "Enable JavaScript to search and browse the directory.": "Activez JavaScript pour rechercher et consulter le catalogue.",
+  "Save resources as you browse, then mark them complete here. Your progress stays in this browser.": "Enregistrez des ressources en parcourant le catalogue, puis marquez-les ici comme terminées. Vos progrès sont conservés dans ce navigateur.",
+  "0 of 0 completed": "0 sur 0 terminées",
+  "Learning path completion": "Progression du parcours",
+  "Copy text list": "Copier la liste",
+  "Print path": "Imprimer le parcours",
+  "Export progress": "Exporter mes progrès",
+  "Import progress": "Importer mes progrès",
+  "Your role": "Votre rôle",
+  "Choose a role": "Choisir un rôle",
+  "Student or learner": "Étudiant ou apprenant",
+  "Health IT implementer": "Spécialiste des systèmes d’information de santé",
+  "Policy or program lead": "Responsable de politiques ou de programmes",
+  "Your experience": "Votre expérience",
+  "Choose a level": "Choisir un niveau",
+  "Intermediate": "Intermédiaire",
+  "Your focus": "Votre zone d’intérêt",
+  "Choose an area": "Choisir une zone",
+  "Africa": "Afrique",
+  "Europe": "Europe",
+  "Global": "Monde",
+  "Recommend resources": "Suggérer des ressources",
+  "Interoperability map": "Carte de l’interopérabilité",
+  "Choose a node to find related resources. Standards define what is exchanged, architectures connect systems, and governance sets rules for access and reuse.": "Sélectionnez un élément pour trouver les ressources associées. Les normes définissent les données échangées, les architectures relient les systèmes et la gouvernance fixe les règles d’accès et de réutilisation.",
+  "Compare health data space resources": "Comparer les ressources sur les espaces de données de santé",
+  "Comparison layout": "Mode de comparaison",
+  "Side by side": "Côte à côte",
+  "Keep the conversation going": "Poursuivre la discussion",
+  "Join our Digital Health Africa community on Zulip to ask questions, share resources and discuss implementation experiences.": "Rejoignez notre communauté Digital Health Africa sur Zulip pour poser vos questions, partager des ressources et échanger sur vos expériences de mise en œuvre.",
+  "Introduce yourself and your work.": "Présentez-vous et parlez de votre travail.",
+  "Ask about standards, architecture or governance.": "Posez vos questions sur les normes, l’architecture ou la gouvernance.",
+  "Share courses, guides and useful examples.": "Partagez des cours, des guides et des exemples utiles.",
+  "Join us on Zulip": "Nous rejoindre sur Zulip",
+  "GIZ workshop resource · Addis Ababa · 24 November 2026": "Ressource de l’atelier GIZ · Addis-Abeba · 24 novembre 2026",
+  "Back to top ↑": "Retour en haut ↑",
+  "More filters": "Plus de filtres",
+  "Filter by topic": "Filtrer par thème",
+  "All topics": "Tous les thèmes",
+  "All types": "Tous les types",
+  "Video lectures": "Conférences vidéo",
+  "PDFs": "PDF",
+  "Guides and references": "Guides et références",
+  "Publications": "Publications",
+  "Blogs and articles": "Blogs et articles",
+  "Certification exams": "Examens de certification",
+  "Communities": "Communautés",
+  "Any cost": "Tous les coûts",
+  "Paid": "Payant",
+  "Check provider": "Voir auprès de l’organisme",
+  "Any level": "Tous les niveaux",
+  "All levels": "Tous niveaux",
+  "All resources": "Toutes les ressources",
+  "No confirmed certificate": "Aucune attestation confirmée",
+  "Any resource language": "Toutes les langues",
+  "Any time commitment": "Toutes les durées",
+  "English": "Anglais",
+  "French": "Français",
+  "Spanish": "Espagnol",
+  "Portuguese": "Portugais",
+  "Arabic": "Arabe",
+  "English; most modules also in French": "Anglais ; la plupart des modules sont aussi en français",
+  "other EU languages": "autres langues de l’UE",
+  "governance": "gouvernance",
+  "Self-paced reading": "Lecture à son rythme",
+  "Self-paced reference": "Référence à consulter à son rythme",
+  "Not listed": "Non indiqué",
+  "Full day or longer": "Une journée ou plus",
+  "Multi-day schedule": "Sur plusieurs jours",
+  "Ongoing": "En continu",
+  "About 13 hours (core)": "Environ 13 heures (tronc commun)",
+  "18-day email course": "Cours par courriel sur 18 jours",
+  "Free access": "Accès gratuit",
+  "US$39 (listed fee)": "39 USD (tarif indiqué)",
+  "Course": "Cours",
+  "Lecture": "Conférence",
+  "Guide": "Guide",
+  "Publication": "Publication",
+  "Article": "Article",
+  "Exam": "Examen",
+  "Community": "Communauté",
+  "Link coming soon": "Lien à venir",
+  "Open resource": "Ouvrir la ressource",
+  "Copy link": "Copier le lien",
+  "No resources match. Try a different keyword or clear the filters.": "Aucune ressource ne correspond. Essayez un autre mot-clé ou effacez les filtres.",
+  "Saved": "Enregistrée",
+  "Save": "Enregistrer",
+  "No saved resources yet.": "Aucune ressource enregistrée pour le moment.",
+  "Complete": "Terminée",
+  "Remove": "Retirer",
+  "Your suggested learning order": "Votre parcours d’apprentissage suggéré",
+  "Standards": "Normes",
+  "Architectures": "Architectures",
+  "AU frameworks": "Cadres de l’Union africaine",
+  "GDPR": "RGPD",
+  "EHDS": "EEDS",
+  "Data flows into connected systems": "Les données circulent entre les systèmes connectés",
+  "Governance shapes access and reuse": "La gouvernance encadre l’accès et la réutilisation",
+  "African Health Data Space": "Espace africain des données de santé",
+  "European Health Data Space": "Espace européen des données de santé",
+  "Browser storage is unavailable. Changes last until you close this page.": "Le stockage du navigateur est indisponible. Les modifications seront perdues à la fermeture de cette page.",
+  "Copied to clipboard.": "Copié dans le presse-papiers.",
+  "Text to copy": "Texte à copier",
+  "Copy the selected text.": "Copiez le texte sélectionné.",
+  "Close": "Fermer",
+  "Choose a valid learning progress JSON file exported from this hub.": "Sélectionnez un fichier JSON de progression exporté depuis ce portail.",
+  "The resource list could not be loaded. Open the published site or use a local HTTP server.": "Impossible de charger le catalogue. Ouvrez le site publié ou utilisez un serveur HTTP local.",
+  "Switch the website language": "Changer la langue du site",
+  "Light mode": "Mode clair",
+  " (opens in a new tab)": " (s’ouvre dans un nouvel onglet)",
+  "Copy link to ": "Copier le lien vers ",
+  "Remove bookmark for ": "Retirer le favori pour ",
+  "Bookmark ": "Ajouter aux favoris : ",
+  "Completed: ": "Terminée : ",
+  "Remove from learning path: ": "Retirer du parcours : ",
+  "Filter by ": "Filtrer par : "
+};
+const t = text => french ? (strings[text] ?? text) : text;
 const translate = (en, fr) => french ? fr : en;
 
+const staticText = [];
+const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT, {
+  acceptNode(node) {
+    return node.parentElement.closest('script, style') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+  }
+});
+while (walker.nextNode()) {
+  const node = walker.currentNode;
+  const key = node.nodeValue.trim();
+  if (Object.hasOwn(strings, key)) staticText.push([node, node.nodeValue, key]);
+}
+const staticAttributes = [...document.querySelectorAll('[aria-label], [placeholder], meta[name="description"]')]
+  .flatMap(node => ['aria-label', 'placeholder', 'content'].filter(attr => node.hasAttribute(attr))
+    .map(attr => [node, attr, node.getAttribute(attr)]));
+
 function updateLanguage() {
+  document.documentElement.lang = french ? 'fr' : 'en';
+  for (const [node, original, key] of staticText) node.nodeValue = original.replace(key, t(key));
+  for (const [node, attr, value] of staticAttributes) node.setAttribute(attr, t(value));
   $('language-toggle').textContent = translate('Français', 'English');
   $('language-toggle').lang = translate('fr', 'en');
+  setTheme(document.documentElement.dataset.theme);
 }
-updateLanguage();
+
 $('language-toggle').addEventListener('click', () => {
   french = !french;
   store('health-hub-language', french ? 'fr' : 'en');
   updateLanguage();
-  render();
+  if (!resources.length) {
+    $('count').textContent = t(loadError || 'Loading resources…');
+    return;
+  }
+  setupOptions();
+  renderTopicFilters();
+  apply(state, false);
+  renderPath();
+  $('map-diagram').replaceChildren();
+  makeMap();
+  compare($('compare-controls').querySelector('[aria-pressed="true"]').dataset.compare);
+  if ($('recommendations').children.length) $('quiz-form').requestSubmit();
 });
 
 function resourceLanguages(item) {
@@ -54,7 +252,7 @@ function store(key, value) {
 
 function el(tag, text, cls) {
   const node = document.createElement(tag);
-  if (text) node.textContent = text;
+  if (text) node.textContent = t(text);
   if (cls) node.className = cls;
   return node;
 }
@@ -71,12 +269,12 @@ function external(text, url, cls) {
   link.href = url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.setAttribute('aria-label', text + ' (opens in a new tab)');
+  link.setAttribute('aria-label', t(text) + t(' (opens in a new tab)'));
   return link;
 }
 
 function notify(message) {
-  $('notice').textContent = message;
+  $('notice').textContent = t(message);
   clearTimeout(noticeTimer);
   noticeTimer = setTimeout(() => { $('notice').textContent = ''; }, 4500);
 }
@@ -88,7 +286,7 @@ async function copy(text) {
   } catch {
     const field = el('textarea');
     field.value = text;
-    field.setAttribute('aria-label', 'Text to copy');
+    field.setAttribute('aria-label', t('Text to copy'));
     const dialog = el('dialog');
     dialog.append(el('p', 'Copy the selected text.'), field, control('Close', () => dialog.close()));
     dialog.addEventListener('close', () => dialog.remove(), { once: true });
@@ -100,6 +298,7 @@ async function copy(text) {
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
+  $('theme').textContent = t(theme === 'dark' ? 'Light mode' : 'Dark mode');
   $('theme').setAttribute('aria-pressed', String(theme === 'dark'));
 }
 setTheme(readStorage('health-hub-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
@@ -110,7 +309,7 @@ $('theme').addEventListener('click', () => {
 });
 
 function setOptions(id, label, pairs) {
-  $(id).replaceChildren(new Option(label, ''), ...pairs.map(([value, name]) => new Option(name, value)));
+  $(id).replaceChildren(new Option(t(label), ''), ...pairs.map(([value, name]) => new Option(t(name), value)));
 }
 
 function loadHash() {
@@ -122,6 +321,7 @@ function loadHash() {
   }
   const params = new URLSearchParams(hash.slice(5));
   const values = { ...defaults, q: params.get('q') || '' };
+  if (topics.has(params.get('topic'))) values.topic = params.get('topic');
   for (const field of fields) {
     const value = params.get(field);
     if ([...$(field).options].some(option => option.value === value)) values[field] = value;
@@ -143,6 +343,9 @@ function apply(values, sync = true) {
     const value = button.dataset.quick;
     button.setAttribute('aria-pressed', String(state[quickFields[value]] === value));
   }
+  for (const button of $('topic-chips').children) {
+    button.setAttribute('aria-pressed', String(button.dataset.topic === state.topic));
+  }
   if (sync) {
     const params = new URLSearchParams(Object.entries(state).filter(([key, value]) => value !== defaults[key]));
     history.replaceState(null, '', params.size ? '#view?' + params : location.pathname + location.search);
@@ -157,7 +360,7 @@ function resetAndShow(topic) {
 
 function appendHighlighted(node, text, words) {
   if (!words.length) {
-    node.textContent = text;
+    node.textContent = t(text);
     return;
   }
   const escaped = words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
@@ -186,7 +389,7 @@ function card(item, words) {
   if (item.tags.includes('Start here')) badges.append(el('span', 'Start here', 'badge ribbon'));
   const provider = el('span', '', 'badge');
   appendHighlighted(provider, item.provider, words);
-  badges.append(provider, el('span', icons[item.type] + ' ' + item.type, 'badge'));
+  badges.append(provider, el('span', icons[item.type] + ' ' + t(item.type), 'badge'));
   const title = el('h3');
   appendHighlighted(title, item.title, words);
   const description = el('p');
@@ -199,7 +402,7 @@ function card(item, words) {
   const matchedTags = item.tags.filter(tag => words.some(word => tag.toLowerCase().includes(word)));
   for (const tag of matchedTags) {
     const badge = el('span', '', 'badge');
-    appendHighlighted(badge, tag, words);
+    appendHighlighted(badge, t(tag), words);
     facts.append(badge);
   }
   const actions = el('div', '', 'actions');
@@ -213,9 +416,9 @@ function card(item, words) {
     url.hash = 'view?' + new URLSearchParams({ resource: item.id });
     copy(url.href);
   }, 'secondary');
-  copyButton.setAttribute('aria-label', 'Copy link to ' + item.title);
+  copyButton.setAttribute('aria-label', t('Copy link to ') + item.title);
   actions.append(copyButton);
-  node.append(badges, title, description, facts, el('p', item.duration + ' · ' + item.fee, 'duration'));
+  node.append(badges, title, description, facts, el('p', t(item.duration) + ' · ' + t(item.fee), 'duration'));
   const verification = [
     translate('Link checked', 'Lien vérifié') + ' ' + (item.linkVerifiedOn || translate('no date recorded', 'date non renseignée')),
     translate('Certificate checked', 'Attestation vérifiée') + ' ' + (item.certificateVerifiedOn || translate('no date recorded', 'date non renseignée'))
@@ -230,7 +433,7 @@ function card(item, words) {
 function render() {
   const words = state.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
   const visible = resources.filter(item => {
-    const text = [item.title, item.provider, item.description, item.descriptionFr, ...item.tags].join(' ').toLowerCase();
+    const text = [item.title, item.provider, item.description, item.descriptionFr, ...item.tags, ...item.tags.map(t)].join(' ').toLowerCase();
     return words.every(word => text.includes(word)) &&
       (!state.topic || state.topic === item.topic) &&
       (!state.type || (state.type === 'PDF' ? item.tags.includes('PDF') || /\.pdf\b/i.test(item.url) : state.type === item.type)) &&
@@ -243,7 +446,7 @@ function render() {
   const result = $('results');
   animations && animations.disconnect();
   result.replaceChildren();
-  $('count').textContent = 'Showing ' + visible.length + ' of ' + resources.length + ' resources';
+  $('count').textContent = translate(`Showing ${visible.length} of ${resources.length} resources`, `${visible.length} ressources affichées sur ${resources.length}`);
   if (!visible.length) result.append(el('p', 'No resources match. Try a different keyword or clear the filters.'));
   for (const [id, title] of topics) {
     const group = visible.filter(item => item.topic === id).sort(ordering);
@@ -260,9 +463,9 @@ function render() {
 
 function renderSaveButton(button, item) {
   const has = Object.hasOwn(saved, item.id);
-  button.textContent = has ? 'Saved' : 'Save';
+  button.textContent = t(has ? 'Saved' : 'Save');
   button.setAttribute('aria-pressed', String(has));
-  button.setAttribute('aria-label', (has ? 'Remove bookmark for ' : 'Bookmark ') + item.title);
+  button.setAttribute('aria-label', t(has ? 'Remove bookmark for ' : 'Bookmark ') + item.title);
   button.dataset.bookmark = item.id;
 }
 
@@ -285,7 +488,7 @@ function updateProgress(items) {
   const done = items.filter(item => saved[item.id]).length;
   $('progress').max = items.length || 1;
   $('progress').value = done;
-  $('progress-text').textContent = done + ' of ' + items.length + ' completed';
+  $('progress-text').textContent = translate(`${done} of ${items.length} completed`, `${done} sur ${items.length} terminées`);
 }
 
 function renderPath() {
@@ -299,19 +502,19 @@ function renderPath() {
     const choice = el('input');
     choice.type = 'checkbox';
     choice.checked = Boolean(saved[item.id]);
-    choice.setAttribute('aria-label', 'Completed: ' + item.title);
+    choice.setAttribute('aria-label', t('Completed: ') + item.title);
     choice.addEventListener('change', () => {
       saved[item.id] = choice.checked;
       store('health-hub-path', saved);
       updateProgress(items);
     });
     const label = el('label');
-    label.append(choice, document.createTextNode('Complete'));
+    label.append(choice, document.createTextNode(t('Complete')));
     const remove = control('Remove', () => {
       toggleBookmark(item);
       ($('saved-list').querySelector('button') || $('learning-path')).focus();
     }, 'secondary');
-    remove.setAttribute('aria-label', 'Remove ' + item.title + ' from learning path');
+    remove.setAttribute('aria-label', t('Remove from learning path: ') + item.title);
     row.append(label, item.url === '#' ? el('span', item.title) : external(item.title, item.url), remove);
     $('saved-list').append(row);
   }
@@ -349,7 +552,8 @@ $('import-file').addEventListener('change', async event => {
     store('health-hub-path', saved);
     render();
     renderPath();
-    notify('Imported ' + new Set(valid.map(entry => entry.id)).size + ' saved resources.');
+    const count = new Set(valid.map(entry => entry.id)).size;
+    notify(translate(`Imported ${count} saved resources.`, `${count} ressources importées.`));
   } catch {
     notify('Choose a valid learning progress JSON file exported from this hub.');
   }
@@ -395,7 +599,7 @@ $('quiz-form').addEventListener('submit', event => {
     row.append(item.url === '#' ? el('span', item.title) : external(item.title, item.url), document.createTextNode(' '), bookmark);
     return row;
   }));
-  $('quiz-status').textContent = 'Your suggested learning order';
+  $('quiz-status').textContent = t('Your suggested learning order');
 });
 
 function makeMap() {
@@ -403,7 +607,7 @@ function makeMap() {
   function svg(tag, attrs, text) {
     const node = document.createElementNS(ns, tag);
     for (const [attr, value] of Object.entries(attrs)) node.setAttribute(attr, value);
-    if (text) node.textContent = text;
+    if (text) node.textContent = t(text);
     return node;
   }
   const groups = [
@@ -413,12 +617,12 @@ function makeMap() {
   ];
   const connectors = ['Data flows into connected systems', 'Governance shapes access and reuse'];
   groups.forEach(({ title, nodes }, index) => {
-    const diagram = svg('svg', { viewBox: '0 0 310 118', role: 'group', 'aria-label': title });
+    const diagram = svg('svg', { viewBox: '0 0 310 118', role: 'group', 'aria-label': t(title) });
     diagram.append(svg('text', { x: 8, y: 18, fill: 'currentColor' }, title));
     nodes.forEach((name, i) => {
       const x = 8 + (i % 2) * 150;
       const y = 30 + Math.floor(i / 2) * 43;
-      const node = svg('a', { class: 'map-node', href: '#view?' + new URLSearchParams({ q: name }), 'aria-label': 'Filter by ' + name });
+      const node = svg('a', { class: 'map-node', href: '#view?' + new URLSearchParams({ q: name }), 'aria-label': t('Filter by ') + t(name) });
       node.append(svg('rect', { x, y, width: 140, height: 35, rx: 5 }),
         svg('text', { x: x + 70, y: y + 22, 'text-anchor': 'middle' }, name));
       node.addEventListener('click', event => {
@@ -432,7 +636,7 @@ function makeMap() {
     });
     $('map-diagram').append(diagram);
     if (connectors[index]) {
-      const arrow = svg('svg', { class: 'map-connector', viewBox: '0 0 36 28', role: 'img', 'aria-label': connectors[index] });
+      const arrow = svg('svg', { class: 'map-connector', viewBox: '0 0 36 28', role: 'img', 'aria-label': t(connectors[index]) });
       arrow.append(svg('path', { class: 'map-edge', d: 'M3 14h28m-8-7 8 7-8 7' }));
       $('map-diagram').append(arrow);
     }
@@ -496,19 +700,9 @@ function initialStats() {
 }
 
 function connectControls() {
-  $('search-form').addEventListener('submit', event => {
-    event.preventDefault();
-    $('directory').scrollIntoView();
-  });
   $('filters').addEventListener('submit', event => event.preventDefault());
   $('search').addEventListener('input', () => apply({ ...state, q: $('search').value }));
   for (const field of fields) $(field).addEventListener('change', () => apply({ ...state, [field]: $(field).value }));
-  for (const button of document.querySelectorAll('[data-search]')) {
-    button.addEventListener('click', () => {
-      apply({ ...defaults, q: button.dataset.search });
-      $('directory').scrollIntoView();
-    });
-  }
   for (const button of $('chips').querySelectorAll('button')) {
     button.addEventListener('click', () => {
       const value = button.dataset.quick;
@@ -534,13 +728,7 @@ function connectControls() {
   });
 }
 
-async function init() {
-  try {
-    const response = await fetch('./resources.json');
-    if (!response.ok) throw new Error('Resource file returned ' + response.status);
-    resources = await response.json();
-    if (!Array.isArray(resources)) throw new Error('Resource file must contain an array.');
-    setOptions('topic', 'All topics', [...topics]);
+function setupOptions() {
     setOptions('type', 'All types', [['Course', 'Online courses'], ['Lecture', 'Video lectures'], ['PDF', 'PDFs'],
       ['Guide', 'Guides and references'], ['Publication', 'Publications'], ['Article', 'Blogs and articles'],
       ['Exam', 'Certification exams'], ['Community', 'Communities']]);
@@ -551,6 +739,30 @@ async function init() {
     const times = [...new Set(resources.map(item => item.timeCommitment).filter(Boolean))].sort();
     setOptions('resource-language', 'Any resource language', languages.map(value => [value, value]));
     setOptions('time', 'Any time commitment', times.map(value => [value, value]));
+  for (const option of $('sort').options) {
+    const labels = { beginner: 'Beginner first', free: 'Free first', title: 'A to Z', provider: 'Provider' };
+    option.textContent = t(labels[option.value]);
+  }
+}
+
+function renderTopicFilters() {
+  $('topic-chips').replaceChildren(...[['', 'All topics'], ...topics].map(([id, label]) => {
+    const button = control(label, () => apply({ ...state, topic: state.topic === id ? '' : id }));
+    button.dataset.topic = id;
+    return button;
+  }));
+}
+
+let loadError;
+updateLanguage();
+async function init() {
+  try {
+    const response = await fetch('./resources.json');
+    if (!response.ok) throw new Error('Resource file returned ' + response.status);
+    resources = await response.json();
+    if (!Array.isArray(resources)) throw new Error('Resource file must contain an array.');
+    setupOptions();
+    renderTopicFilters();
     makeMap();
     compare('both');
     connectControls();
@@ -559,7 +771,8 @@ async function init() {
     loadHash();
     renderPath();
   } catch (error) {
-    $('count').textContent = 'The resource list could not be loaded. Open the published site or use a local HTTP server.';
+    loadError = 'The resource list could not be loaded. Open the published site or use a local HTTP server.';
+    $('count').textContent = t(loadError);
     console.error(error);
   }
 }

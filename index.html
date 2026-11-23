@@ -12,19 +12,13 @@
 <a class="skip" href="#directory">Skip to resources</a>
 <header class="hero">
   <div class="wrap">
-    <div class="mast"><div class="brand"><span class="logo-slot">GIZ logo</span><span>Digital Health Africa</span></div><div class="actions"><button id="language-toggle" type="button" lang="fr" aria-label="Switch resource descriptions to French or English">Français</button><button id="theme" type="button" aria-pressed="false">Dark mode</button></div></div>
+    <div class="mast"><div class="brand"><span>Digital Health Africa</span></div><div class="actions"><button id="language-toggle" type="button" lang="fr" aria-label="Switch the website language">Français</button><button id="theme" type="button" aria-pressed="false">Dark mode</button></div></div>
     <div class="hero-copy">
       <p class="date">Addis workshop · 24 November 2026</p>
       <h1>Learn Health Data Interoperability and Health Data Spaces</h1>
-      <p>Explore how health systems exchange, understand and reuse data across organizations and borders.</p>
-      <form id="search-form" role="search">
-        <label for="search">Search the collection <kbd>/</kbd></label>
-        <input id="search" type="search" placeholder="Search resources, providers or tags" autocomplete="off">
-      </form>
-      <div class="suggestions" aria-label="Suggested searches">
-        <button data-search="FHIR">FHIR</button><button data-search="DHIS2">DHIS2</button><button data-search="governance">Governance</button>
-      </div>
-      <a class="button gold" href="#start-here">Start here</a>
+      <p>Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.</p>
+      <p>Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.</p>
+      <a class="button gold" href="#directory">Browse and filter resources</a>
     </div>
   </div>
 </header>
@@ -51,14 +45,16 @@
   <section id="directory" aria-labelledby="directory-title">
     <h2 id="directory-title" tabindex="-1">Find resources</h2>
     <form id="filters" class="panel">
+      <label for="search">Search the collection</label>
+      <input id="search" type="search" placeholder="Search resources, providers or tags" autocomplete="off">
       <div id="chips" class="chips" aria-label="Quick filters">
         <button type="button" data-quick="Beginner" aria-pressed="false">Beginner</button>
         <button type="button" data-quick="Free" aria-pressed="false">Free</button>
         <button type="button" data-quick="yes" aria-pressed="false">Certificate available</button>
         <button type="button" data-quick="Course" aria-pressed="false">Online courses</button>
       </div>
-      <div class="filter-grid">
-        <label>Topic<select id="topic"></select></label>
+      <div id="topic-chips" class="chips" aria-label="Filter by topic"></div>
+      <details id="more-filters"><summary>More filters</summary><div class="filter-grid">
         <label>Resource type<select id="type"></select></label>
         <label>Cost<select id="cost"></select></label>
         <label>Certificate availability<select id="certificate"></select></label>
@@ -67,7 +63,7 @@
         <label>Time commitment<select id="time"></select></label>
         <label>Sort by<select id="sort"><option value="beginner">Beginner first</option><option value="free">Free first</option><option value="title">A to Z</option><option value="provider">Provider</option></select></label>
       </div>
-      <button id="clear" class="secondary" type="button">Clear filters</button>
+      </details><button id="clear" class="secondary" type="button">Clear filters</button>
     </form>
     <p id="count" role="status">Loading resources…</p>
     <noscript><p>Enable JavaScript to search and browse the directory.</p></noscript>
@@ -88,8 +84,8 @@
     <form id="quiz-form">
       <div class="filter-grid">
         <label>Your role<select id="role" required><option value="">Choose a role</option><option value="learner">Student or learner</option><option value="implementer">Health IT implementer</option><option value="policy">Policy or program lead</option></select></label>
-        <label>Your experience<select id="experience" required><option value="">Choose a level</option><option>Beginner</option><option>Intermediate</option></select></label>
-        <label>Your focus<select id="focus" required><option value="">Choose an area</option><option>Africa</option><option>Europe</option><option>Global</option></select></label>
+        <label>Your experience<select id="experience" required><option value="">Choose a level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option></select></label>
+        <label>Your focus<select id="focus" required><option value="">Choose an area</option><option value="Africa">Africa</option><option value="Europe">Europe</option><option value="Global">Global</option></select></label>
       </div>
       <button>Recommend resources</button>
     </form>

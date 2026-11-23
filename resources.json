@@ -985,6 +985,108 @@
     "certificateVerifiedOn": null
   },
   {
+    "id": "ehds-primary-use-webinar",
+    "title": "EHDS webinar 1: Primary use of health data",
+    "provider": "European Commission",
+    "topic": "health-data-spaces",
+    "type": "Lecture",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Check provider",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "European Commission webinar recording and presentation on the use of electronic health data for care.",
+    "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur l’utilisation des données de santé électroniques pour les soins.",
+    "url": "https://health.ec.europa.eu/latest-updates/presentation-and-recording-euhpp-live-webinar-european-health-data-space-13-primary-use-health-data-2025-02-20_en",
+    "tags": [
+      "EHDS",
+      "Europe"
+    ],
+    "timeCommitment": "Not listed",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ehds-secondary-use-webinar",
+    "title": "EHDS webinar 2: Secondary use of health data",
+    "provider": "European Commission",
+    "topic": "health-data-spaces",
+    "type": "Lecture",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Check provider",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "European Commission webinar recording and presentation on the reuse of health data.",
+    "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur la réutilisation des données de santé.",
+    "url": "https://health.ec.europa.eu/latest-updates/recording-and-presentation-euhpp-webinar-european-health-data-space-23-secondary-use-health-data-27-2025-03-03_en",
+    "tags": [
+      "EHDS",
+      "Europe"
+    ],
+    "timeCommitment": "Not listed",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ehds-implementation-webinar",
+    "title": "EHDS webinar 3: Implementation and governance",
+    "provider": "European Commission",
+    "topic": "health-data-spaces",
+    "type": "Lecture",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Check provider",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "European Commission webinar recording and presentation on implementing and governing the EHDS.",
+    "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur la mise en œuvre et la gouvernance de l’EEDS.",
+    "url": "https://health.ec.europa.eu/latest-updates/presentation-and-recording-euhpp-webinar-european-health-data-space-33-implementation-and-governance-2025-03-07_en",
+    "tags": [
+      "EHDS",
+      "Europe",
+      "governance"
+    ],
+    "timeCommitment": "Not listed",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ehds-committee-register",
+    "title": "EHDS Committee register",
+    "provider": "European Commission",
+    "topic": "health-data-spaces",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reference",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "European Commission register entry linked from the presentation.",
+    "descriptionFr": "Fiche du registre de la Commission européenne citée dans la présentation.",
+    "url": "https://ec.europa.eu/transparency/comitology-register/screen/committees/C131500",
+    "tags": [
+      "EHDS",
+      "Europe",
+      "governance"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
     "id": "openhie-discourse",
     "title": "OpenHIE Discourse",
     "provider": "OpenHIE",
