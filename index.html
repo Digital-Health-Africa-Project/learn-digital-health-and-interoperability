@@ -6,7 +6,7 @@
   <meta name="description" content="Find courses, guides and communities on health data interoperability and health data spaces.">
   <title>Learn Health Data Interoperability and Health Data Spaces</title>
   <link rel="stylesheet" href="./style.css">
-  <script src="./app.js" defer></script>
+  <script src="./app.js?v=20261123-66" defer></script>
   <style>
     #recommendations .path-topic { margin-block: 1.5rem; }
     #recommendations li { margin-block: .5rem; }
@@ -40,11 +40,11 @@
 
   <div class="topic-shell">
     <nav id="topic-nav" class="wrap" aria-label="Learning topics">
-      <a href="#start-here">Start by understanding interoperability</a>
-      <a href="#health-data-standards">Health data standards and terminologies</a>
-      <a href="#architecture-and-implementation">Health data interoperability architectures</a>
-      <a href="#laws-and-regulations">Laws and regulations</a>
-      <a href="#health-data-spaces">Health data spaces</a>
+      <a href="#start-here">I. Start by understanding interoperability</a>
+      <a href="#health-data-standards">II. Health data standards and terminologies</a>
+      <a href="#architecture-and-implementation">III. Health data interoperability architectures</a>
+      <a href="#laws-and-regulations">IV. Laws and regulations</a>
+      <a href="#health-data-spaces">V. Health data spaces</a>
     </nav>
   </div>
 
@@ -184,23 +184,8 @@
       const status = byId('quiz-status');
       const topicSelect = byId('topic-select');
       const topicChips = byId('topic-chips');
-      const bilingual = (en, fr) => document.documentElement.lang.startsWith('fr') ? fr : en;
-
-      const utahBase = 'https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/';
-      const directLinks = {
-        'interoperability-intro-and-part-1': ['University of Utah, Part 1: Introduction to interoperability', utahBase + '1_sc4s3lfg'],
-        'interoperability-part-2': ['University of Utah, Part 2: Terminology and data exchange standards', utahBase + '1_54bql655'],
-        'interoperability-part-3': ['University of Utah, Part 3: The role of public health experts', utahBase + '1_uvt8uyvn'],
-        'medblocks-fhir-fundamentals': ['Medblocks FHIR® Fundamentals', 'https://medblocks.com/training/courses/fhir-fundamentals'],
-        'interopen-terminology-learnathon': ['Terminology Server: The Learnathon', 'https://www.youtube.com/watch?v=EBXtmTshNJ4'],
-        'nhs-fhir-terminology-exercises': ['NHS England: Use FHIR Terminology Service APIs', 'https://digital.nhs.uk/services/terminology-server/how-to-use-the-terminology-server/use-fhir-terminology-service-apis'],
-        'ahds-project-website': ['Africa Health Data Space: Project Website', 'https://aun.mu.edu.et/ahds/about/'],
-        'ahds-cross-border-prototype': ['Africa Health Data Space: Description of a Cross-Border Prototype', 'https://www.researchgate.net/publication/417064846_Africa_Health_Data_Space_Description_of_a_Cross-Border_Prototype'],
-        'fair-health-infrastructure-africa': ['Design of a FAIR digital data health infrastructure in Africa', 'https://doi.org/10.1002/ggn2.10050'],
-        'igad-health-data-sharing': ['IGAD Regional Health Data Sharing and Protection Policy Framework', 'https://igad.int/download/igad-regional-health-data-sharing-and-protection-policy-framework/'],
-        'afcfta-digital-trade': ['AfCFTA Protocol on Digital Trade', 'https://www.au.int/en/treaties/protocol-agreement-establishing-african-continental-free-trade-area-digital-trade'],
-        'afcfta-digital-trade-annexes': ['AfCFTA Digital Trade Protocol: Compiled Annexes', 'https://www.au.int/sites/default/files/treaties/44963-ax-ENG_Circulation_Digital_Trade_Compiled_Certified_Legal_Instruments_38thAssembly_Feb_2025_27_May2025.pdf']
-      };
+      const bilingual = (english, french) =>
+        document.documentElement.lang.startsWith('fr') ? french : english;
 
       const sections = [
         {
@@ -211,22 +196,43 @@
             'interoperability-part-3',
             'foundations-of-health-information-exchange'
           ],
-          extra: ['digital-health-planning-national-systems', 'public-health-interoperability-training-catalog']
+          extra: [
+            'digital-health-planning-national-systems',
+            'public-health-interoperability-training-catalog'
+          ]
         },
         {
           title: ['II. Standards and terminologies', 'II. Normes et terminologies'],
-          core: ['medblocks-fhir-fundamentals', 'loinc', 'snomed-ct', 'icd-11', 'ucum', 'dicom'],
-          extra: ['hl7-fhir', 'interopen-terminology-learnathon', 'nhs-fhir-terminology-exercises']
+          core: [
+            'medblocks-fhir-fundamentals', 'loinc', 'snomed-ct',
+            'icd-11', 'ucum', 'dicom'
+          ],
+          extra: [
+            'hl7-fhir',
+            'interopen-terminology-learnathon',
+            'nhs-fhir-terminology-exercises'
+          ]
         },
         {
           title: ['III. Interoperability architecture', 'III. Architecture d’interopérabilité'],
           core: ['openhie-architecture-overview'],
-          extra: ['dhis2-fundamentals', 'dhis2-integration-concepts', 'ihe-technical-framework']
+          extra: [
+            'dhis2-fundamentals',
+            'dhis2-integration-concepts',
+            'ihe-technical-framework'
+          ]
         },
         {
           title: ['IV. Laws and data governance', 'IV. Législation et gouvernance des données'],
-          core: ['african-union-data-policy-framework', 'african-union-hie-guidelines-and-standards'],
-          extra: ['malabo-convention', 'afcfta-digital-trade', 'general-data-protection-regulation-gdpr']
+          core: [
+            'african-union-data-policy-framework',
+            'african-union-hie-guidelines-and-standards'
+          ],
+          extra: [
+            'malabo-convention',
+            'afcfta-digital-trade',
+            'general-data-protection-regulation-gdpr'
+          ]
         },
         {
           title: ['V. Health data spaces', 'V. Espaces de données de santé'],
@@ -243,55 +249,89 @@
       const paths = {
         learner: {
           Beginner: [
-            'digital-health-planning-national-systems', 'health-data-standards',
-            'dhis2-fundamentals', 'digital-health-blueprint',
+            'digital-health-planning-national-systems',
+            'health-data-standards',
+            'dhis2-fundamentals',
+            'digital-health-blueprint',
             'frequently-asked-questions-on-the-european-health-data-space'
           ],
           Intermediate: [
-            'immunization-information-systems-elearning', 'interopen-terminology-learnathon',
-            'digital-health-platform-handbook', 'malabo-convention',
+            'immunization-information-systems-elearning',
+            'interopen-terminology-learnathon',
+            'digital-health-platform-handbook',
+            'malabo-convention',
             'digital-health-systems-and-data-sovereignty'
           ],
           Advanced: [
-            'public-health-interoperability-training-catalog', 'nhs-fhir-terminology-exercises',
-            'ihe-technical-framework', 'recommendation-on-health-data-governance',
+            'public-health-interoperability-training-catalog',
+            'nhs-fhir-terminology-exercises',
+            'ihe-technical-framework',
+            'recommendation-on-health-data-governance',
             'fair-health-infrastructure-africa'
           ]
         },
         implementer: {
           Beginner: [
-            'immunization-information-systems-elearning', 'introduction-to-interoperability-and-fhir',
-            'dhis2-fundamentals', 'digital-health-blueprint',
+            'immunization-information-systems-elearning',
+            'introduction-to-interoperability-and-fhir',
+            'dhis2-fundamentals',
+            'digital-health-blueprint',
             'frequently-asked-questions-on-the-european-health-data-space'
           ],
           Intermediate: [
-            'public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-            'dhis2-integration-concepts', 'african-continental-health-data-governance-framework',
+            'public-health-interoperability-training-catalog',
+            'interopen-terminology-learnathon',
+            'dhis2-integration-concepts',
+            'african-continental-health-data-governance-framework',
             'ahds-cross-border-prototype'
           ],
           Advanced: [
-            'interoperability-in-healthcare-towards-an-interconnected-future', 'nhs-fhir-terminology-exercises',
-            'data-exchange-specification', 'igad-health-data-sharing',
+            'interoperability-in-healthcare-towards-an-interconnected-future',
+            'nhs-fhir-terminology-exercises',
+            'data-exchange-specification',
+            'igad-health-data-sharing',
             'fair-health-infrastructure-africa'
           ]
         },
         policy: {
           Beginner: [
-            'digital-health-planning-national-systems', 'health-data-standards',
-            'digital-health-platform-handbook', 'digital-health-blueprint',
+            'digital-health-planning-national-systems',
+            'health-data-standards',
+            'digital-health-platform-handbook',
+            'digital-health-blueprint',
             'digital-health-systems-and-data-sovereignty'
           ],
           Intermediate: [
-            'interoperability-in-healthcare-towards-an-interconnected-future', 'introduction-to-interoperability-and-fhir',
-            'health-information-exchange-maturity-assessment-tool', 'african-continental-health-data-governance-framework',
+            'interoperability-in-healthcare-towards-an-interconnected-future',
+            'introduction-to-interoperability-and-fhir',
+            'health-information-exchange-maturity-assessment-tool',
+            'african-continental-health-data-governance-framework',
             'ehds-secondary-use-webinar'
           ],
           Advanced: [
-            'public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-            'digital-adaptation-kits', 'afcfta-digital-trade-annexes',
+            'public-health-interoperability-training-catalog',
+            'interopen-terminology-learnathon',
+            'digital-adaptation-kits',
+            'afcfta-digital-trade-annexes',
             'european-health-data-space-regulation-eu-2025-327'
           ]
         }
+      };
+
+      const utahBase = 'https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/';
+      const utahLectures = {
+        'interoperability-intro-and-part-1': [
+          'University of Utah, Part 1: Introduction to interoperability',
+          utahBase + '1_sc4s3lfg'
+        ],
+        'interoperability-part-2': [
+          'University of Utah, Part 2: Terminology and data exchange standards',
+          utahBase + '1_54bql655'
+        ],
+        'interoperability-part-3': [
+          'University of Utah, Part 3: The role of public health experts',
+          utahBase + '1_uvt8uyvn'
+        ]
       };
 
       function node(tag, text = '') {
@@ -305,17 +345,21 @@
 
         for (const id of ids) {
           const item = catalogue.get(id);
-          const direct = directLinks[id];
-          const title = direct?.[0] ?? item?.title;
-          const url = direct?.[1] ?? item?.url;
-          if (!title || !url || url === '#') continue;
+          const utah = utahLectures[id];
+          const title = utah?.[0] ?? item?.title;
+          const url = utah?.[1] ?? item?.url;
+          if (!title) continue;
 
           const row = node('li');
-          const link = node('a', title);
-          link.href = url;
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          row.append(link);
+          if (url && url !== '#') {
+            const link = node('a', title);
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            row.append(link);
+          } else {
+            row.append(node('span', title));
+          }
 
           if (item && typeof renderSaveButton === 'function' && typeof toggleBookmark === 'function') {
             const save = node('button');
@@ -358,7 +402,10 @@
           ));
           summary.className = 'button secondary';
           summary.setAttribute('aria-label', summary.textContent + ' · ' + title);
-          details.append(summary, makeList(section.extra.filter(id => !used.has(id)), catalogue));
+          details.append(
+            summary,
+            makeList(section.extra.filter(id => !used.has(id)), catalogue)
+          );
 
           group.append(
             node('h3', title),
