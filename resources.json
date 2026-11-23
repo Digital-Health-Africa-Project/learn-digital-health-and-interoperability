@@ -217,6 +217,31 @@
     "certificateVerifiedOn": "2026-11-23"
   },
   {
+    "id": "medblocks-fhir-fundamentals",
+    "title": "Medblocks FHIR® Fundamentals",
+    "provider": "Medblocks",
+    "topic": "health-data-standards",
+    "type": "Course",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": true,
+    "duration": "3 h 20 min",
+    "languages": [
+      "English"
+    ],
+    "level": "Beginner",
+    "description": "Hands-on introduction to FHIR resources, data types, and REST APIs. Includes 5 modules and 44 lessons. Pass the final quiz to earn a Medblocks certificate. It does not confer HL7 International professional certification.",
+    "descriptionFr": "Introduction pratique aux ressources FHIR, aux types de données et aux API REST. Le cours comprend 5 modules et 44 leçons. La réussite du quiz final donne droit à une attestation Medblocks. Elle ne constitue pas une certification professionnelle de HL7 International.",
+    "url": "https://medblocks.com/training/courses/fhir-fundamentals",
+    "tags": [
+      "FHIR",
+      "interoperability"
+    ],
+    "timeCommitment": "1 to 4 hours",
+    "linkVerifiedOn": "2026-11-23",
+    "certificateVerifiedOn": "2026-11-23"
+  },
+  {
     "id": "hl7-fhir",
     "title": "HL7 FHIR",
     "provider": "HL7",
@@ -624,7 +649,7 @@
     "id": "digital-health-blueprint",
     "title": "Digital Health Blueprint",
     "provider": "Smart Africa",
-    "topic": "architecture-and-implementation",
+    "topic": "laws-and-regulations",
     "type": "Publication",
     "cost": "Free",
     "fee": "Free access",
@@ -1157,5 +1182,475 @@
     "timeCommitment": "Ongoing",
     "linkVerifiedOn": null,
     "certificateVerifiedOn": null
+  },
+  {
+    "id": "ahds-cross-border-prototype",
+    "title": "Africa Health Data Space: Description of a Cross-Border Prototype",
+    "provider": "Kievit, Wanjiku, van Reisen et al.",
+    "topic": "health-data-spaces",
+    "type": "Publication",
+    "cost": "Check provider",
+    "fee": "Check provider",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Conference paper describing a prototype for cross-border health data sharing in Africa.",
+    "descriptionFr": "Communication décrivant un prototype de partage transfrontalier des données de santé en Afrique.",
+    "url": "https://www.researchgate.net/publication/417064846_Africa_Health_Data_Space_Description_of_a_Cross-Border_Prototype",
+    "tags": [
+      "Africa",
+      "FAIR",
+      "Mirjam van Reisen",
+      "AHDS"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "patient-data-autonomy-africa",
+    "title": "Promotion of data autonomy to support insights from patient health data records in Africa",
+    "provider": "Purnama Jati, van Reisen et al.",
+    "topic": "health-data-spaces",
+    "type": "Publication",
+    "cost": "Check provider",
+    "fee": "Check provider",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Chapter on adoption of a federated health data repository across five African countries.",
+    "descriptionFr": "Chapitre sur l’adoption d’un entrepôt fédéré de données de santé dans cinq pays africains.",
+    "url": "https://www.researchgate.net/publication/416516395_Promotion_of_data_autonomy_to_support_insights_from_patient_health_data_records_in_Africa",
+    "tags": [
+      "Africa",
+      "FAIR",
+      "Mirjam van Reisen",
+      "AHDS"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "fair-data-spaces-trust-training",
+    "title": "Training for trust building of FAIR data spaces: The Humanitarian Data Space on Sensitive Data",
+    "provider": "Kievit, Stocker, van Reisen et al.",
+    "topic": "health-data-spaces",
+    "type": "Publication",
+    "cost": "Check provider",
+    "fee": "Check provider",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Chapter exploring how training can build trust around the use of sensitive data in humanitarian data spaces.",
+    "descriptionFr": "Chapitre sur le rôle de la formation dans la confiance liée à l’utilisation des données sensibles dans les espaces de données humanitaires.",
+    "url": "https://www.researchgate.net/publication/417064962_Training_for_trust_building_of_FAIR_data_spaces_The_Humanitarian_Data_Space_on_Sensitive_Data",
+    "tags": [
+      "Africa",
+      "FAIR",
+      "Mirjam van Reisen"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "mirjam-van-reisen-publications",
+    "title": "Professor Mirjam van Reisen: Publications",
+    "provider": "Tilburg University Research Portal",
+    "topic": "health-data-spaces",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Browse Professor Mirjam van Reisen’s research outputs, including work on FAIR data, health data governance and data sovereignty.",
+    "descriptionFr": "Consultez les travaux de la professeure Mirjam van Reisen sur les données FAIR, la gouvernance des données de santé et la souveraineté des données.",
+    "url": "https://research.tilburguniversity.edu/en/persons/mirjam-van-reisen/",
+    "tags": [
+      "Africa",
+      "FAIR",
+      "Mirjam van Reisen"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "fair-health-infrastructure-africa",
+    "title": "Design of a FAIR digital data health infrastructure in Africa for COVID-19 reporting and research",
+    "provider": "van Reisen et al.",
+    "topic": "health-data-spaces",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Open-access paper describing VODAN Africa’s distributed architecture for locally governed, machine-readable health data.",
+    "descriptionFr": "Article en libre accès sur l’architecture distribuée de VODAN Africa pour des données de santé lisibles par machine et gouvernées localement.",
+    "url": "https://doi.org/10.1002/ggn2.10050",
+    "tags": [
+      "Africa",
+      "FAIR",
+      "Mirjam van Reisen",
+      "AHDS"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ehds-state-of-play-webinar",
+    "title": "EHDS webinar 0.1: State of play and supporting initiatives",
+    "provider": "European Commission",
+    "topic": "health-data-spaces",
+    "type": "Lecture",
+    "cost": "Check provider",
+    "fee": "Check provider",
+    "certificate": false,
+    "duration": "Check provider",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Teams event link shared in Dana Eleftheriadou’s presentation. Recording availability has not been verified.",
+    "descriptionFr": "Lien vers l’événement Teams communiqué dans la présentation de Dana Eleftheriadou. La disponibilité de l’enregistrement n’a pas été vérifiée.",
+    "url": "https://events.teams.microsoft.com/event/619b1193-71cf-4bad-b7ed-d0151240686c@b853f977-4183-428f-855c-ffe7328b6f13?source=copyLinkOneEventsShareDialog",
+    "tags": [
+      "EHDS",
+      "Europe"
+    ],
+    "timeCommitment": "Not listed",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "afcfta-digital-trade",
+    "title": "AfCFTA Protocol on Digital Trade",
+    "provider": "African Union",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English",
+      "French",
+      "Arabic",
+      "Portuguese",
+      "Spanish"
+    ],
+    "level": "All levels",
+    "description": "Official treaty page with the protocol and annexes in multiple languages. The protocol addresses open standards, cross-border transfers for digital trade, and personal data protection.",
+    "descriptionFr": "Page officielle du protocole et de ses annexes en plusieurs langues. Le protocole traite des normes ouvertes, des transferts transfrontaliers liés au commerce numérique et de la protection des données personnelles.",
+    "url": "https://www.au.int/en/treaties/protocol-agreement-establishing-african-continental-free-trade-area-digital-trade",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF",
+      "AfCFTA"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "afcfta-digital-trade-annexes",
+    "title": "AfCFTA Digital Trade Protocol: Compiled Annexes",
+    "provider": "African Union",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Read the annex on cross-border data transfers within the wider digital trade package.",
+    "descriptionFr": "Consultez l’annexe sur les transferts transfrontaliers de données dans le cadre du commerce numérique.",
+    "url": "https://www.au.int/sites/default/files/treaties/44963-ax-ENG_Circulation_Digital_Trade_Compiled_Certified_Legal_Instruments_38thAssembly_Feb_2025_27_May2025.pdf",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF",
+      "AfCFTA"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "igad-health-data-sharing",
+    "title": "IGAD Regional Health Data Sharing and Protection Policy Framework",
+    "provider": "IGAD",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Regional policy guidance for sharing and protecting health data among IGAD member states.",
+    "descriptionFr": "Orientations régionales sur le partage et la protection des données de santé entre les États membres de l’IGAD.",
+    "url": "https://igad.int/download/igad-regional-health-data-sharing-and-protection-policy-framework/",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF",
+      "IGAD"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ecowas-data-protection",
+    "title": "ECOWAS Supplementary Act on Personal Data Protection",
+    "provider": "ECOWAS",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "West African regional instrument on the collection, processing and use of personal data.",
+    "descriptionFr": "Instrument régional ouest-africain sur la collecte, le traitement et l’utilisation des données personnelles.",
+    "url": "https://www.ecodob.ecowas.int/legal_texts/journal_en/SIGNED_Data_Protection_Act.pdf",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF",
+      "ECOWAS"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "au-digital-id-interoperability",
+    "title": "AU Interoperability Framework for Digital ID",
+    "provider": "African Union",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Continental policy framework for trusted, interoperable digital identity systems.",
+    "descriptionFr": "Cadre continental pour des systèmes d’identité numérique fiables et interopérables.",
+    "url": "https://au.int/sites/default/files/documents/43393-doc-AU_Interoperability_framework_for_D_ID_English.pdf",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "au-digital-transformation-strategy",
+    "title": "Digital Transformation Strategy for Africa (2020–2030)",
+    "provider": "African Union",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Continental strategy spanning digital health, identity, trade and infrastructure.",
+    "descriptionFr": "Stratégie continentale couvrant la santé numérique, l’identité, le commerce et les infrastructures.",
+    "url": "https://au.int/sites/default/files/documents/38507-doc-DTS_for_Africa_2020-2030_English.pdf",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "africa-cdc-digital-strategy",
+    "title": "Africa CDC Digital Transformation Strategy",
+    "provider": "Africa CDC",
+    "topic": "laws-and-regulations",
+    "type": "Publication",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Strategy for digital transformation of public health systems, including data sharing and use.",
+    "descriptionFr": "Stratégie de transformation numérique des systèmes de santé publique, notamment pour le partage et l’utilisation des données.",
+    "url": "https://africacdc.org/download/digital-transformation-strategy/",
+    "tags": [
+      "Africa",
+      "Governance",
+      "PDF"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "africa-data-protection-map",
+    "title": "Mapping Data Protection Laws Across Africa",
+    "provider": "CIPIT, Strathmore University",
+    "topic": "laws-and-regulations",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Country-by-country reference for finding national data protection laws and authorities. It also maps regional instruments, including the SADC model law.",
+    "descriptionFr": "Répertoire par pays des lois et autorités de protection des données. Il recense aussi les instruments régionaux, dont la loi type de la SADC.",
+    "url": "https://cipit.strathmore.edu/ai_dashboard/data-governance-across-africa-mapping-of-data-protection-laws/",
+    "tags": [
+      "Africa",
+      "Governance"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "unctad-cyberlaw-tracker",
+    "title": "Global Cyberlaw Tracker: Data Protection and Privacy",
+    "provider": "UN Trade and Development",
+    "topic": "laws-and-regulations",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Use the Africa region filter to find national legislation and compare coverage across countries.",
+    "descriptionFr": "Utilisez le filtre Afrique pour repérer les législations nationales et comparer leur couverture.",
+    "url": "https://unctad.org/topic/ecommerce-and-digital-economy/ecommerce-law-reform/summary-adoption-e-commerce-legislation-worldwide",
+    "tags": [
+      "Africa",
+      "Governance"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "ahds-project-website",
+    "title": "Africa Health Data Space: Project Website",
+    "provider": "VODAN-Africa / Africa University Network",
+    "topic": "health-data-spaces",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Self-paced reading",
+    "languages": [
+      "English"
+    ],
+    "level": "All levels",
+    "description": "Project overview covering the VODAN-Africa proof of concept, local data stewardship and FAIR data practices.",
+    "descriptionFr": "Présentation du projet VODAN-Africa, de sa preuve de concept, de la gestion locale des données et des pratiques FAIR.",
+    "url": "https://aun.mu.edu.et/ahds/about/",
+    "tags": [
+      "AHDS",
+      "Africa"
+    ],
+    "timeCommitment": "Self-paced reading",
+    "linkVerifiedOn": null,
+    "certificateVerifiedOn": null
+  },
+  {
+    "id": "interopen-terminology-learnathon",
+    "title": "Terminology Server: The Learnathon",
+    "provider": "INTEROPen",
+    "topic": "health-data-standards",
+    "type": "Lecture",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Not listed",
+    "languages": [
+      "English"
+    ],
+    "level": "Intermediate",
+    "description": "Recorded workshop with NHS England and Dedalus on FHIR terminology APIs, SNOMED CT, FHIR Questionnaires, and code mappings.",
+    "descriptionFr": "Atelier enregistré avec NHS England et Dedalus sur les API de terminologie FHIR, SNOMED CT, les questionnaires FHIR et les correspondances entre codes.",
+    "url": "https://www.youtube.com/watch?v=EBXtmTshNJ4",
+    "tags": [
+      "FHIR",
+      "SNOMED CT",
+      "NHS",
+      "terminology"
+    ]
+  },
+  {
+    "id": "nhs-fhir-terminology-exercises",
+    "title": "Use FHIR Terminology Service APIs",
+    "provider": "NHS England",
+    "topic": "health-data-standards",
+    "type": "Guide",
+    "cost": "Free",
+    "fee": "Free access",
+    "certificate": false,
+    "duration": "Not listed",
+    "languages": [
+      "English"
+    ],
+    "level": "Intermediate",
+    "description": "Six practical exercises on code systems, value sets, concept maps and validation. Access to a FHIR server is needed to run the exercises.",
+    "descriptionFr": "Six exercices pratiques sur les systèmes de codes, les jeux de valeurs, les tables de correspondance et la validation. Un serveur FHIR est nécessaire pour réaliser les exercices.",
+    "url": "https://digital.nhs.uk/services/terminology-server/how-to-use-the-terminology-server/use-fhir-terminology-service-apis",
+    "tags": [
+      "FHIR",
+      "NHS",
+      "terminology"
+    ]
   }
 ]

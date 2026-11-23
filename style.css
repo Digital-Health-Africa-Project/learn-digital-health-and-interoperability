@@ -117,3 +117,7 @@ footer p { color: var(--muted); }
 #more-filters { border-top: 1px solid var(--line); padding-block: .7rem; }
 #more-filters summary { cursor: pointer; font-weight: 650; }
 #filters #clear { margin-top: .35rem; }
+
+  #recommendations > div { margin-block: 1.5rem; }
+#recommendations li { margin-block: .45rem; }
+#recommendations summary { cursor: pointer; }
