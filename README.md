@@ -6,7 +6,7 @@
 
 Hello and welcome to this repository!
 
-Would you like to learn how health systems exchange and use data, and how health data spaces support sharing across organizations and borders? Prepared for the **GIZ workshop in Addis Ababa on 24 November 2026**, this hub brings together **43 curated resources**, including courses, video lectures, guides, articles, and publications.
+Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders? ** Prepared for the **GIZ workshop in Addis Ababa on 24 November 2026**, this hub brings together **43 curated resources**, including courses, video lectures, guides, articles, and publications.
 
 ### Start with the basics
 
