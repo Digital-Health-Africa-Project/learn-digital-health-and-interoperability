@@ -1,11 +1,29 @@
-Hello and welcome to Learn Digital Health and Interoperability!
+# Learn Digital Health and Interoperability
 
-This collection brings together online courses, video lectures, guides, articles, and publications on how health information systems exchange and use data. It covers:
-- Interoperability fundamentals — how health systems exchange and interpret data.
-- Health data standards — including FHIR and LOINC.
-- Interoperability architecture — how health information systems connect in practice.
-- Laws and policies — how health data sharing is governed.
-- Health data spaces — resources on the African Health Data Space and the European Health Data Space.
-If you’re new to the topic, start with the University of Utah’s three-part introduction. You can also search the collection or filter by topic, resource type, level, cost, and certificate availability.
+Hello and welcome to this repository!
 
-Have a question, a useful resource, or an implementation experience to share? Join our Digital Health Africa community on Zulip and introduce yourself in the Welcome channel.
+Would you like to learn how health systems exchange data and how health data spaces make it possible to share and reuse that data across organizations and borders?
+
+Here you’ll find a curated collection of online courses, video lectures, practical guides, articles, and publications covering:
+
+- **Interoperability fundamentals** — How health systems exchange, interpret, and use data.
+- **Health data standards and terminologies** — What FHIR, LOINC, SNOMED CT, and ICD-11 are used for.
+- **Interoperability architecture** — How electronic health records, laboratories, registries, and reporting systems such as DHIS2 connect.
+- **Laws and governance** — How laws and policies shape who can access, share, and reuse health data.
+- **Health data spaces** — Resources on the African Health Data Space and the European Health Data Space.
+
+## Start learning
+
+If you’re new to interoperability, begin with Catherine Staes’s three-part introduction from the University of Utah:
+
+1. [Part 1 — Introduction to interoperability](https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_sc4s3lfg)
+2. [Part 2 — Terminology and data exchange standards](https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_54bql655)
+3. [Part 3 — The role of public health experts](https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_uvt8uyvn)
+
+You can also search the collection or filter by topic, resource type, level, cost, and certificate availability.
+
+## Keep the conversation going
+
+Please join our **Digital Health Africa community on Zulip** to ask questions, recommend resources, and share what you’re learning.
+
+https://digital-health-africa.zulipchat.com/join/aaazwqd67cg6bue734bhthp5/
