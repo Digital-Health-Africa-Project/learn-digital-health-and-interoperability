@@ -1,1075 +1,324 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Find courses, guides and communities on health data interoperability and health data spaces.">
-  <title>Learn Health Data Interoperability and Health Data Spaces</title>
-  <style>
-:root {
-  color-scheme: light;
-  --bg: #f4f6f9; --card: #ffffff; --text: #0a2540; --muted: #45596e;
-  --line: #7a8a9b; --soft: #edf2f8; --blue: #0b4f8a; --heading: #0a2540;
-  --accent: #e30613; --on-accent: #fff; --link: #0b4f8a; --focus: #0b4f8a;
-  --hero-text: #fff; --dot: #0b4f8a18; --surface: #fff4f2; --shadow: #0a254015;
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0e1e30; --card: #152b42; --text: #f4f6f9; --muted: #c2cede;
-  --line: #8d9eb4; --soft: #213951; --blue: #a9d6ff; --heading: #f4f6f9;
-  --link: #a9d6ff; --focus: #a9d6ff; --dot: #a9d6ff22; --surface: #241e31; --shadow: #0004;
-}
-*, *::before, *::after { box-sizing: border-box; }
-[hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
-body { margin: 0; background: radial-gradient(circle, var(--dot) 1px, transparent 1px) 0 0 / 19px 19px, linear-gradient(145deg, var(--bg), var(--card) 50%, var(--surface)); color: var(--text); font: 1rem/1.6 system-ui, sans-serif; }
-.wrap { width: min(76rem, calc(100% - 2rem)); margin-inline: auto; }
-a { color: var(--link); text-underline-offset: .2em; }
-:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-.skip { position: fixed; top: .5rem; left: .5rem; z-index: 8; background: var(--card); padding: .5rem; transform: translateY(-180%); }
-.skip:focus { transform: none; }
-.hero, .community {
-  color: var(--hero-text);
-  background: radial-gradient(ellipse at 92% 3%, #e3061355, transparent 43%),
-    radial-gradient(ellipse at 2% 95%, #397fc466, transparent 48%),
-    linear-gradient(125deg, #0a2540 25%, #0b4f8a);
-}
-.hero :focus-visible, .community :focus-visible { outline-color: #fff; }
-.brand { display: flex; align-items: center; gap: .75rem; }
-.logo-slot { display: inline-block; padding: .35rem .55rem; background: #fff; color: #0a2540; border-radius: .2rem; font-size: .82rem; }
-.mast { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding-block: 1rem; font-weight: 650; }
-.mast button, .suggestions button { background: transparent; color: var(--hero-text); border-color: #b9c9b9; }
-.hero-copy { padding: clamp(1.25rem, 3vw, 2.5rem) 0 2rem; }
-.date { color: #e4efff; font-weight: 700; }
-h1, h2 { font-family: Georgia, serif; line-height: 1.12; }
-h1 { font-size: clamp(1.8rem, 3.8vw, 3.25rem); margin: .45rem 0 1rem; max-width: 26ch; overflow-wrap: anywhere; }
-h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 0 0 .7rem; }
-h3 { line-height: 1.3; }
-.hero-copy > p:not(.date) { font-size: 1.16rem; text-align: justify; hyphens: auto; }
-#search-form { max-width: 37rem; margin-top: 1.5rem; }
-kbd { border: 1px solid currentColor; border-radius: .2rem; padding: 0 .33rem; }
-.suggestions, .chips, .actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
-.suggestions { margin: .75rem 0 1.3rem; }
-button, .button, select, input[type="search"] { font: inherit; border: 1px solid transparent; border-radius: .45rem; }
-button, .button { display: inline-block; cursor: pointer; min-height: 2.75rem; padding: .48rem .85rem; background: var(--accent); color: var(--on-accent); text-decoration: none; font-weight: 650; }
-button:disabled { opacity: .7; cursor: default; }
-.button.gold { background: var(--accent); color: var(--on-accent); }
-.secondary, .chips button { color: var(--text); background: var(--card); border-color: var(--line); }
-.chips button[aria-pressed="true"], .secondary[aria-pressed="true"] { color: var(--on-accent); background: var(--accent); }
-select, input[type="search"] { background: var(--card); color: var(--text); border-color: var(--line); padding: .55rem; width: 100%; min-width: 0; }
-label { display: grid; gap: .25rem; font-weight: 650; min-width: 0; }
-.topic-shell { position: sticky; top: 0; z-index: 3; background: var(--card); border-bottom: 1px solid var(--line); }
-#topic-nav { display: flex; gap: .4rem; overflow-x: auto; padding: .6rem .25rem; }
-#topic-nav a { flex: 0 0 auto; padding: .45rem .7rem; border-radius: .35rem; font-size: .9rem; }
-#topic-nav a[aria-current] { color: var(--on-accent); background: var(--accent); }
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin: 1.5rem 0; }
-.stats span { padding: .75rem; border-bottom: 2px solid var(--blue); background: var(--soft); }
-.stats strong { display: block; font-size: clamp(1.5rem, 4vw, 2.5rem); line-height: 1.1; }
-section, .intro { margin-block: 2.1rem; }
-.intro { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; }
-.panel, .card, .community { padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--line); border-radius: .75rem; }
-.panel, .card { background: var(--card); }
-.filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: .65rem; margin: .85rem 0; }
-.cards, .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: .9rem; }
-.cards, .plain { list-style: none; padding: 0; }
-.card { display: flex; flex-direction: column; padding: 1rem; transition: transform .18s ease, box-shadow .18s ease; }
-.card { position: relative; border-top: 2px solid transparent; box-shadow: 0 4px 16px var(--shadow); }
-.card:hover, .card:focus-within { transform: translateY(-3px); box-shadow: 0 8px 20px var(--shadow); }
-.card:hover::before, .card:focus-within::before { content: ""; position: absolute; top: -2px; left: 0; right: 0; height: 2px; border-radius: .75rem .75rem 0 0; background: linear-gradient(90deg, #e30613, #0b4f8a); }
-.card h3 { margin: .6rem 0 .35rem; }
-.card p { margin: .25rem 0 .65rem; }
-.card .actions { margin-top: auto; padding-top: .6rem; }
-.badges { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .35rem; }
-.badge { display: inline-block; padding: .13rem .5rem; border-radius: .35rem; background: var(--soft); color: var(--text); font-size: .84rem; }
-.ribbon { background: var(--accent); color: var(--on-accent); }
-mark { background: #d7eaff; color: #0a2540; padding-inline: .1em; }
-.duration, #count { color: var(--muted); }
-progress { width: min(100%, 36rem); accent-color: var(--accent); }
-#saved-list li { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; padding: .6rem 0; border-top: 1px solid var(--line); }
-#saved-list label { display: flex; align-items: center; }
-#map-diagram { display: flex; gap: .65rem; flex-wrap: wrap; align-items: center; }
-#map-diagram svg { width: min(100%, 28rem); height: auto; display: block; }
-.map-node rect { fill: var(--soft); stroke: var(--line); }
-.map-node text { fill: var(--text); font: 600 14px system-ui; pointer-events: none; }
-.map-node:hover rect, .map-node:focus-visible rect { stroke: var(--focus); stroke-width: 3; }
-.map-edge { stroke: var(--line); stroke-width: 2; fill: none; }
-.compare-grid > div { background: var(--soft); padding: .85rem; border-radius: .5rem; }
-.channels li { margin: .6rem 0; }
-.channels span { display: block; }
-.notice:not(:empty) { position: fixed; z-index: 4; bottom: 1rem; right: 1rem; max-width: calc(100% - 2rem); padding: .75rem; border: 1px solid var(--line); border-radius: .4rem; background: var(--card); }
-footer { padding-bottom: 1.5rem; }
-.enter { animation: enter .4s ease both; }
-@keyframes enter { from { opacity: .3; transform: translateY(9px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
-}
-@media print {
-  body.print-path { color: #000; background: #fff; }
-  body.print-path > :not(main), body.print-path main > :not(#learning-path),
-  body.print-path #learning-path button, body.print-path #learning-path .actions { display: none !important; }
-  body.print-path #learning-path { color: #000; background: #fff; border: 0; }
-  body.print-path a { color: #000; }
-}
-#map-diagram svg.map-connector { width: 2rem; }
-#map-diagram svg:not(.map-connector) { flex: 1 1 13rem; }
-@media (max-width: 46rem) {
-  #map-diagram { display: grid; justify-items: start; }
-  #map-diagram svg.map-connector { transform: rotate(90deg); margin-left: 1rem; }
-}
+<style>
+  #recommendations .path-topic {
+    margin-block: 1.5rem;
+  }
 
-main h2, main h3 { color: var(--heading); }
-.community h2 { color: #fff; }
-footer p { color: var(--muted); }
-.verification { font-size: .83rem; color: var(--muted); }
-#topic-chips { margin-block: .85rem; }
-#more-filters { border-top: 1px solid var(--line); padding-block: .7rem; }
-#more-filters summary { cursor: pointer; font-weight: 650; }
-#filters #clear { margin-top: .35rem; }
+  #recommendations li {
+    margin-block: .5rem;
+  }
 
-  #recommendations > div { margin-block: 1.5rem; }
-#recommendations li { margin-block: .45rem; }
-#recommendations summary { cursor: pointer; }
+  #recommendations summary {
+    cursor: pointer;
+  }
 </style>
-</head>
-<body id="top">
-<a class="skip" href="#directory">Skip to resources</a>
-<header class="hero">
-  <div class="wrap">
-    <div class="mast"><div class="brand"><span>Digital Health Africa</span></div><div class="actions"><button id="language-toggle" type="button" lang="fr" aria-label="Switch the website language">Français</button><button id="theme" type="button" aria-pressed="false">Dark mode</button></div></div>
-    <div class="hero-copy">
-      <p class="date">Addis workshop · 24 November 2026</p>
-      <h1>Learn Health Data Interoperability and Health Data Spaces</h1>
-      <p>Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.</p>
-      <p>Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.</p>
-      <a class="button gold" href="#directory">Browse and filter resources</a>
-    </div>
-  </div>
-</header>
-<div class="topic-shell"><nav id="topic-nav" class="wrap" aria-label="Learning topics">
-  <a href="#start-here"><span>I.</span> Start by understanding interoperability</a>
-  <a href="#health-data-standards"><span>II.</span> Health data standards and terminologies</a>
-  <a href="#architecture-and-implementation"><span>III.</span> Health data interoperability architectures</a>
-  <a href="#laws-and-regulations"><span>IV.</span> Laws and regulations</a>
-  <a href="#health-data-spaces"><span>V.</span> Health data spaces</a>
-</nav></div>
 
-<main class="wrap">
-  <p class="stats" id="stats" hidden>
-    <span><strong id="total-stat"></strong> resources</span>
-    <span><strong id="topic-stat"></strong> topics</span>
-    <span><strong id="free-stat"></strong> free</span>
-  </p>
-
-  <div class="intro">
-    <div class="actions"><a class="button" href="#quiz">Find my path</a><a class="button secondary" href="#learning-path">My learning path</a></div>
-  </div>
-
-  <section id="quiz" class="panel" aria-labelledby="quiz-title">
-    <h2 id="quiz-title">Find my path</h2>
-    <form id="quiz-form">
-      <div class="filter-grid">
-        <label>Your role<select id="role" required><option value="">Choose a role</option><option value="learner">Student or learner</option><option value="implementer">Health IT implementer</option><option value="policy">Policy or program lead</option></select></label>
-        <label>Your experience<select id="experience" required><option value="">Choose a level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select></label>
-      </div>
-      <button>Recommend resources</button>
-    </form>
-    <p id="quiz-status" role="status"></p><div id="recommendations"></div>
-  </section>
-
-  <section id="learning-path" tabindex="-1" class="panel" aria-labelledby="path-title">
-    <h2 id="path-title">My learning path</h2>
-    <p>Save resources as you browse, then mark them complete here. Your progress stays in this browser.</p>
-    <p id="progress-text">0 of 0 completed</p>
-    <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
-    <ul id="saved-list" class="plain"></ul>
-    <div class="actions"><button id="copy-path">Copy text list</button><button id="print-path" class="secondary">Print path</button><button id="export-path" class="secondary">Export progress</button><button id="import-path" class="secondary">Import progress</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
-  </section>
-
-  <section id="directory" aria-labelledby="directory-title">
-    <h2 id="directory-title" tabindex="-1">Filter resources</h2>
-    <form id="filters" class="panel">
-      <div class="filter-grid">
-        <label>Topic<select id="topic"></select></label>
-        <label>Resource type<select id="type"></select></label>
-        <label>Cost<select id="cost"></select></label>
-        <label>Certificate availability<select id="certificate"></select></label>
-        <label>Level<select id="level"></select></label>
-        <label>Resource language<select id="resource-language"></select></label>
-        <label>Time commitment<select id="time"></select></label>
-        <label>Sort by<select id="sort"><option value="beginner">Beginner first</option><option value="free">Free first</option><option value="title">A to Z</option><option value="provider">Provider</option></select></label>
-      </div>
-      <button id="clear" class="secondary" type="button">Clear filters</button>
-    </form>
-    <p id="count" role="status">Loading resources…</p>
-    <noscript><p>Enable JavaScript to search and browse the directory.</p></noscript>
-    <div id="results"></div>
-  </section>
-
-  <section id="map" class="panel" aria-labelledby="map-title">
-    <h2 id="map-title">Interoperability map</h2>
-    <p>Choose a node to find related resources. Standards define what is exchanged, architectures connect systems, and governance sets rules for access and reuse.</p>
-    <div id="map-diagram"></div>
-  </section>
-
-  <section id="comparison" class="panel" aria-labelledby="compare-title">
-    <h2 id="compare-title">Compare health data space resources</h2>
-    <div class="chips" id="compare-controls" aria-label="Comparison layout">
-      <button data-compare="Africa" aria-pressed="false">Africa</button>
-      <button data-compare="Europe" aria-pressed="false">Europe</button>
-      <button data-compare="both" aria-pressed="true">Side by side</button>
-    </div>
-    <div id="compare-content" class="compare-grid"></div>
-  </section>
-
-  <section id="community" class="community">
-    <h2>Keep the conversation going</h2>
-    <p>Join our Digital Health Africa community on Zulip to ask questions, share resources and discuss implementation experiences.</p>
-    <ul class="plain channels">
-      <li><strong>#Welcome</strong><span>Introduce yourself and your work.</span></li>
-      <li><strong>#interoperability-questions</strong><span>Ask about standards, architecture or governance.</span></li>
-      <li><strong>#learning-resources</strong><span>Share courses, guides and useful examples.</span></li>
-    </ul>
-    <a id="zulip-link" class="button gold" href="https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/" target="_blank" rel="noopener noreferrer">Join us on Zulip</a>
-  </section>
-  <p id="notice" role="status" class="notice"></p>
-</main>
-<footer class="wrap"><p>GIZ workshop resource · Addis Ababa · 24 November 2026</p><a id="top-button" class="button secondary" href="#top">Back to top ↑</a></footer>
-<script type="application/json" id="resource-data">[{"id": "interoperability-intro-and-part-1", "title": "Interoperability – Intro and Part 1", "provider": "University of Utah", "topic": "start-here", "type": "Lecture", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "Beginner", "description": "Catherine Staes explains foundational, syntactic, and semantic interoperability using a laboratory reporting example.", "url": "https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_sc4s3lfg", "tags": ["Start here"], "descriptionFr": "Catherine Staes présente les niveaux d’interopérabilité à partir d’un exemple de laboratoire.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "interoperability-part-2", "title": "Interoperability – Part 2", "provider": "University of Utah", "topic": "start-here", "type": "Lecture", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "Beginner", "description": "Covers terminology and data exchange standards.", "url": "https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_54bql655", "tags": ["Start here"], "descriptionFr": "Découvrez les terminologies et les normes d’échange de données.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "interoperability-part-3", "title": "Interoperability – Part 3", "provider": "University of Utah", "topic": "start-here", "type": "Lecture", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "Beginner", "description": "Explores the role of public health experts in developing and implementing standards, with an electronic case reporting example.", "url": "https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_uvt8uyvn", "tags": ["Start here"], "descriptionFr": "Explorez le rôle des experts de santé publique dans la déclaration électronique des cas.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "health-data-standards", "title": "Health Data Standards", "provider": "OpenHIE", "topic": "start-here", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "Beginner", "description": "Learn what standards make possible in health information exchange.", "url": "https://academy.ohie.org/?sfwd-courses=220-introduction-to-health-data-standards", "tags": ["OpenHIE"], "descriptionFr": "Comprenez l’utilité des normes communes pour échanger des données de santé.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "foundations-of-health-information-exchange", "title": "Foundations of Health Information Exchange", "provider": "OpenHIE", "topic": "start-here", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English", "French"], "level": "Beginner", "description": "Start with Course 101 in the academy catalog.", "url": "https://academy.ohie.org/?sfwd-courses=101-introduction-to-hie-foundations-of-health-information-exchange-v2", "tags": ["OpenHIE"], "descriptionFr": "Découvrez les objectifs et les composantes d’un système d’échange de données de santé.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "digital-health-planning-national-systems", "title": "Digital Health: Planning National Systems", "provider": "TechChange", "topic": "start-here", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "About 13 hours (core)", "languages": ["English; most modules also in French", "Spanish", "Portuguese"], "level": "All levels", "description": "Study national architecture, interoperability standards, platforms, procurement, and governance.", "url": "https://www.digitalhealthtraining.org/about", "tags": ["governance"], "descriptionFr": "Étudiez l’architecture nationale, les normes, les plateformes et la gouvernance.", "timeCommitment": "Full day or longer", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "immunization-information-systems-elearning", "title": "Immunization Information Systems eLearning", "provider": "PHII", "topic": "start-here", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "18-day email course", "languages": ["English"], "level": "All levels", "description": "Explore public health data exchange through immunization information systems.", "url": "https://phii.org/what-we-do/iis-hub/iis-elearning/", "tags": [], "descriptionFr": "Découvrez les échanges de données de vaccination et le rôle de HL7.", "timeCommitment": "Multi-day schedule", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "public-health-interoperability-training-catalog", "title": "Public Health Interoperability Training Catalog", "provider": "Altarum", "topic": "start-here", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Find training on standards, governance, data quality, and terminology.", "url": "https://phinterop.org/", "tags": ["governance"], "descriptionFr": "Recherchez des formations en interopérabilité, gouvernance et qualité des données.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "openhie-academy-foundations-certification-exam", "title": "OpenHIE Academy Foundations Certification Exam", "provider": "OpenHIE", "topic": "start-here", "type": "Exam", "cost": "Paid", "fee": "US$39 (listed fee)", "certificate": true, "duration": "Check provider", "languages": ["English"], "level": "Intermediate", "description": "Separate assessment for learners seeking OpenHIE Foundations certification.", "url": "https://academy.ohie.org/?sfwd-courses=openhie-academy-foundations-certification-exam", "tags": ["OpenHIE"], "descriptionFr": "Passez l’examen distinct de certification OpenHIE Foundations.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": "2026-11-23"}, {"id": "medblocks-fhir-fundamentals", "title": "Medblocks FHIR® Fundamentals", "provider": "Medblocks", "topic": "health-data-standards", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": true, "duration": "3 h 20 min", "languages": ["English"], "level": "Beginner", "description": "Hands-on introduction to FHIR resources, data types, and REST APIs. Includes 5 modules and 44 lessons. Pass the final quiz to earn a Medblocks certificate. It does not confer HL7 International professional certification.", "descriptionFr": "Introduction pratique aux ressources FHIR, aux types de données et aux API REST. Le cours comprend 5 modules et 44 leçons. La réussite du quiz final donne droit à une attestation Medblocks. Elle ne constitue pas une certification professionnelle de HL7 International.", "url": "https://medblocks.com/training/courses/fhir-fundamentals", "tags": ["FHIR", "interoperability"], "timeCommitment": "1 to 4 hours", "linkVerifiedOn": "2026-11-23", "certificateVerifiedOn": "2026-11-23"}, {"id": "hl7-fhir", "title": "HL7 FHIR", "provider": "HL7", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Structure and exchange records such as patient data and lab results.", "url": "https://www.hl7.org/fhir/overview.html", "tags": ["FHIR"], "descriptionFr": "Découvrez comment FHIR structure et échange les informations cliniques.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "introduction-to-interoperability-and-fhir", "title": "Introduction to Interoperability and FHIR", "provider": "PAHO", "topic": "health-data-standards", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "Beginner", "description": "An introductory learning path for standards and FHIR.", "url": "https://www.paho.org/en/information-systems-and-digital-health/telehealth-program/digital-literacy-telehealth", "tags": ["FHIR"], "descriptionFr": "Découvrez les principes de l’interopérabilité et de la norme HL7 FHIR.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "loinc", "title": "LOINC", "provider": "Regenstrief Institute", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Identify laboratory tests, measurements, and other observations.", "url": "https://loinc.org/START", "tags": ["LOINC"], "descriptionFr": "Identifiez de manière uniforme les analyses, mesures et observations.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "snomed-ct", "title": "SNOMED CT", "provider": "SNOMED International", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Represent clinical concepts such as findings and diagnoses.", "url": "https://docs.snomed.org/snomed-ct-practical-guides/snomed-ct-starter-guide", "tags": ["SNOMED CT"], "descriptionFr": "Découvrez comment cette terminologie représente les symptômes et les diagnostics.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "icd-11", "title": "ICD-11", "provider": "WHO", "topic": "health-data-standards", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "Learn how to classify diseases and causes of death.", "url": "https://icdcdn.who.int/icd11training/index.html", "tags": ["ICD-11"], "descriptionFr": "Apprenez à utiliser la classification et les outils de codage de la CIM-11.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ucum", "title": "UCUM", "provider": "UCUM project", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Read the Unified Code for Units of Measure specification for representing units consistently.", "url": "https://ucum.org/ucum", "tags": [], "descriptionFr": "Consultez la spécification UCUM pour représenter les unités de mesure.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": "2026-11-23", "certificateVerifiedOn": null}, {"id": "dicom", "title": "DICOM", "provider": "NHS Standards Directory", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Store and exchange medical images and associated information.", "url": "https://standards.nhs.uk/published-standards/digital-imaging-and-communications-in-medicine", "tags": [], "descriptionFr": "Découvrez la norme de stockage et d’échange des images médicales.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "openhie-architecture-overview", "title": "OpenHIE Architecture Overview", "provider": "OpenHIE", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "See where registries, terminology services, the interoperability layer, and point-of-care systems fit.", "url": "https://guides.ohie.org/arch-spec/architecture-specification/overview-of-the-architecture", "tags": ["OpenHIE"], "descriptionFr": "Voyez comment s’articulent les registres et les services d’interopérabilité.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "interoperability", "title": "Interoperability", "provider": "OpenHIE", "topic": "architecture-and-implementation", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "Course 260 covers the interoperability layer and real-world implementation cases.", "url": "https://academy.ohie.org/?sfwd-courses=260-the-interoperability-layer", "tags": ["OpenHIE"], "descriptionFr": "Étudiez les fonctions et cas d’usage de la couche d’interopérabilité.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "data-exchange-specification", "title": "Data Exchange Specification", "provider": "OpenHIE", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Explore technical patterns for exchange between health information systems.", "url": "https://guides.ohie.org/arch-spec/introduction", "tags": ["OpenHIE"], "descriptionFr": "Parcourez des modèles techniques d’échange entre systèmes de santé.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "dhis2-integration-concepts", "title": "DHIS2 Integration Concepts", "provider": "DHIS2", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Plan an exchange with DHIS2 and align indicator definitions and facility identifiers.", "url": "https://docs.dhis2.org/en/implement/implementing-dhis2/integration-concepts.html", "tags": ["DHIS2"], "descriptionFr": "Découvrez comment intégrer DHIS2 à d’autres systèmes.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "dhis2-fundamentals", "title": "DHIS2 Fundamentals", "provider": "DHIS2 Academy", "topic": "architecture-and-implementation", "type": "Course", "cost": "Free", "fee": "Free access", "certificate": true, "duration": "Check provider", "languages": ["English", "French", "Spanish"], "level": "Beginner", "description": "Learn the platform basics. Courses are available in English and French.", "url": "https://dhis2.org/academy/", "tags": ["DHIS2"], "descriptionFr": "Apprenez les bases de DHIS2 et obtenez une attestation après réussite des questionnaires du cours d’introduction.", "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": "2026-11-23"}, {"id": "digital-adaptation-kits", "title": "Digital Adaptation Kits", "provider": "WHO SMART Guidelines", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Translate health guidance into workflows and data requirements.", "url": "https://www.who.int/publications/b/82389", "tags": [], "descriptionFr": "Traduisez les recommandations de santé en processus et indicateurs.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "african-union-hie-guidelines-and-standards", "title": "African Union HIE Guidelines and Standards", "provider": "Africa CDC", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Ground the discussion in African Union guidance on health information exchange.", "url": "https://africacdc.org/download/african-union-health-information-exchange-guidelines-and-standards/", "tags": ["AU frameworks", "Africa"], "descriptionFr": "Consultez les lignes directrices de l’Union africaine sur les échanges de données de santé.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "digital-health-platform-handbook", "title": "Digital Health Platform Handbook", "provider": "WHO and ITU", "topic": "architecture-and-implementation", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Design and implement shared national digital health infrastructure.", "url": "https://www.who.int/publications/i/item/9789240013728", "tags": ["PDF"], "descriptionFr": "Concevez une infrastructure numérique partagée à l’échelle nationale.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ihe-technical-framework", "title": "IHE Technical Framework", "provider": "IHE International", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Turn exchange use cases into specifications for system roles and transactions.", "url": "https://profiles.ihe.net/GeneralIntro/ch-3.html", "tags": [], "descriptionFr": "Transformez un cas d’usage en spécifications de rôles et de transactions.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "health-information-exchange-maturity-assessment-tool", "title": "Health Information Exchange Maturity Assessment Tool", "provider": "Africa CDC", "topic": "architecture-and-implementation", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Explore readiness across governance, workforce, infrastructure, and interoperability.", "url": "https://hiemat2.africacdc.org/", "tags": ["Africa", "governance"], "descriptionFr": "Évaluez la gouvernance, les compétences, l’infrastructure et l’interopérabilité.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "digital-health-blueprint", "title": "Digital Health Blueprint", "provider": "Smart Africa", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Explore national and continental actions for health information exchange.", "url": "https://smartafrica.org/wp-content/uploads/2025/11/Digital-Health-Blueprint-English-2.pdf", "tags": ["Africa", "PDF"], "descriptionFr": "Explorez les actions nationales et continentales en faveur de la santé numérique.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "malabo-convention", "title": "Malabo Convention", "provider": "African Union", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English", "French", "Arabic", "Portuguese"], "level": "All levels", "description": "Continental treaty on cybersecurity and personal data protection. See the AU status list for participation.", "url": "https://au.int/en/treaties/african-union-convention-cyber-security-and-personal-data-protection", "tags": ["AU frameworks", "Africa", "governance"], "descriptionFr": "Consultez le traité sur la cybersécurité et la protection des données personnelles.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "african-union-data-policy-framework", "title": "African Union Data Policy Framework", "provider": "African Union", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Policy guidance on data governance, protection, and cross-border flows.", "url": "https://au.int/sites/default/files/documents/42078-doc-DATA-POLICY-FRAMEWORKS-2024-ENG-V2.pdf", "tags": ["AU frameworks", "Africa", "PDF", "governance"], "descriptionFr": "Explorez les orientations africaines sur la gouvernance et les flux transfrontaliers.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "african-continental-health-data-governance-framework", "title": "African Continental Health Data Governance Framework", "provider": "Africa CDC", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Update on Member State validation and the remaining AU policy steps.", "url": "https://africacdc.org/news-item/au-member-states-validate-african-continental-health-data-governance-framework/", "tags": ["AU frameworks", "Africa", "governance"], "descriptionFr": "Suivez la validation du cadre par les États membres de l’Union africaine.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "general-data-protection-regulation-gdpr", "title": "General Data Protection Regulation (GDPR)", "provider": "European Union", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English", "other EU languages"], "level": "All levels", "description": "Read Article 9 on special categories of personal data and Chapter V on international transfers.", "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng", "tags": ["Europe", "GDPR", "governance"], "descriptionFr": "Consultez les dispositions relatives aux données sensibles et aux transferts internationaux.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "recommendation-on-health-data-governance", "title": "Recommendation on Health Data Governance", "provider": "OECD", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Policy principles for health data use while protecting privacy and security.", "url": "https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0433", "tags": ["governance"], "descriptionFr": "Découvrez les principes de gouvernance des données de santé et de protection de la vie privée.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "european-health-data-space-regulation-eu-2025-327", "title": "European Health Data Space Regulation (EU) 2025/327", "provider": "European Union", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English", "other EU languages"], "level": "All levels", "description": "Legal framework for primary use in care and secondary use for purposes such as research.", "url": "https://eur-lex.europa.eu/eli/reg/2025/327/oj/eng", "tags": ["EHDS", "Europe", "governance"], "descriptionFr": "Consultez le cadre juridique européen pour l’utilisation primaire et secondaire.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "european-health-data-space", "title": "European Health Data Space", "provider": "European Commission", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Learn how the EU distinguishes data exchange for care from reuse for purposes such as research and policymaking.", "url": "https://health.ec.europa.eu/ehealth-digital-health-and-care/digital-health-and-care_en", "tags": ["EHDS", "Europe", "governance"], "descriptionFr": "Découvrez comment l’espace européen facilite les échanges et la réutilisation des données.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "digital-health-systems-and-data-sovereignty", "title": "Digital Health Systems and Data Sovereignty", "provider": "Africa CDC", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Discuss how national ownership and interoperable infrastructure can inform the design of an African Health Data Space.", "url": "https://africacdc.org/news-item/digital-health-systems-and-data-sovereignty/", "tags": ["Africa"], "descriptionFr": "Explorez les enjeux de souveraineté numérique et d’infrastructure interopérable.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "interoperability-in-healthcare-towards-an-interconnected-future", "title": "Interoperability in Healthcare: Towards an Interconnected Future", "provider": "OECD", "topic": "health-data-spaces", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "Examines barriers and practices across OECD countries, including how governance, trust, standards, and data quality support national and cross-border health data exchange.", "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/07/interoperability-in-healthcare_f06ace3e/eb71b7be-en.pdf", "tags": ["PDF", "governance"], "descriptionFr": "Examinez le rôle de la gouvernance, de la confiance et de la qualité des données.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-regulation-overview-and-timeline", "title": "EHDS Regulation overview and timeline", "provider": "European Commission", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Official introduction to primary use, secondary use, and implementation milestones.", "url": "https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en", "tags": ["EHDS", "Europe", "governance"], "descriptionFr": "Consultez le calendrier officiel de mise en œuvre du règlement.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "frequently-asked-questions-on-the-european-health-data-space", "title": "Frequently Asked Questions on the European Health Data Space", "provider": "European Commission", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Download the FAQ for explanations of the regulation, responsibilities, and when provisions apply.", "url": "https://health.ec.europa.eu/document/download/4dd47ec2-71dd-49fc-b036-ad7c14f6ed68_en?filename=ehealth_ehds_qa_en.pdf", "tags": ["EHDS", "Europe", "PDF", "governance"], "descriptionFr": "Trouvez des réponses sur les responsabilités et le calendrier d’application.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "implementing-the-european-health-data-space-across-europe", "title": "Implementing the European Health Data Space across Europe", "provider": "EIT Health", "topic": "health-data-spaces", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Think Tank report on practical challenges including governance, skills, funding, and data quality.", "url": "https://eithealth.eu/think-tank-topic/implementing-the-european-health-data-space/", "tags": ["EHDS", "Europe", "governance"], "descriptionFr": "Découvrez les défis liés à la gouvernance, au financement et à la qualité des données.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "health-experts-make-recommendations-on-ehds-implementation", "title": "Health experts make recommendations on EHDS implementation", "provider": "EIT Health", "topic": "health-data-spaces", "type": "Article", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "A short article introducing the implementation questions raised by European health experts.", "url": "https://eithealth.eu/news-article/health-experts-make-recommendations-on-ehds-implementation/", "tags": ["EHDS", "Europe"], "descriptionFr": "Lisez les recommandations des experts européens pour la mise en œuvre.", "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-primary-use-webinar", "title": "EHDS webinar 1: Primary use of health data", "provider": "European Commission", "topic": "health-data-spaces", "type": "Lecture", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "European Commission webinar recording and presentation on the use of electronic health data for care.", "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur l’utilisation des données de santé électroniques pour les soins.", "url": "https://health.ec.europa.eu/latest-updates/presentation-and-recording-euhpp-live-webinar-european-health-data-space-13-primary-use-health-data-2025-02-20_en", "tags": ["EHDS", "Europe"], "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-secondary-use-webinar", "title": "EHDS webinar 2: Secondary use of health data", "provider": "European Commission", "topic": "health-data-spaces", "type": "Lecture", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "European Commission webinar recording and presentation on the reuse of health data.", "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur la réutilisation des données de santé.", "url": "https://health.ec.europa.eu/latest-updates/recording-and-presentation-euhpp-webinar-european-health-data-space-23-secondary-use-health-data-27-2025-03-03_en", "tags": ["EHDS", "Europe"], "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-implementation-webinar", "title": "EHDS webinar 3: Implementation and governance", "provider": "European Commission", "topic": "health-data-spaces", "type": "Lecture", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "European Commission webinar recording and presentation on implementing and governing the EHDS.", "descriptionFr": "Enregistrement et présentation du webinaire de la Commission européenne sur la mise en œuvre et la gouvernance de l’EEDS.", "url": "https://health.ec.europa.eu/latest-updates/presentation-and-recording-euhpp-webinar-european-health-data-space-33-implementation-and-governance-2025-03-07_en", "tags": ["EHDS", "Europe", "governance"], "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-committee-register", "title": "EHDS Committee register", "provider": "European Commission", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reference", "languages": ["English"], "level": "All levels", "description": "European Commission register entry linked from the presentation.", "descriptionFr": "Fiche du registre de la Commission européenne citée dans la présentation.", "url": "https://ec.europa.eu/transparency/comitology-register/screen/committees/C131500", "tags": ["EHDS", "Europe", "governance"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "openhie-discourse", "title": "OpenHIE Discourse", "provider": "OpenHIE", "topic": "communities", "type": "Community", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Ongoing", "languages": ["English"], "level": "All levels", "description": "Ask country implementers about national health information exchange.", "url": "https://discourse.ohie.org/", "tags": ["OpenHIE"], "descriptionFr": "Échangez avec les équipes qui mettent en œuvre les échanges nationaux de données.", "timeCommitment": "Ongoing", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "hl7-fhir-community-on-zulip", "title": "HL7 FHIR Community on Zulip", "provider": "FHIR", "topic": "communities", "type": "Community", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Ongoing", "languages": ["English"], "level": "All levels", "description": "Discuss FHIR profiles, resources, and implementation questions.", "url": "https://chat.fhir.org/", "tags": ["FHIR"], "descriptionFr": "Discutez des profils FHIR et des questions de mise en œuvre.", "timeCommitment": "Ongoing", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "dhis2-community-of-practice", "title": "DHIS2 Community of Practice", "provider": "DHIS2", "topic": "communities", "type": "Community", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Ongoing", "languages": ["English"], "level": "All levels", "description": "Ask about integrating DHIS2 with other health information systems.", "url": "https://community.dhis2.org/", "tags": ["DHIS2"], "descriptionFr": "Posez vos questions sur l’intégration de DHIS2 à d’autres systèmes.", "timeCommitment": "Ongoing", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ahds-cross-border-prototype", "title": "Africa Health Data Space: Description of a Cross-Border Prototype", "provider": "Kievit, Wanjiku, van Reisen et al.", "topic": "health-data-spaces", "type": "Publication", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Conference paper describing a prototype for cross-border health data sharing in Africa.", "descriptionFr": "Communication décrivant un prototype de partage transfrontalier des données de santé en Afrique.", "url": "https://www.researchgate.net/publication/417064846_Africa_Health_Data_Space_Description_of_a_Cross-Border_Prototype", "tags": ["Africa", "FAIR", "Mirjam van Reisen", "AHDS"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "patient-data-autonomy-africa", "title": "Promotion of data autonomy to support insights from patient health data records in Africa", "provider": "Purnama Jati, van Reisen et al.", "topic": "health-data-spaces", "type": "Publication", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Chapter on adoption of a federated health data repository across five African countries.", "descriptionFr": "Chapitre sur l’adoption d’un entrepôt fédéré de données de santé dans cinq pays africains.", "url": "https://www.researchgate.net/publication/416516395_Promotion_of_data_autonomy_to_support_insights_from_patient_health_data_records_in_Africa", "tags": ["Africa", "FAIR", "Mirjam van Reisen", "AHDS"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "fair-data-spaces-trust-training", "title": "Training for trust building of FAIR data spaces: The Humanitarian Data Space on Sensitive Data", "provider": "Kievit, Stocker, van Reisen et al.", "topic": "health-data-spaces", "type": "Publication", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Chapter exploring how training can build trust around the use of sensitive data in humanitarian data spaces.", "descriptionFr": "Chapitre sur le rôle de la formation dans la confiance liée à l’utilisation des données sensibles dans les espaces de données humanitaires.", "url": "https://www.researchgate.net/publication/417064962_Training_for_trust_building_of_FAIR_data_spaces_The_Humanitarian_Data_Space_on_Sensitive_Data", "tags": ["Africa", "FAIR", "Mirjam van Reisen"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "mirjam-van-reisen-publications", "title": "Professor Mirjam van Reisen: Publications", "provider": "Tilburg University Research Portal", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Browse Professor Mirjam van Reisen’s research outputs, including work on FAIR data, health data governance and data sovereignty.", "descriptionFr": "Consultez les travaux de la professeure Mirjam van Reisen sur les données FAIR, la gouvernance des données de santé et la souveraineté des données.", "url": "https://research.tilburguniversity.edu/en/persons/mirjam-van-reisen/", "tags": ["Africa", "FAIR", "Mirjam van Reisen"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "fair-health-infrastructure-africa", "title": "Design of a FAIR digital data health infrastructure in Africa for COVID-19 reporting and research", "provider": "van Reisen et al.", "topic": "health-data-spaces", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Open-access paper describing VODAN Africa’s distributed architecture for locally governed, machine-readable health data.", "descriptionFr": "Article en libre accès sur l’architecture distribuée de VODAN Africa pour des données de santé lisibles par machine et gouvernées localement.", "url": "https://doi.org/10.1002/ggn2.10050", "tags": ["Africa", "FAIR", "Mirjam van Reisen", "AHDS"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ehds-state-of-play-webinar", "title": "EHDS webinar 0.1: State of play and supporting initiatives", "provider": "European Commission", "topic": "health-data-spaces", "type": "Lecture", "cost": "Check provider", "fee": "Check provider", "certificate": false, "duration": "Check provider", "languages": ["English"], "level": "All levels", "description": "Teams event link shared in Dana Eleftheriadou’s presentation. Recording availability has not been verified.", "descriptionFr": "Lien vers l’événement Teams communiqué dans la présentation de Dana Eleftheriadou. La disponibilité de l’enregistrement n’a pas été vérifiée.", "url": "https://events.teams.microsoft.com/event/619b1193-71cf-4bad-b7ed-d0151240686c@b853f977-4183-428f-855c-ffe7328b6f13?source=copyLinkOneEventsShareDialog", "tags": ["EHDS", "Europe"], "timeCommitment": "Not listed", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "afcfta-digital-trade", "title": "AfCFTA Protocol on Digital Trade", "provider": "African Union", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English", "French", "Arabic", "Portuguese", "Spanish"], "level": "All levels", "description": "Official treaty page with the protocol and annexes in multiple languages. The protocol addresses open standards, cross-border transfers for digital trade, and personal data protection.", "descriptionFr": "Page officielle du protocole et de ses annexes en plusieurs langues. Le protocole traite des normes ouvertes, des transferts transfrontaliers liés au commerce numérique et de la protection des données personnelles.", "url": "https://www.au.int/en/treaties/protocol-agreement-establishing-african-continental-free-trade-area-digital-trade", "tags": ["Africa", "Governance", "PDF", "AfCFTA"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "afcfta-digital-trade-annexes", "title": "AfCFTA Digital Trade Protocol: Compiled Annexes", "provider": "African Union", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Read the annex on cross-border data transfers within the wider digital trade package.", "descriptionFr": "Consultez l’annexe sur les transferts transfrontaliers de données dans le cadre du commerce numérique.", "url": "https://www.au.int/sites/default/files/treaties/44963-ax-ENG_Circulation_Digital_Trade_Compiled_Certified_Legal_Instruments_38thAssembly_Feb_2025_27_May2025.pdf", "tags": ["Africa", "Governance", "PDF", "AfCFTA"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "igad-health-data-sharing", "title": "IGAD Regional Health Data Sharing and Protection Policy Framework", "provider": "IGAD", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Regional policy guidance for sharing and protecting health data among IGAD member states.", "descriptionFr": "Orientations régionales sur le partage et la protection des données de santé entre les États membres de l’IGAD.", "url": "https://igad.int/download/igad-regional-health-data-sharing-and-protection-policy-framework/", "tags": ["Africa", "Governance", "PDF", "IGAD"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ecowas-data-protection", "title": "ECOWAS Supplementary Act on Personal Data Protection", "provider": "ECOWAS", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "West African regional instrument on the collection, processing and use of personal data.", "descriptionFr": "Instrument régional ouest-africain sur la collecte, le traitement et l’utilisation des données personnelles.", "url": "https://www.ecodob.ecowas.int/legal_texts/journal_en/SIGNED_Data_Protection_Act.pdf", "tags": ["Africa", "Governance", "PDF", "ECOWAS"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "au-digital-id-interoperability", "title": "AU Interoperability Framework for Digital ID", "provider": "African Union", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Continental policy framework for trusted, interoperable digital identity systems.", "descriptionFr": "Cadre continental pour des systèmes d’identité numérique fiables et interopérables.", "url": "https://au.int/sites/default/files/documents/43393-doc-AU_Interoperability_framework_for_D_ID_English.pdf", "tags": ["Africa", "Governance", "PDF"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "au-digital-transformation-strategy", "title": "Digital Transformation Strategy for Africa (2020–2030)", "provider": "African Union", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Continental strategy spanning digital health, identity, trade and infrastructure.", "descriptionFr": "Stratégie continentale couvrant la santé numérique, l’identité, le commerce et les infrastructures.", "url": "https://au.int/sites/default/files/documents/38507-doc-DTS_for_Africa_2020-2030_English.pdf", "tags": ["Africa", "Governance", "PDF"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "africa-cdc-digital-strategy", "title": "Africa CDC Digital Transformation Strategy", "provider": "Africa CDC", "topic": "laws-and-regulations", "type": "Publication", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Strategy for digital transformation of public health systems, including data sharing and use.", "descriptionFr": "Stratégie de transformation numérique des systèmes de santé publique, notamment pour le partage et l’utilisation des données.", "url": "https://africacdc.org/download/digital-transformation-strategy/", "tags": ["Africa", "Governance", "PDF"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "africa-data-protection-map", "title": "Mapping Data Protection Laws Across Africa", "provider": "CIPIT, Strathmore University", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Country-by-country reference for finding national data protection laws and authorities. It also maps regional instruments, including the SADC model law.", "descriptionFr": "Répertoire par pays des lois et autorités de protection des données. Il recense aussi les instruments régionaux, dont la loi type de la SADC.", "url": "https://cipit.strathmore.edu/ai_dashboard/data-governance-across-africa-mapping-of-data-protection-laws/", "tags": ["Africa", "Governance"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "unctad-cyberlaw-tracker", "title": "Global Cyberlaw Tracker: Data Protection and Privacy", "provider": "UN Trade and Development", "topic": "laws-and-regulations", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Use the Africa region filter to find national legislation and compare coverage across countries.", "descriptionFr": "Utilisez le filtre Afrique pour repérer les législations nationales et comparer leur couverture.", "url": "https://unctad.org/topic/ecommerce-and-digital-economy/ecommerce-law-reform/summary-adoption-e-commerce-legislation-worldwide", "tags": ["Africa", "Governance"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "ahds-project-website", "title": "Africa Health Data Space: Project Website", "provider": "VODAN-Africa / Africa University Network", "topic": "health-data-spaces", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Self-paced reading", "languages": ["English"], "level": "All levels", "description": "Project overview covering the VODAN-Africa proof of concept, local data stewardship and FAIR data practices.", "descriptionFr": "Présentation du projet VODAN-Africa, de sa preuve de concept, de la gestion locale des données et des pratiques FAIR.", "url": "https://aun.mu.edu.et/ahds/about/", "tags": ["AHDS", "Africa"], "timeCommitment": "Self-paced reading", "linkVerifiedOn": null, "certificateVerifiedOn": null}, {"id": "interopen-terminology-learnathon", "title": "Terminology Server: The Learnathon", "provider": "INTEROPen", "topic": "health-data-standards", "type": "Lecture", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Not listed", "languages": ["English"], "level": "Intermediate", "description": "Recorded workshop with NHS England and Dedalus on FHIR terminology APIs, SNOMED CT, FHIR Questionnaires, and code mappings.", "descriptionFr": "Atelier enregistré avec NHS England et Dedalus sur les API de terminologie FHIR, SNOMED CT, les questionnaires FHIR et les correspondances entre codes.", "url": "https://www.youtube.com/watch?v=EBXtmTshNJ4", "tags": ["FHIR", "SNOMED CT", "NHS", "terminology"]}, {"id": "nhs-fhir-terminology-exercises", "title": "Use FHIR Terminology Service APIs", "provider": "NHS England", "topic": "health-data-standards", "type": "Guide", "cost": "Free", "fee": "Free access", "certificate": false, "duration": "Not listed", "languages": ["English"], "level": "Intermediate", "description": "Six practical exercises on code systems, value sets, concept maps and validation. Access to a FHIR server is needed to run the exercises.", "descriptionFr": "Six exercices pratiques sur les systèmes de codes, les jeux de valeurs, les tables de correspondance et la validation. Un serveur FHIR est nécessaire pour réaliser les exercices.", "url": "https://digital.nhs.uk/services/terminology-server/how-to-use-the-terminology-server/use-fhir-terminology-service-apis", "tags": ["FHIR", "NHS", "terminology"]}]</script>
 <script>
-'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  const quiz = document.getElementById('quiz');
+  const learningPath = document.getElementById('learning-path');
+  const directory = document.getElementById('directory');
+  const form = document.getElementById('quiz-form');
+  const role = document.getElementById('role');
+  const experience = document.getElementById('experience');
+  const status = document.getElementById('quiz-status');
+  const oldResults = document.getElementById('recommendations');
 
-const $ = id => document.getElementById(id);
-const topics = new Map([...document.querySelectorAll('#topic-nav a')].map(a => [a.hash.slice(1), a.textContent.trim().replace(/^[IV]+\.\s+/, '')]));
-topics.set('communities', 'Communities and discussion forums');
-const topicNumbers = new Map([...topics.keys()].map((id, i) => [id, ['I', 'II', 'III', 'IV', 'V', 'VI'][i]]));
-const topicLabel = (id, title) => topicNumbers.get(id) + '. ' + t(title);
-const icons = { Course: '▤', Lecture: '▶', Guide: '▣', Publication: '▧', Article: '¶', Exam: '✓', Community: '◇' };
-const fields = ['topic', 'type', 'cost', 'certificate', 'level', 'resource-language', 'time', 'sort'];
-const defaults = { q: '', topic: '', type: '', cost: '', certificate: '', level: '', 'resource-language': '', time: '', sort: 'beginner' };
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-let resources = [];
-let french = readStorage('health-hub-language', 'en') === 'fr';
-const strings = {
-  "Governance supports data spaces": "La gouvernance soutient les espaces de données",
-  "1 to 4 hours": "1 à 4 heures",
-  "Online course": "Cours en ligne",
-  "Blog": "Blog",
-  "Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.": "Bienvenue sur ce portail de formation ! Vous y trouverez une sélection de cours, de vidéos, de guides et de rapports sur les normes relatives aux données de santé, l’architecture d’interopérabilité, la gouvernance et les espaces africain et européen des données de santé.",
-  "Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.": "Utilisez les filtres pour trouver des ressources par thème, format, niveau, coût, langue, durée ou disponibilité d’une attestation.",
-  "Browse and filter resources": "Parcourir et filtrer les ressources",
+  directory.before(quiz, learningPath);
 
-  "Learn Health Data Interoperability and Health Data Spaces": "Découvrir l’interopérabilité et les espaces de données de santé",
-  "Find courses, guides and communities on health data interoperability and health data spaces.": "Trouvez des cours, des guides et des communautés sur l’interopérabilité et les espaces de données de santé.",
-  "Skip to resources": "Aller aux ressources",
-  "GIZ logo": "Logo GIZ",
-  "Dark mode": "Mode sombre",
-  "Addis workshop · 24 November 2026": "Atelier d’Addis-Abeba · 24 novembre 2026",
-  "Explore how health systems exchange, understand and reuse data across organizations and borders.": "Découvrez comment les systèmes de santé échangent, interprètent et réutilisent les données entre organisations et par-delà les frontières.",
-  "Search the collection": "Rechercher dans le catalogue",
-  "Search resources, providers or tags": "Rechercher une ressource, un organisme ou un mot-clé",
-  "Suggested searches": "Suggestions de recherche",
-  "Governance": "Gouvernance",
-  "Start here": "Commencer ici",
-  "Learning topics": "Thèmes d’apprentissage",
-  "Start by understanding interoperability": "Comprendre les bases de l’interopérabilité",
-  "Health data standards and terminologies": "Normes et terminologies des données de santé",
-  "Health data interoperability architectures": "Architectures d’interopérabilité des données de santé",
-  "Laws and regulations": "Lois et réglementations",
-  "Health data spaces": "Espaces de données de santé",
-  "Communities and discussion forums": "Communautés et forums de discussion",
-  "resources": "ressources",
-  "topics": "thèmes",
-  "free": "gratuites",
-  "Explore the collection": "Explorer le catalogue",
-  "Browse courses, lectures, reports, and practical guides, from the fundamentals to implementation.": "Parcourez les cours, conférences, rapports et guides pratiques, des bases à la mise en œuvre.",
-  "Find my path": "Trouver mon parcours",
-  "My learning path": "Mon parcours d’apprentissage",
-  "Filter resources": "Filtrer les ressources",
-  "Quick filters": "Filtres rapides",
-  "Beginner": "Débutant",
-  "Free": "Gratuit",
-  "Certificate available": "Attestation disponible",
-  "Online courses": "Cours en ligne",
-  "Topic": "Thème",
-  "Resource type": "Type de ressource",
-  "Cost": "Coût",
-  "Certificate availability": "Disponibilité d’une attestation",
-  "Level": "Niveau",
-  "Resource language": "Langue de la ressource",
-  "Time commitment": "Temps à prévoir",
-  "Sort by": "Trier par",
-  "Beginner first": "Débutants d’abord",
-  "Free first": "Ressources gratuites d’abord",
-  "A to Z": "De A à Z",
-  "Provider": "Organisme",
-  "Clear filters": "Effacer les filtres",
-  "Loading resources…": "Chargement des ressources…",
-  "Enable JavaScript to search and browse the directory.": "Activez JavaScript pour rechercher et consulter le catalogue.",
-  "Save resources as you browse, then mark them complete here. Your progress stays in this browser.": "Enregistrez des ressources en parcourant le catalogue, puis marquez-les ici comme terminées. Vos progrès sont conservés dans ce navigateur.",
-  "0 of 0 completed": "0 sur 0 terminées",
-  "Learning path completion": "Progression du parcours",
-  "Copy text list": "Copier la liste",
-  "Print path": "Imprimer le parcours",
-  "Export progress": "Exporter mes progrès",
-  "Import progress": "Importer mes progrès",
-  "Your role": "Votre rôle",
-  "Choose a role": "Choisir un rôle",
-  "Student or learner": "Étudiant ou apprenant",
-  "Health IT implementer": "Spécialiste des systèmes d’information de santé",
-  "Policy or program lead": "Responsable de politiques ou de programmes",
-  "Your experience": "Votre expérience",
-  "Choose a level": "Choisir un niveau",
-  "Intermediate": "Intermédiaire",
-  "Advanced": "Avancé",
-  "Your focus": "Votre zone d’intérêt",
-  "Choose an area": "Choisir une zone",
-  "Africa": "Afrique",
-  "Europe": "Europe",
-  "Global": "Monde",
-  "Recommend resources": "Suggérer des ressources",
-  "Interoperability map": "Carte de l’interopérabilité",
-  "Choose a node to find related resources. Standards define what is exchanged, architectures connect systems, and governance sets rules for access and reuse.": "Sélectionnez un élément pour trouver les ressources associées. Les normes définissent les données échangées, les architectures relient les systèmes et la gouvernance fixe les règles d’accès et de réutilisation.",
-  "Compare health data space resources": "Comparer les ressources sur les espaces de données de santé",
-  "Comparison layout": "Mode de comparaison",
-  "Side by side": "Côte à côte",
-  "Keep the conversation going": "Poursuivre la discussion",
-  "Join our Digital Health Africa community on Zulip to ask questions, share resources and discuss implementation experiences.": "Rejoignez notre communauté Digital Health Africa sur Zulip pour poser vos questions, partager des ressources et échanger sur vos expériences de mise en œuvre.",
-  "Introduce yourself and your work.": "Présentez-vous et parlez de votre travail.",
-  "Ask about standards, architecture or governance.": "Posez vos questions sur les normes, l’architecture ou la gouvernance.",
-  "Share courses, guides and useful examples.": "Partagez des cours, des guides et des exemples utiles.",
-  "Join us on Zulip": "Nous rejoindre sur Zulip",
-  "GIZ workshop resource · Addis Ababa · 24 November 2026": "Ressource de l’atelier GIZ · Addis-Abeba · 24 novembre 2026",
-  "Back to top ↑": "Retour en haut ↑",
-  "More filters": "Plus de filtres",
-  "Filter by topic": "Filtrer par thème",
-  "All topics": "Tous les thèmes",
-  "All types": "Tous les types",
-  "Video lectures": "Conférences vidéo",
-  "PDFs": "PDF",
-  "Guides and references": "Guides et références",
-  "Publications": "Publications",
-  "Blogs and articles": "Blogs et articles",
-  "Certification exams": "Examens de certification",
-  "Communities": "Communautés",
-  "Any cost": "Tous les coûts",
-  "Paid": "Payant",
-  "Check provider": "Voir auprès de l’organisme",
-  "Any level": "Tous les niveaux",
-  "All levels": "Tous niveaux",
-  "All resources": "Toutes les ressources",
-  "No confirmed certificate": "Aucune attestation confirmée",
-  "Any resource language": "Toutes les langues",
-  "Any time commitment": "Toutes les durées",
-  "English": "Anglais",
-  "French": "Français",
-  "Spanish": "Espagnol",
-  "Portuguese": "Portugais",
-  "Arabic": "Arabe",
-  "English; most modules also in French": "Anglais ; la plupart des modules sont aussi en français",
-  "other EU languages": "autres langues de l’UE",
-  "governance": "gouvernance",
-  "Self-paced reading": "Lecture à son rythme",
-  "Self-paced reference": "Référence à consulter à son rythme",
-  "Not listed": "Non indiqué",
-  "Full day or longer": "Une journée ou plus",
-  "Multi-day schedule": "Sur plusieurs jours",
-  "Ongoing": "En continu",
-  "About 13 hours (core)": "Environ 13 heures (tronc commun)",
-  "18-day email course": "Cours par courriel sur 18 jours",
-  "Free access": "Accès gratuit",
-  "US$39 (listed fee)": "39 USD (tarif indiqué)",
-  "Course": "Cours",
-  "Lecture": "Conférence",
-  "Guide": "Guide",
-  "Publication": "Publication",
-  "Article": "Article",
-  "Exam": "Examen",
-  "Community": "Communauté",
-  "Link coming soon": "Lien à venir",
-  "Open resource": "Ouvrir la ressource",
-  "Copy link": "Copier le lien",
-  "No resources match. Try a different keyword or clear the filters.": "Aucune ressource ne correspond. Essayez un autre mot-clé ou effacez les filtres.",
-  "Saved": "Enregistrée",
-  "Save": "Enregistrer",
-  "No saved resources yet.": "Aucune ressource enregistrée pour le moment.",
-  "Complete": "Terminée",
-  "Remove": "Retirer",
-  "Your suggested learning order": "Votre parcours d’apprentissage suggéré",
-  "Standards": "Normes",
-  "Architectures": "Architectures",
-  "AU frameworks": "Cadres de l’Union africaine",
-  "GDPR": "RGPD",
-  "EHDS": "EEDS",
-  "Data flows into connected systems": "Les données circulent entre les systèmes connectés",
-  "Governance shapes access and reuse": "La gouvernance encadre l’accès et la réutilisation",
-  "African Health Data Space": "Espace africain des données de santé",
-  "European Health Data Space": "Espace européen des données de santé",
-  "Browser storage is unavailable. Changes last until you close this page.": "Le stockage du navigateur est indisponible. Les modifications seront perdues à la fermeture de cette page.",
-  "Copied to clipboard.": "Copié dans le presse-papiers.",
-  "Text to copy": "Texte à copier",
-  "Copy the selected text.": "Copiez le texte sélectionné.",
-  "Close": "Fermer",
-  "Choose a valid learning progress JSON file exported from this hub.": "Sélectionnez un fichier JSON de progression exporté depuis ce portail.",
-  "The resource directory could not start. Reload the page. If the problem persists, check the browser console.": "Impossible d’ouvrir le catalogue. Rechargez la page. Si le problème persiste, consultez la console du navigateur.",
-  "Switch the website language": "Changer la langue du site",
-  "Light mode": "Mode clair",
-  " (opens in a new tab)": " (s’ouvre dans un nouvel onglet)",
-  "Copy link to ": "Copier le lien vers ",
-  "Remove bookmark for ": "Retirer le favori pour ",
-  "Bookmark ": "Ajouter aux favoris : ",
-  "Completed: ": "Terminée : ",
-  "Remove from learning path: ": "Retirer du parcours : ",
-  "Filter by ": "Filtrer par : "
-};
-const t = text => french ? (strings[text] ?? text) : text;
-const translate = (en, fr) => french ? fr : en;
+  const results = document.createElement('div');
+  results.id = 'recommendations';
+  oldResults.replaceWith(results);
 
-const staticText = [];
-const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT, {
-  acceptNode(node) {
-    return node.parentElement.closest('script, style') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+  const focus = document.getElementById('focus');
+  if (focus) {
+    focus.required = false;
+    focus.disabled = true;
+    const label = focus.closest('label');
+    if (label) label.hidden = true;
+    else focus.hidden = true;
   }
-});
-while (walker.nextNode()) {
-  const node = walker.currentNode;
-  const key = node.nodeValue.trim();
-  if (Object.hasOwn(strings, key)) staticText.push([node, node.nodeValue, key]);
-}
-const staticAttributes = [...document.querySelectorAll('[aria-label], [placeholder], meta[name="description"]')]
-  .flatMap(node => ['aria-label', 'placeholder', 'content'].filter(attr => node.hasAttribute(attr))
-    .map(attr => [node, attr, node.getAttribute(attr)]));
 
-function updateLanguage() {
-  document.documentElement.lang = french ? 'fr' : 'en';
-  for (const [node, original, key] of staticText) node.nodeValue = original.replace(key, t(key));
-  for (const [node, attr, value] of staticAttributes) node.setAttribute(attr, t(value));
-  $('language-toggle').textContent = translate('Français', 'English');
-  $('language-toggle').lang = translate('fr', 'en');
-  setTheme(document.documentElement.dataset.theme);
-}
-
-$('language-toggle').addEventListener('click', () => {
-  french = !french;
-  store('health-hub-language', french ? 'fr' : 'en');
-  updateLanguage();
-  if (!resources.length) {
-    $('count').textContent = t(loadError || 'Loading resources…');
-    return;
+  let advanced = [...experience.options].find(option => option.value === 'Advanced');
+  if (!advanced) {
+    advanced = new Option('Advanced', 'Advanced');
+    experience.add(advanced);
   }
-  setupOptions();
-  apply(state, false);
-  renderPath();
-  $('map-diagram').replaceChildren();
-  makeMap();
-  compare($('compare-controls').querySelector('[aria-pressed="true"]').dataset.compare);
-  if ($('recommendations').children.length) $('quiz-form').requestSubmit();
-});
 
-function resourceLanguages(item) {
-  return ['English', 'French', 'Spanish', 'Portuguese', 'Arabic']
-    .filter(language => item.languages.some(label => label.includes(language)));
-}
-
-let state = { ...defaults };
-let noticeTimer;
-let selectedSection = '';
-let saved = readStorage('health-hub-path', {});
-if (!saved || typeof saved !== 'object' || Array.isArray(saved)) saved = {};
-const animations = typeof IntersectionObserver === 'function' && new IntersectionObserver(entries => {
-  for (const entry of entries) {
-    if (!entry.isIntersecting) continue;
-    if (!reduced.matches) entry.target.classList.add('enter');
-    animations.unobserve(entry.target);
-  }
-}, { threshold: .12 });
-
-function readStorage(key, fallback) {
-  try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
-  catch { return fallback; }
-}
-
-function store(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); }
-  catch { notify('Browser storage is unavailable. Changes last until you close this page.'); }
-}
-
-function el(tag, text, cls) {
-  const node = document.createElement(tag);
-  if (text) node.textContent = t(text);
-  if (cls) node.className = cls;
-  return node;
-}
-
-function control(text, action, cls) {
-  const button = el('button', text, cls);
-  button.type = 'button';
-  button.addEventListener('click', action);
-  return button;
-}
-
-function external(text, url, cls) {
-  const link = el('a', text, cls);
-  link.href = url;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  link.setAttribute('aria-label', t(text) + t(' (opens in a new tab)'));
-  return link;
-}
-
-function notify(message) {
-  $('notice').textContent = t(message);
-  clearTimeout(noticeTimer);
-  noticeTimer = setTimeout(() => { $('notice').textContent = ''; }, 4500);
-}
-
-async function copy(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    notify('Copied to clipboard.');
-  } catch {
-    const field = el('textarea');
-    field.value = text;
-    field.setAttribute('aria-label', t('Text to copy'));
-    const dialog = el('dialog');
-    dialog.append(el('p', 'Copy the selected text.'), field, control('Close', () => dialog.close()));
-    dialog.addEventListener('close', () => dialog.remove(), { once: true });
-    document.body.append(dialog);
-    dialog.showModal();
-    field.select();
-  }
-}
-
-function setTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  $('theme').textContent = t(theme === 'dark' ? 'Light mode' : 'Dark mode');
-  $('theme').setAttribute('aria-pressed', String(theme === 'dark'));
-}
-setTheme(readStorage('health-hub-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-$('theme').addEventListener('click', () => {
-  const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  setTheme(theme);
-  store('health-hub-theme', theme);
-});
-
-function setOptions(id, label, pairs) {
-  $(id).replaceChildren(new Option(t(label), ''), ...pairs.map(([value, name]) => new Option(t(name), value)));
-}
-
-function loadHash() {
-  const hash = location.hash.slice(1);
-  if (!hash.startsWith('view?')) {
-    if (topics.has(hash)) resetAndShow(hash);
-    else if (!hash) apply(defaults, false);
-    return;
-  }
-  const params = new URLSearchParams(hash.slice(5));
-  const values = { ...defaults, q: params.get('q') || '' };
-  for (const field of fields) {
-    const value = params.get(field);
-    if ([...$(field).options].some(option => option.value === value)) values[field] = value;
-  }
-  apply(values, false);
-  const target = params.get('resource');
-  if (target) {
-    requestAnimationFrame(() => $('resource-' + target)?.scrollIntoView());
-  } else {
-    $('directory').scrollIntoView();
-  }
-}
-
-function apply(values, sync = true) {
-  state = { ...defaults, ...values };
-  for (const field of fields) $(field).value = state[field];
-  if (sync) {
-    const params = new URLSearchParams(Object.entries(state).filter(([key, value]) => value !== defaults[key]));
-    history.replaceState(null, '', params.size ? '#view?' + params : location.pathname + location.search);
-  }
-  render();
-}
-
-function resetAndShow(topic) {
-  apply(defaults, false);
-  if (topic) requestAnimationFrame(() => $(topic)?.scrollIntoView());
-}
-
-function appendHighlighted(node, text, words) {
-  if (!words.length) {
-    node.textContent = t(text);
-    return;
-  }
-  const escaped = words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const pattern = new RegExp('(' + escaped.join('|') + ')', 'gi');
-  text.split(pattern).forEach((part, i) => node.append(i % 2 ? el('mark', part) : document.createTextNode(part)));
-}
-
-function scoreOrder(item, sort) {
-  const price = item.cost === 'Free' ? (item.certificate ? 0 : 1) : item.cost === 'Paid' ? 3 : 2;
-  const level = ['Beginner', 'All levels', 'Intermediate'].indexOf(item.level);
-  return sort === 'free' ? price * 3 + level : level * 4 + price;
-}
-
-const utahCourse = [
-  'interoperability-intro-and-part-1',
-  'interoperability-part-2',
-  'interoperability-part-3'
-];
-
-function ordering(a, b) {
-  if (state.sort === 'beginner') {
-    const featured = Number(b.id === 'medblocks-fhir-fundamentals') -
-      Number(a.id === 'medblocks-fhir-fundamentals');
-    if (featured) return featured;
-    const first = utahCourse.indexOf(a.id);
-    const second = utahCourse.indexOf(b.id);
-    if (first !== second) {
-      return (first < 0 ? utahCourse.length : first) - (second < 0 ? utahCourse.length : second);
+  const topics = [
+    {
+      title: ['I. Interoperability fundamentals', 'I. Bases de l’interopérabilité'],
+      core: [
+        'interoperability-intro-and-part-1',
+        'interoperability-part-2',
+        'interoperability-part-3',
+        'foundations-of-health-information-exchange'
+      ],
+      extra: [
+        'digital-health-planning-national-systems',
+        'public-health-interoperability-training-catalog'
+      ]
+    },
+    {
+      title: ['II. Standards and terminologies', 'II. Normes et terminologies'],
+      core: ['medblocks-fhir-fundamentals', 'loinc', 'snomed-ct', 'icd-11', 'ucum', 'dicom'],
+      extra: ['hl7-fhir', 'interopen-terminology-learnathon', 'nhs-fhir-terminology-exercises']
+    },
+    {
+      title: ['III. Interoperability architecture', 'III. Architecture d’interopérabilité'],
+      core: ['openhie-architecture-overview'],
+      extra: ['dhis2-fundamentals', 'dhis2-integration-concepts', 'ihe-technical-framework']
+    },
+    {
+      title: ['IV. Laws and data governance', 'IV. Législation et gouvernance des données'],
+      core: ['african-union-data-policy-framework', 'african-union-hie-guidelines-and-standards'],
+      extra: ['malabo-convention', 'afcfta-digital-trade', 'general-data-protection-regulation-gdpr']
+    },
+    {
+      title: ['V. Health data spaces', 'V. Espaces de données de santé'],
+      core: ['ahds-project-website', 'ehds-regulation-overview-and-timeline'],
+      extra: [
+        'ahds-cross-border-prototype',
+        'frequently-asked-questions-on-the-european-health-data-space',
+        'ehds-implementation-webinar'
+      ]
     }
-  }
-  if (state.sort === 'provider') return a.provider.localeCompare(b.provider) || a.title.localeCompare(b.title);
-  if (state.sort === 'title') return a.title.localeCompare(b.title);
-  const influence = scoreOrder(a, state.sort) - scoreOrder(b, state.sort);
-  return influence || Number(b.tags.includes('Start here')) - Number(a.tags.includes('Start here')) ||
-    (state.sort === 'free' ? a.title.localeCompare(b.title) : 0);
-}
-
-function card(item, words) {
-  const node = el('li', '', 'card');
-  node.id = 'resource-' + item.id;
-  const badges = el('div', '', 'badges');
-  const part = utahCourse.indexOf(item.id) + 1;
-  if (part) {
-    badges.append(el('span', translate(`Three-part course · Part ${part} of 3`, `Cours en trois parties · Partie ${part} sur 3`), 'badge ribbon'));
-  } else if (item.tags.includes('Start here')) {
-    badges.append(el('span', 'Start here', 'badge ribbon'));
-  }
-  const provider = el('span', '', 'badge');
-  appendHighlighted(provider, item.provider, words);
-  badges.append(provider, el('span', icons[item.type] + ' ' + t(item.type), 'badge'));
-  const title = el('h3');
-  appendHighlighted(title, item.title, words);
-  const description = el('p');
-  description.lang = translate('en', 'fr');
-  appendHighlighted(description, translate(item.description, item.descriptionFr || item.description), words);
-  const facts = el('div', '', 'badges');
-  for (const label of [item.level, item.cost, ...(item.certificate ? ['Certificate available'] : []), ...item.languages]) {
-    facts.append(el('span', label, 'badge'));
-  }
-  const matchedTags = item.tags.filter(tag => words.some(word => tag.toLowerCase().includes(word)));
-  for (const tag of matchedTags) {
-    const badge = el('span', '', 'badge');
-    appendHighlighted(badge, t(tag), words);
-    facts.append(badge);
-  }
-  const actions = el('div', '', 'actions');
-  if (item.url === '#') actions.append(el('span', 'Link coming soon'));
-  else actions.append(external('Open resource', item.url, 'button'));
-  const saveButton = control('', () => toggleBookmark(item), 'secondary');
-  renderSaveButton(saveButton, item);
-  actions.append(saveButton);
-  const copyButton = control('Copy link', () => {
-    const url = new URL(location.href);
-    url.hash = 'view?' + new URLSearchParams({ resource: item.id });
-    copy(url.href);
-  }, 'secondary');
-  copyButton.setAttribute('aria-label', t('Copy link to ') + item.title);
-  actions.append(copyButton);
-  node.append(badges, title, description, facts, el('p', t(item.duration) + ' · ' + t(item.fee), 'duration'));
-  const verification = [];
-  if (item.linkVerifiedOn) verification.push(translate('Link checked', 'Lien vérifié') + ' ' + item.linkVerifiedOn);
-  if (item.certificateVerifiedOn) verification.push(translate('Certificate checked', 'Attestation vérifiée') + ' ' + item.certificateVerifiedOn);
-  if (verification.length) node.append(el('p', verification.join(' · '), 'verification'));
-  node.append(actions);
-  animations && animations.observe(node);
-  return node;
-}
-
-function render() {
-  const words = state.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
-  const visible = resources.filter(item => {
-    const text = [item.title, item.provider, item.description, item.descriptionFr, ...item.tags, ...item.tags.map(t)].join(' ').toLowerCase();
-    return words.every(word => text.includes(word)) &&
-      (!state.topic || state.topic === item.topic) &&
-      (!state.type || (state.type === 'PDF' ? item.tags.includes('PDF') || /\.pdf\b/i.test(item.url) : state.type === item.type)) &&
-      (!state.cost || state.cost === item.cost) &&
-      (!state.level || state.level === item.level) &&
-      (!state['resource-language'] || resourceLanguages(item).includes(state['resource-language'])) &&
-      (!state.time || state.time === item.timeCommitment) &&
-      (!state.certificate || item.certificate === (state.certificate === 'yes'));
-  });
-  const result = $('results');
-  animations && animations.disconnect();
-  result.replaceChildren();
-  $('count').textContent = translate(`Showing ${visible.length} of ${resources.length} resources`, `${visible.length} ressources affichées sur ${resources.length}`);
-  if (!visible.length) result.append(el('p', 'No resources match. Try a different keyword or clear the filters.'));
-  for (const [id, title] of topics) {
-    const group = visible.filter(item => item.topic === id).sort(ordering);
-    if (!group.length) continue;
-    const section = el('section');
-    section.id = id;
-    const list = el('ul', '', 'cards');
-    list.append(...group.map(item => card(item, words)));
-    section.append(el('h3', topicLabel(id, title)), list);
-    result.append(section);
-  }
-  updateActive();
-}
-
-function renderSaveButton(button, item) {
-  const has = Object.hasOwn(saved, item.id);
-  button.textContent = t(has ? 'Saved' : 'Save');
-  button.setAttribute('aria-pressed', String(has));
-  button.setAttribute('aria-label', t(has ? 'Remove bookmark for ' : 'Bookmark ') + item.title);
-  button.dataset.bookmark = item.id;
-}
-
-function toggleBookmark(item) {
-  if (Object.hasOwn(saved, item.id)) delete saved[item.id];
-  else saved[item.id] = false;
-  store('health-hub-path', saved);
-  for (const button of document.querySelectorAll('[data-bookmark]')) {
-    if (button.dataset.bookmark === item.id) renderSaveButton(button, item);
-  }
-  renderPath();
-}
-
-function pathItems() {
-  const byId = new Map(resources.map(item => [item.id, item]));
-  return Object.keys(saved).map(id => byId.get(id)).filter(Boolean);
-}
-
-function updateProgress(items) {
-  const done = items.filter(item => saved[item.id]).length;
-  $('progress').max = items.length || 1;
-  $('progress').value = done;
-  $('progress-text').textContent = translate(`${done} of ${items.length} completed`, `${done} sur ${items.length} terminées`);
-}
-
-function renderPath() {
-  const items = pathItems();
-  updateProgress(items);
-  $('copy-path').disabled = $('print-path').disabled = $('export-path').disabled = !items.length;
-  $('saved-list').replaceChildren();
-  if (!items.length) $('saved-list').append(el('li', 'No saved resources yet.'));
-  for (const item of items) {
-    const row = el('li');
-    const choice = el('input');
-    choice.type = 'checkbox';
-    choice.checked = Boolean(saved[item.id]);
-    choice.setAttribute('aria-label', t('Completed: ') + item.title);
-    choice.addEventListener('change', () => {
-      saved[item.id] = choice.checked;
-      store('health-hub-path', saved);
-      updateProgress(items);
-    });
-    const label = el('label');
-    label.append(choice, document.createTextNode(t('Complete')));
-    const remove = control('Remove', () => {
-      toggleBookmark(item);
-      ($('saved-list').querySelector('button') || $('learning-path')).focus();
-    }, 'secondary');
-    remove.setAttribute('aria-label', t('Remove from learning path: ') + item.title);
-    row.append(label, item.url === '#' ? el('span', item.title) : external(item.title, item.url), remove);
-    $('saved-list').append(row);
-  }
-}
-
-$('copy-path').addEventListener('click', () => copy(pathItems().map(item =>
-  (saved[item.id] ? '[x] ' : '[ ] ') + item.title + (item.url === '#' ? '' : ' | ' + item.url)
-).join('\n')));
-$('export-path').addEventListener('click', () => {
-  const entries = pathItems().map(item => ({ id: item.id, completed: saved[item.id] === true }));
-  const url = URL.createObjectURL(new Blob([JSON.stringify({ version: 1, entries }, null, 2)], { type: 'application/json' }));
-  const link = el('a');
-  link.href = url;
-  link.download = 'health-learning-progress.json';
-  document.body.append(link);
-  link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-});
-$('import-path').addEventListener('click', () => $('import-file').click());
-$('import-file').addEventListener('change', async event => {
-  const file = event.target.files[0];
-  event.target.value = '';
-  if (!file) return;
-  try {
-    if (file.size > 1000000) throw new Error('File too large');
-    const data = JSON.parse(await file.text());
-    if (data.version !== 1 || !Array.isArray(data.entries) ||
-      !data.entries.every(entry => entry && typeof entry.id === 'string' && typeof entry.completed === 'boolean')) {
-      throw new Error('Unsupported file');
-    }
-    const ids = new Set(resources.map(item => item.id));
-    const valid = data.entries.filter(entry => ids.has(entry.id));
-    for (const { id, completed } of valid) saved[id] = saved[id] === true || completed;
-    store('health-hub-path', saved);
-    render();
-    renderPath();
-    const count = new Set(valid.map(entry => entry.id)).size;
-    notify(translate(`Imported ${count} saved resources.`, `${count} ressources importées.`));
-  } catch {
-    notify('Choose a valid learning progress JSON file exported from this hub.');
-  }
-});
-$('print-path').addEventListener('click', () => {
-  document.body.classList.add('print-path');
-  window.print();
-});
-window.addEventListener('afterprint', () => document.body.classList.remove('print-path'));
-
-$('quiz-form').addEventListener('submit', event => {
-  event.preventDefault();
-  const role = $('role').value;
-  const level = $('experience').value;
-  const topicIds = ['start-here', 'health-data-standards', 'architecture-and-implementation',
-    'laws-and-regulations', 'health-data-spaces'];
-  const foundations = [
-    [...utahCourse, 'foundations-of-health-information-exchange'],
-    ['medblocks-fhir-fundamentals', 'loinc', 'snomed-ct', 'icd-11', 'ucum', 'dicom'],
-    ['openhie-architecture-overview'],
-    ['african-union-data-policy-framework', 'african-union-hie-guidelines-and-standards'],
-    ['ahds-project-website', 'ehds-regulation-overview-and-timeline']
   ];
-  // Each position follows the same topic order as the foundations above.
-  const pathways = {
+
+  // Each row has one recommendation for each of the five topics, in order.
+  const paths = {
     learner: {
-      Beginner: ['digital-health-planning-national-systems', 'health-data-standards',
-        'dhis2-fundamentals', 'digital-health-blueprint', 'frequently-asked-questions-on-the-european-health-data-space'],
-      Intermediate: ['immunization-information-systems-elearning', 'interopen-terminology-learnathon',
-        'digital-health-platform-handbook', 'malabo-convention', 'digital-health-systems-and-data-sovereignty'],
-      Advanced: ['public-health-interoperability-training-catalog', 'nhs-fhir-terminology-exercises',
-        'ihe-technical-framework', 'recommendation-on-health-data-governance', 'fair-health-infrastructure-africa']
+      Beginner: [
+        'digital-health-planning-national-systems',
+        'health-data-standards',
+        'dhis2-fundamentals',
+        'digital-health-blueprint',
+        'frequently-asked-questions-on-the-european-health-data-space'
+      ],
+      Intermediate: [
+        'immunization-information-systems-elearning',
+        'interopen-terminology-learnathon',
+        'digital-health-platform-handbook',
+        'malabo-convention',
+        'digital-health-systems-and-data-sovereignty'
+      ],
+      Advanced: [
+        'public-health-interoperability-training-catalog',
+        'nhs-fhir-terminology-exercises',
+        'ihe-technical-framework',
+        'recommendation-on-health-data-governance',
+        'fair-health-infrastructure-africa'
+      ]
     },
     implementer: {
-      Beginner: ['immunization-information-systems-elearning', 'introduction-to-interoperability-and-fhir',
-        'dhis2-fundamentals', 'digital-health-blueprint', 'frequently-asked-questions-on-the-european-health-data-space'],
-      Intermediate: ['public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-        'dhis2-integration-concepts', 'african-continental-health-data-governance-framework', 'ahds-cross-border-prototype'],
-      Advanced: ['interoperability-in-healthcare-towards-an-interconnected-future', 'nhs-fhir-terminology-exercises',
-        'data-exchange-specification', 'igad-health-data-sharing', 'fair-health-infrastructure-africa']
+      Beginner: [
+        'immunization-information-systems-elearning',
+        'introduction-to-interoperability-and-fhir',
+        'dhis2-fundamentals',
+        'digital-health-blueprint',
+        'frequently-asked-questions-on-the-european-health-data-space'
+      ],
+      Intermediate: [
+        'public-health-interoperability-training-catalog',
+        'interopen-terminology-learnathon',
+        'dhis2-integration-concepts',
+        'african-continental-health-data-governance-framework',
+        'ahds-cross-border-prototype'
+      ],
+      Advanced: [
+        'interoperability-in-healthcare-towards-an-interconnected-future',
+        'nhs-fhir-terminology-exercises',
+        'data-exchange-specification',
+        'igad-health-data-sharing',
+        'fair-health-infrastructure-africa'
+      ]
     },
     policy: {
-      Beginner: ['digital-health-planning-national-systems', 'health-data-standards',
-        'digital-health-platform-handbook', 'digital-health-blueprint', 'digital-health-systems-and-data-sovereignty'],
-      Intermediate: ['interoperability-in-healthcare-towards-an-interconnected-future', 'introduction-to-interoperability-and-fhir',
-        'health-information-exchange-maturity-assessment-tool', 'african-continental-health-data-governance-framework', 'ehds-secondary-use-webinar'],
-      Advanced: ['public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-        'digital-adaptation-kits', 'afcfta-digital-trade-annexes', 'european-health-data-space-regulation-eu-2025-327']
+      Beginner: [
+        'digital-health-planning-national-systems',
+        'health-data-standards',
+        'digital-health-platform-handbook',
+        'digital-health-blueprint',
+        'digital-health-systems-and-data-sovereignty'
+      ],
+      Intermediate: [
+        'interoperability-in-healthcare-towards-an-interconnected-future',
+        'introduction-to-interoperability-and-fhir',
+        'health-information-exchange-maturity-assessment-tool',
+        'african-continental-health-data-governance-framework',
+        'ehds-secondary-use-webinar'
+      ],
+      Advanced: [
+        'public-health-interoperability-training-catalog',
+        'interopen-terminology-learnathon',
+        'digital-adaptation-kits',
+        'afcfta-digital-trade-annexes',
+        'european-health-data-space-regulation-eu-2025-327'
+      ]
     }
   };
-  const selected = pathways[role]?.[level];
-  if (!selected) return;
 
-  const notes = [
-    translate('Watch all three University of Utah lectures in order, then continue with the foundations of health information exchange.',
-      'Regardez les trois vidéos de l’Université de l’Utah dans l’ordre, puis découvrez les bases de l’échange d’informations de santé.'),
-    translate('Use a laboratory result to see how FHIR, LOINC and UCUM work together, then explore SNOMED CT, ICD-11 and DICOM.',
-      'Partez d’un résultat de laboratoire pour comprendre comment FHIR, LOINC et UCUM fonctionnent ensemble, puis explorez SNOMED CT, la CIM-11 et DICOM.'),
-    translate('Trace the data flow from a health facility to a national platform.',
-      'Suivez le parcours des données d’un établissement de santé vers une plateforme nationale.'),
-    translate('Identify who can access, exchange and reuse health data, and under what rules.',
-      'Identifiez qui peut accéder aux données de santé, les échanger et les réutiliser, et à quelles conditions.'),
-    translate('Compare how the African and European initiatives approach health data sharing.',
-      'Comparez les approches africaines et européennes du partage des données de santé.')
-  ];
-  const furtherResources = [
-    ['digital-health-planning-national-systems', 'public-health-interoperability-training-catalog'],
-    ['hl7-fhir', 'interopen-terminology-learnathon', 'nhs-fhir-terminology-exercises'],
-    ['dhis2-fundamentals', 'dhis2-integration-concepts', 'ihe-technical-framework'],
-    ['malabo-convention', 'afcfta-digital-trade', 'general-data-protection-regulation-gdpr'],
-    ['ahds-cross-border-prototype', 'frequently-asked-questions-on-the-european-health-data-space', 'ehds-implementation-webinar']
-  ];
-  const resourcesById = new Map(resources.map(item => [item.id, item]));
-  const topicLinks = [...document.querySelectorAll('#topic-nav a')];
-  function resourceList(ids, ordered) {
-    const list = el(ordered ? 'ol' : 'ul');
-    for (const id of ids) {
-      const item = resourcesById.get(id);
-      if (!item) continue;
-      const row = el('li');
-      const bookmark = control('', () => toggleBookmark(item), 'secondary');
-      renderSaveButton(bookmark, item);
-      row.append(item.url === '#' ? el('span', item.title) : external(item.title, item.url), document.createTextNode(' '), bookmark);
-      list.append(row);
-    }
-    return list;
+  const extraLinks = {
+    'interoperability-intro-and-part-1': [
+      'University of Utah, Part 1: Introduction to interoperability',
+      'https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_sc4s3lfg'
+    ],
+    'interoperability-part-2': [
+      'University of Utah, Part 2: Terminology and data exchange standards',
+      'https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_54bql655'
+    ],
+    'interoperability-part-3': [
+      'University of Utah, Part 3: The role of public health experts',
+      'https://mediaspace.utah.edu/playlist/dedicated/1_g4nr8pm0/1_uvt8uyvn'
+    ],
+    'medblocks-fhir-fundamentals': [
+      'Medblocks FHIR® Fundamentals',
+      'https://medblocks.com/training/courses/fhir-fundamentals'
+    ],
+    'interopen-terminology-learnathon': [
+      'Terminology Server: The Learnathon',
+      'https://www.youtube.com/watch?v=EBXtmTshNJ4'
+    ],
+    'nhs-fhir-terminology-exercises': [
+      'NHS England: Use FHIR Terminology Service APIs',
+      'https://digital.nhs.uk/services/terminology-server/how-to-use-the-terminology-server/use-fhir-terminology-service-apis'
+    ],
+    'afcfta-digital-trade': [
+      'AfCFTA Protocol on Digital Trade',
+      'https://www.au.int/en/treaties/protocol-agreement-establishing-african-continental-free-trade-area-digital-trade'
+    ],
+    'afcfta-digital-trade-annexes': [
+      'AfCFTA Digital Trade Protocol: Compiled Annexes',
+      'https://www.au.int/sites/default/files/treaties/44963-ax-ENG_Circulation_Digital_Trade_Compiled_Certified_Legal_Instruments_38thAssembly_Feb_2025_27_May2025.pdf'
+    ],
+    'igad-health-data-sharing': [
+      'IGAD Regional Health Data Sharing and Protection Policy Framework',
+      'https://igad.int/download/igad-regional-health-data-sharing-and-protection-policy-framework/'
+    ],
+    'ahds-project-website': [
+      'Africa Health Data Space: Project Website',
+      'https://aun.mu.edu.et/ahds/about/'
+    ],
+    'ahds-cross-border-prototype': [
+      'Africa Health Data Space: Description of a Cross-Border Prototype',
+      'https://www.researchgate.net/publication/417064846_Africa_Health_Data_Space_Description_of_a_Cross-Border_Prototype'
+    ],
+    'fair-health-infrastructure-africa': [
+      'Design of a FAIR digital data health infrastructure in Africa',
+      'https://doi.org/10.1002/ggn2.10050'
+    ]
+  };
+
+  function label(english, french) {
+    return document.documentElement.lang.startsWith('fr') ? french : english;
   }
-  $('recommendations').replaceChildren(...topicIds.map((topic, index) => {
-    const group = el('div');
-    const topicLink = topicLinks.find(link => link.hash === '#' + topic);
-    const heading = topicLink?.textContent.trim() || topic;
-    const further = el('details');
-    const summary = el('summary', translate('Additional materials to read', 'Ressources complémentaires à consulter'), 'button secondary');
-    summary.setAttribute('aria-label', summary.textContent + ' · ' + heading);
-    const included = [...foundations[index], selected[index]];
-    further.append(summary, resourceList(furtherResources[index].filter(id => !included.includes(id)), false));
-    group.append(
-      el('h3', heading),
-      el('p', notes[index]),
-      resourceList(foundations[index], true),
-      el('p', translate('Recommended for your role and level', 'Recommandé pour votre rôle et votre niveau')),
-      resourceList([selected[index]], false),
-      further
-    );
-    return group;
-  }));
-  $('quiz-status').textContent = t('Your suggested learning order');
-});
 
-function makeMap() {
-  const ns = 'http://www.w3.org/2000/svg';
-  function svg(tag, attrs, text) {
-    const node = document.createElementNS(ns, tag);
-    for (const [attr, value] of Object.entries(attrs)) node.setAttribute(attr, value);
-    if (text) node.textContent = t(text);
+  function element(tag, text = '') {
+    const node = document.createElement(tag);
+    node.textContent = text;
     return node;
   }
-  const groups = [
-    { title: 'Standards', nodes: ['FHIR', 'LOINC', 'SNOMED CT', 'ICD-11'] },
-    { title: 'Architectures', nodes: ['OpenHIE', 'DHIS2'] },
-    { title: 'Governance', nodes: ['AU frameworks', 'AfCFTA', 'IGAD', 'ECOWAS', 'GDPR'] },
-    { title: 'Health data spaces', nodes: ['AHDS', 'EHDS'] }
-  ];
-  const connectors = ['Data flows into connected systems', 'Governance shapes access and reuse', 'Governance supports data spaces'];
-  groups.forEach(({ title, nodes }, index) => {
-    const diagram = svg('svg', { viewBox: '0 0 310 ' + Math.max(118, 32 + Math.ceil(nodes.length / 2) * 43), role: 'group', 'aria-label': t(title) });
-    diagram.append(svg('text', { x: 8, y: 18, fill: 'currentColor' }, title));
-    nodes.forEach((name, i) => {
-      const x = 8 + (i % 2) * 150;
-      const y = 30 + Math.floor(i / 2) * 43;
-      const node = svg('a', { class: 'map-node', href: '#view?' + new URLSearchParams({ q: name }), 'aria-label': t('Filter by ') + t(name) });
-      node.append(svg('rect', { x, y, width: 140, height: 35, rx: 5 }),
-        svg('text', { x: x + 70, y: y + 22, 'text-anchor': 'middle' }, name));
-      node.addEventListener('click', event => {
-        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        apply({ ...defaults, q: name });
-        $('directory-title').focus({ preventScroll: true });
-        $('directory').scrollIntoView();
-      });
-      diagram.append(node);
+
+  function resourceList(ids, catalogue, ordered = false) {
+    const list = element(ordered ? 'ol' : 'ul');
+
+    for (const id of ids) {
+      const item = catalogue.get(id);
+      const fallback = extraLinks[id];
+      const title = fallback?.[0] ?? item?.title;
+      const url = item?.url && item.url !== '#' ? item.url : fallback?.[1];
+
+      if (!title || !url) continue;
+
+      const row = element('li');
+      const link = element('a', title);
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      row.append(link);
+
+      if (item && typeof renderSaveButton === 'function' && typeof toggleBookmark === 'function') {
+        const save = element('button');
+        save.type = 'button';
+        save.className = 'secondary';
+        renderSaveButton(save, item);
+        save.addEventListener('click', () => toggleBookmark(item));
+        row.append(document.createTextNode(' '), save);
+      }
+
+      list.append(row);
+    }
+
+    return list;
+  }
+
+  function showRecommendations() {
+    const picks = paths[role.value]?.[experience.value];
+    if (!picks) return;
+
+    if (typeof resources === 'undefined' || !resources.length) {
+      status.textContent = label(
+        'The resource list is unavailable. Try reloading this page.',
+        'La liste des ressources est indisponible. Essayez de recharger la page.'
+      );
+      return;
+    }
+
+    const catalogue = new Map(resources.map(item => [item.id, item]));
+
+    const groups = topics.map((topic, index) => {
+      const group = element('div');
+      group.className = 'path-topic';
+
+      const tailored = picks[index];
+      const existing = new Set([...topic.core, tailored]);
+      const additional = topic.extra.filter(id => !existing.has(id));
+
+      const details = element('details');
+      const summary = element(
+        'summary',
+        label('Additional materials to read', 'Ressources complémentaires à consulter')
+      );
+      summary.className = 'button secondary';
+      details.append(summary, resourceList(additional, catalogue));
+
+      group.append(
+        element('h3', label(...topic.title)),
+        resourceList(topic.core, catalogue, true),
+        element('p', label(
+          'Recommended for your role and level',
+          'Recommandé pour votre rôle et votre niveau'
+        )),
+        resourceList([tailored], catalogue),
+        details
+      );
+
+      return group;
     });
-    $('map-diagram').append(diagram);
-    if (connectors[index]) {
-      const arrow = svg('svg', { class: 'map-connector', viewBox: '0 0 36 28', role: 'img', 'aria-label': t(connectors[index]) });
-      arrow.append(svg('path', { class: 'map-edge', d: 'M3 14h28m-8-7 8 7-8 7' }));
-      $('map-diagram').append(arrow);
-    }
-  });
-}
 
-function compare(mode) {
-  const regions = mode === 'both' ? ['Africa', 'Europe'] : [mode];
-  const panels = regions.map(region => {
-    const panel = el('div');
-    const list = el('ul');
-    const picks = resources.filter(item => item.tags.includes(region) &&
-      ['laws-and-regulations', 'health-data-spaces'].includes(item.topic))
-      .sort((a, b) => Number(b.topic === 'health-data-spaces') - Number(a.topic === 'health-data-spaces'));
-    for (const item of picks) {
-      const li = el('li');
-      const resource = item.url === '#' ? el('span', item.title) : external(item.title, item.url);
-      li.append(resource);
-      list.append(li);
-    }
-    panel.append(el('h3', region === 'Africa' ? 'African Health Data Space' : 'European Health Data Space'), list);
-    return panel;
-  });
-  $('compare-content').replaceChildren(...panels);
-  for (const button of $('compare-controls').querySelectorAll('button')) {
-    button.setAttribute('aria-pressed', String(button.dataset.compare === mode));
+    results.replaceChildren(...groups);
+    status.textContent = label(
+      'Your suggested learning order',
+      'Votre parcours d’apprentissage suggéré'
+    );
   }
-}
 
-function updateActive() {
-  const threshold = document.querySelector('.topic-shell').offsetHeight + 115;
-  let current = '';
-  for (const id of topics.keys()) {
-    const section = $(id);
-    if (section && section.getBoundingClientRect().top <= threshold) current = id;
-  }
-  if (current === selectedSection) return;
-  selectedSection = current;
-  for (const anchor of $('topic-nav').querySelectorAll('a')) {
-    if (anchor.hash === '#' + current) anchor.setAttribute('aria-current', 'location');
-    else anchor.removeAttribute('aria-current');
-  }
-}
+  // Capture the submit event before the older quiz handler can render its list.
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showRecommendations();
+  }, true);
 
-let pendingScroll = false;
-window.addEventListener('scroll', () => {
-  if (pendingScroll) return;
-  pendingScroll = true;
-  requestAnimationFrame(() => { updateActive(); pendingScroll = false; });
-}, { passive: true });
+  const syncLanguage = () => {
+    advanced.textContent = label('Advanced', 'Avancé');
+    if (results.children.length) showRecommendations();
+  };
 
-function initialStats() {
-  const values = [resources.length, topics.size - 1, resources.filter(item => item.cost === 'Free').length];
-  const nodes = ['total-stat', 'topic-stat', 'free-stat'].map($);
-  $('stats').hidden = false;
-  const start = performance.now();
-  function frame(now) {
-    const ratio = reduced.matches ? 1 : Math.min(1, (now - start) / 550);
-    nodes.forEach((node, i) => { node.textContent = Math.round(values[i] * ratio); });
-    if (ratio < 1) requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-
-function connectControls() {
-  $('filters').addEventListener('submit', event => event.preventDefault());
-  for (const field of fields) $(field).addEventListener('change', () => apply({ ...state, [field]: $(field).value }));
-  for (const button of $('compare-controls').querySelectorAll('button')) {
-    button.addEventListener('click', () => compare(button.dataset.compare));
-  }
-  $('clear').addEventListener('click', () => apply(defaults));
-  window.addEventListener('hashchange', loadHash);
-  document.addEventListener('click', event => {
-    const link = event.target.closest('a[href^="#"]');
-    if (!link || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-    if (topics.has(link.hash.slice(1))) resetAndShow(link.hash.slice(1));
+  new MutationObserver(syncLanguage).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['lang']
   });
 
-}
-
-function setupOptions() {
-  setOptions('topic', 'All topics', [...topics].map(([id, title]) => [id, topicLabel(id, title)]));
-    setOptions('type', 'All types', [['Course', 'Online course'], ['PDF', 'PDF'], ['Article', 'Blog']]);
-    setOptions('cost', 'Any cost', ['Free', 'Paid', 'Check provider'].map(value => [value, value]));
-    setOptions('level', 'Any level', ['Beginner', 'All levels', 'Intermediate'].map(value => [value, value]));
-    setOptions('certificate', 'All resources', [['yes', 'Certificate available'], ['no', 'No confirmed certificate']]);
-    const languages = [...new Set(resources.flatMap(resourceLanguages))].sort();
-    const times = [...new Set(resources.map(item => item.timeCommitment).filter(Boolean))].sort();
-    setOptions('resource-language', 'Any resource language', languages.map(value => [value, value]));
-    setOptions('time', 'Any time commitment', times.map(value => [value, value]));
-  for (const option of $('sort').options) {
-    const labels = { beginner: 'Beginner first', free: 'Free first', title: 'A to Z', provider: 'Provider' };
-    option.textContent = t(labels[option.value]);
-  }
-}
-
-let loadError;
-updateLanguage();
-async function init() {
-  try {
-    resources = JSON.parse($('resource-data').textContent);
-    if (!Array.isArray(resources)) throw new Error('Resource file must contain an array.');
-    setupOptions();
-      makeMap();
-    compare('both');
-    connectControls();
-    initialStats();
-    apply(defaults, false);
-    loadHash();
-    renderPath();
-  } catch (error) {
-    loadError = 'The resource directory could not start. Reload the page. If the problem persists, check the browser console.';
-    $('count').textContent = t(loadError);
-    console.error(error);
-  }
-}
-init();
-
+  syncLanguage();
+});
 </script>
-</body>
-</html>
