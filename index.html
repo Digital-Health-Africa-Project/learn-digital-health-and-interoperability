@@ -10,16 +10,9 @@
 </head>
 <body id="top">
 <a class="skip" href="#directory">Skip to resources</a>
-
 <header class="hero">
   <div class="wrap">
-    <div class="mast">
-      <div class="brand"><span>Digital Health Africa</span></div>
-      <div class="actions">
-        <button id="language-toggle" type="button" lang="fr" aria-label="Switch the website language">Français</button>
-        <button id="theme" type="button" aria-pressed="false">Dark mode</button>
-      </div>
-    </div>
+    <div class="mast"><div class="brand"><span>Digital Health Africa</span></div><div class="actions"><button id="language-toggle" type="button" lang="fr" aria-label="Switch the website language">Français</button><button id="theme" type="button" aria-pressed="false">Dark mode</button></div></div>
     <div class="hero-copy">
       <p class="date">Addis workshop · 24 November 2026</p>
       <h1>Learn Health Data Interoperability and Health Data Spaces</h1>
@@ -29,16 +22,13 @@
     </div>
   </div>
 </header>
-
-<div class="topic-shell">
-  <nav id="topic-nav" class="wrap" aria-label="Learning topics">
-    <a href="#start-here">Start by understanding interoperability</a>
-    <a href="#health-data-standards">Health data standards and terminologies</a>
-    <a href="#architecture-and-implementation">Health data interoperability architectures</a>
-    <a href="#laws-and-regulations">Laws and regulations</a>
-    <a href="#health-data-spaces">Health data spaces</a>
-  </nav>
-</div>
+<div class="topic-shell"><nav id="topic-nav" class="wrap" aria-label="Learning topics">
+  <a href="#start-here">Start by understanding interoperability</a>
+  <a href="#health-data-standards">Health data standards and terminologies</a>
+  <a href="#architecture-and-implementation">Health data interoperability architectures</a>
+  <a href="#laws-and-regulations">Laws and regulations</a>
+  <a href="#health-data-spaces">Health data spaces</a>
+</nav></div>
 
 <main class="wrap">
   <p class="stats" id="stats" hidden>
@@ -48,36 +38,34 @@
   </p>
 
   <div class="intro">
-    <div class="actions">
-      <a class="button" href="#quiz">Find my path</a>
-      <a class="button secondary" href="#learning-path">My learning path</a>
-    </div>
+    <div class="actions"><a class="button" href="#quiz">Find my path</a><a class="button secondary" href="#learning-path">My learning path</a></div>
   </div>
 
   <section id="directory" aria-labelledby="directory-title">
-    <h2 id="directory-title" tabindex="-1">Filter resources</h2>
+    <h2 id="directory-title" tabindex="-1">Find resources</h2>
     <form id="filters" class="panel">
-      <div class="filter-grid">
-        <label>Topic<select id="topic"></select></label>
+      <label for="search">Search the collection</label>
+      <input id="search" type="search" placeholder="Search resources, providers or tags" autocomplete="off">
+      <div id="chips" class="chips" aria-label="Quick filters">
+        <button type="button" data-quick="Beginner" aria-pressed="false">Beginner</button>
+        <button type="button" data-quick="Free" aria-pressed="false">Free</button>
+        <button type="button" data-quick="yes" aria-pressed="false">Certificate available</button>
+        <button type="button" data-quick="Course" aria-pressed="false">Online courses</button>
+      </div>
+      <div id="topic-chips" class="chips" aria-label="Filter by topic"></div>
+      <details id="more-filters"><summary>More filters</summary><div class="filter-grid">
         <label>Resource type<select id="type"></select></label>
         <label>Cost<select id="cost"></select></label>
         <label>Certificate availability<select id="certificate"></select></label>
         <label>Level<select id="level"></select></label>
         <label>Resource language<select id="resource-language"></select></label>
         <label>Time commitment<select id="time"></select></label>
-        <label>Sort by
-          <select id="sort">
-            <option value="beginner">Beginner first</option>
-            <option value="free">Free first</option>
-            <option value="title">A to Z</option>
-            <option value="provider">Provider</option>
-          </select>
-        </label>
+        <label>Sort by<select id="sort"><option value="beginner">Beginner first</option><option value="free">Free first</option><option value="title">A to Z</option><option value="provider">Provider</option></select></label>
       </div>
-      <button id="clear" class="secondary" type="button">Clear filters</button>
+      </details><button id="clear" class="secondary" type="button">Clear filters</button>
     </form>
     <p id="count" role="status">Loading resources…</p>
-    <noscript><p>Enable JavaScript to filter and browse the directory.</p></noscript>
+    <noscript><p>Enable JavaScript to search and browse the directory.</p></noscript>
     <div id="results"></div>
   </section>
 
@@ -87,47 +75,20 @@
     <p id="progress-text">0 of 0 completed</p>
     <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
     <ul id="saved-list" class="plain"></ul>
-    <div class="actions">
-      <button id="copy-path" type="button">Copy text list</button>
-      <button id="print-path" class="secondary" type="button">Print path</button>
-      <button id="export-path" class="secondary" type="button">Export progress</button>
-      <button id="import-path" class="secondary" type="button">Import progress</button>
-      <input id="import-file" type="file" accept=".json,application/json" hidden>
-    </div>
+    <div class="actions"><button id="copy-path">Copy text list</button><button id="print-path" class="secondary">Print path</button><button id="export-path" class="secondary">Export progress</button><button id="import-path" class="secondary">Import progress</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
   </section>
 
   <section id="quiz" class="panel" aria-labelledby="quiz-title">
     <h2 id="quiz-title">Find my path</h2>
     <form id="quiz-form">
       <div class="filter-grid">
-        <label>Your role
-          <select id="role" required>
-            <option value="">Choose a role</option>
-            <option value="learner">Student or learner</option>
-            <option value="implementer">Health IT implementer</option>
-            <option value="policy">Policy or program lead</option>
-          </select>
-        </label>
-        <label>Your experience
-          <select id="experience" required>
-            <option value="">Choose a level</option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-          </select>
-        </label>
-        <label>Your focus
-          <select id="focus" required>
-            <option value="">Choose an area</option>
-            <option value="Africa">Africa</option>
-            <option value="Europe">Europe</option>
-            <option value="Global">Global</option>
-          </select>
-        </label>
+        <label>Your role<select id="role" required><option value="">Choose a role</option><option value="learner">Student or learner</option><option value="implementer">Health IT implementer</option><option value="policy">Policy or program lead</option></select></label>
+        <label>Your experience<select id="experience" required><option value="">Choose a level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option></select></label>
+        <label>Your focus<select id="focus" required><option value="">Choose an area</option><option value="Africa">Africa</option><option value="Europe">Europe</option><option value="Global">Global</option></select></label>
       </div>
-      <button type="submit">Recommend resources</button>
+      <button>Recommend resources</button>
     </form>
-    <p id="quiz-status" role="status"></p>
-    <ol id="recommendations"></ol>
+    <p id="quiz-status" role="status"></p><ol id="recommendations"></ol>
   </section>
 
   <section id="map" class="panel" aria-labelledby="map-title">
@@ -139,9 +100,9 @@
   <section id="comparison" class="panel" aria-labelledby="compare-title">
     <h2 id="compare-title">Compare health data space resources</h2>
     <div class="chips" id="compare-controls" aria-label="Comparison layout">
-      <button type="button" data-compare="Africa" aria-pressed="false">Africa</button>
-      <button type="button" data-compare="Europe" aria-pressed="false">Europe</button>
-      <button type="button" data-compare="both" aria-pressed="true">Side by side</button>
+      <button data-compare="Africa" aria-pressed="false">Africa</button>
+      <button data-compare="Europe" aria-pressed="false">Europe</button>
+      <button data-compare="both" aria-pressed="true">Side by side</button>
     </div>
     <div id="compare-content" class="compare-grid"></div>
   </section>
@@ -158,10 +119,6 @@
   </section>
   <p id="notice" role="status" class="notice"></p>
 </main>
-
-<footer class="wrap">
-  <p>GIZ workshop resource · Addis Ababa · 24 November 2026</p>
-  <a id="top-button" class="button secondary" href="#top">Back to top ↑</a>
-</footer>
+<footer class="wrap"><p>GIZ workshop resource · Addis Ababa · 24 November 2026</p><a id="top-button" class="button secondary" href="#top">Back to top ↑</a></footer>
 </body>
 </html>
