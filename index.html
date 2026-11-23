@@ -246,6 +246,8 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let resources = [];
 let french = readStorage('health-hub-language', 'en') === 'fr';
 const strings = {
+  "Online course": "Cours en ligne",
+  "Blog": "Blog",
   "Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.": "Bienvenue sur ce portail de formation ! Vous y trouverez une sélection de cours, de vidéos, de guides et de rapports sur les normes relatives aux données de santé, l’architecture d’interopérabilité, la gouvernance et les espaces africain et européen des données de santé.",
   "Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.": "Utilisez les filtres pour trouver des ressources par thème, format, niveau, coût, langue, durée ou disponibilité d’une attestation.",
   "Browse and filter resources": "Parcourir et filtrer les ressources",
@@ -960,9 +962,7 @@ function connectControls() {
 
 function setupOptions() {
   setOptions('topic', 'All topics', [...topics]);
-    setOptions('type', 'All types', [['Course', 'Online courses'], ['Lecture', 'Video lectures'], ['PDF', 'PDFs'],
-      ['Guide', 'Guides and references'], ['Publication', 'Publications'], ['Article', 'Blogs and articles'],
-      ['Exam', 'Certification exams'], ['Community', 'Communities']]);
+    setOptions('type', 'All types', [['Course', 'Online course'], ['PDF', 'PDF'], ['Article', 'Blog']]);
     setOptions('cost', 'Any cost', ['Free', 'Paid', 'Check provider'].map(value => [value, value]));
     setOptions('level', 'Any level', ['Beginner', 'All levels', 'Intermediate'].map(value => [value, value]));
     setOptions('certificate', 'All resources', [['yes', 'Certificate available'], ['no', 'No confirmed certificate']]);
