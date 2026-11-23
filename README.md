@@ -2,7 +2,6 @@
 
 <a href="#english"><kbd>English</kbd></a> <a href="#français"><kbd>Français</kbd></a>
 
-## English
 
 Hello and welcome to this repository!
 
@@ -33,7 +32,7 @@ Please join the **Digital Health Africa community on Zulip** to ask questions, r
 
 https://digital-health-africa.zulipchat.com/join/aaazwqd67cg6bue734bhthp5/
 
-## Français
+
 
 Bonjour et bienvenue dans ce dépôt !
 
