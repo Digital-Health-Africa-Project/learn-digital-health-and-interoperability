@@ -536,7 +536,7 @@ function connectControls() {
 
 async function init() {
   try {
-    const response = await fetch('data/resources.json');
+    const response = await fetch('./resources.json');
     if (!response.ok) throw new Error('Resource file returned ' + response.status);
     resources = await response.json();
     if (!Array.isArray(resources)) throw new Error('Resource file must contain an array.');
