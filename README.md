@@ -1,12 +1,13 @@
 # Learn Health Data Interoperability and Health Data Spaces
 
 [![English](https://img.shields.io/badge/English-0A2540?style=for-the-badge)](#english)
-[![Français](https://img.shields.io/badge/Fran%C3%A7ais-E30613?style=for-the-badge)](#français)
+[![Français](https://img.shields.io/badge/Fran%C3%A7ais-E30613?style=for-the-badge)](#fran%C3%A7ais)
 
+## English
 
 Hello and welcome to this repository!
 
-Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders? ** Prepared for the **GIZ workshop in Addis Ababa on 24 November 2026**, this hub brings together **43 curated resources**, including courses, video lectures, guides, articles, and publications.
+Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** Prepared for the **GIZ workshop in Addis Ababa on 24 November 2026**, this hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
 
 ### Start with the basics
 
@@ -33,11 +34,11 @@ Please join the **Digital Health Africa community on Zulip** to ask questions, r
 
 https://digital-health-africa.zulipchat.com/join/aaazwqd67cg6bue734bhthp5/
 
-
+## Français
 
 Bonjour et bienvenue dans ce dépôt !
 
-Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? Préparé pour **l’atelier GIZ du 24 novembre 2026 à Addis-Abeba**, ce portail réunit **43 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
+Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? Préparé pour **l’atelier GIZ du 24 novembre 2026 à Addis-Abeba**, ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
 
 ### Commencer par les bases
 
