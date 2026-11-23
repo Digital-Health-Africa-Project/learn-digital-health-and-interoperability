@@ -176,6 +176,15 @@ footer p { color: var(--muted); }
     <p id="quiz-status" role="status"></p><div id="recommendations"></div>
   </section>
 
+  <section id="learning-path" tabindex="-1" class="panel" aria-labelledby="path-title">
+    <h2 id="path-title">My learning path</h2>
+    <p>Save resources as you browse, then mark them complete here. Your progress stays in this browser.</p>
+    <p id="progress-text">0 of 0 completed</p>
+    <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
+    <ul id="saved-list" class="plain"></ul>
+    <div class="actions"><button id="copy-path">Copy text list</button><button id="print-path" class="secondary">Print path</button><button id="export-path" class="secondary">Export progress</button><button id="import-path" class="secondary">Import progress</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
+  </section>
+
   <section id="directory" aria-labelledby="directory-title">
     <h2 id="directory-title" tabindex="-1">Filter resources</h2>
     <form id="filters" class="panel">
@@ -194,15 +203,6 @@ footer p { color: var(--muted); }
     <p id="count" role="status">Loading resources…</p>
     <noscript><p>Enable JavaScript to search and browse the directory.</p></noscript>
     <div id="results"></div>
-  </section>
-
-  <section id="learning-path" tabindex="-1" class="panel" aria-labelledby="path-title">
-    <h2 id="path-title">My learning path</h2>
-    <p>Save resources as you browse, then mark them complete here. Your progress stays in this browser.</p>
-    <p id="progress-text">0 of 0 completed</p>
-    <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
-    <ul id="saved-list" class="plain"></ul>
-    <div class="actions"><button id="copy-path">Copy text list</button><button id="print-path" class="secondary">Print path</button><button id="export-path" class="secondary">Export progress</button><button id="import-path" class="secondary">Import progress</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
   </section>
 
   <section id="map" class="panel" aria-labelledby="map-title">
