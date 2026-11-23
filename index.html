@@ -599,7 +599,20 @@ function scoreOrder(item, sort) {
   return sort === 'free' ? price * 3 + level : level * 4 + price;
 }
 
+const utahCourse = [
+  'interoperability-intro-and-part-1',
+  'interoperability-part-2',
+  'interoperability-part-3'
+];
+
 function ordering(a, b) {
+  if (state.sort === 'beginner') {
+    const first = utahCourse.indexOf(a.id);
+    const second = utahCourse.indexOf(b.id);
+    if (first !== second) {
+      return (first < 0 ? utahCourse.length : first) - (second < 0 ? utahCourse.length : second);
+    }
+  }
   if (state.sort === 'provider') return a.provider.localeCompare(b.provider) || a.title.localeCompare(b.title);
   if (state.sort === 'title') return a.title.localeCompare(b.title);
   const influence = scoreOrder(a, state.sort) - scoreOrder(b, state.sort);
@@ -611,7 +624,12 @@ function card(item, words) {
   const node = el('li', '', 'card');
   node.id = 'resource-' + item.id;
   const badges = el('div', '', 'badges');
-  if (item.tags.includes('Start here')) badges.append(el('span', 'Start here', 'badge ribbon'));
+  const part = utahCourse.indexOf(item.id) + 1;
+  if (part) {
+    badges.append(el('span', translate(`Three-part course · Part ${part} of 3`, `Cours en trois parties · Partie ${part} sur 3`), 'badge ribbon'));
+  } else if (item.tags.includes('Start here')) {
+    badges.append(el('span', 'Start here', 'badge ribbon'));
+  }
   const provider = el('span', '', 'badge');
   appendHighlighted(provider, item.provider, words);
   badges.append(provider, el('span', icons[item.type] + ' ' + t(item.type), 'badge'));
