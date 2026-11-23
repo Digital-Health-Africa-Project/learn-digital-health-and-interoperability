@@ -1,6 +1,7 @@
 # Learn Health Data Interoperability and Health Data Spaces
 
-<a href="#english"><kbd>English</kbd></a> <a href="#français"><kbd>Français</kbd></a>
+[![English](https://img.shields.io/badge/English-0A2540?style=for-the-badge)](#english)
+[![Français](https://img.shields.io/badge/Fran%C3%A7ais-E30613?style=for-the-badge)](#français)
 
 
 Hello and welcome to this repository!
