@@ -16,11 +16,14 @@
     #map-diagram h3 { margin-top: 0; }
     #recommendations li { margin-block: .5rem; }
     #recommendations summary { cursor: pointer; }
+
     @media print {
       body.print-path > :not(main),
       body.print-path main > :not(#learning-path),
       body.print-path #learning-path button,
-      body.print-path #learning-path input[type="file"] { display: none; }
+      body.print-path #learning-path input[type="file"] {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -134,7 +137,8 @@
       <figure class="architecture-figure">
         <img src="https://openhim.org/img/design/Central-HIM-componentv2.png"
              alt="OpenHIM interoperability layer and its connections to client systems and shared services"
-             loading="lazy" decoding="async">
+             loading="lazy"
+             decoding="async">
         <figcaption>
           <a href="https://openhim.org/docs/dev-guide/design-overview/#the-architecture"
              data-fr="Architecture de la couche d’interopérabilité OpenHIM">OpenHIM interoperability layer architecture</a>
@@ -144,13 +148,30 @@
     </section>
 
     <section id="comparison" class="panel" aria-labelledby="compare-title">
-      <h2 id="compare-title" data-fr="Comparer les espaces de données de santé">Resources about health data spaces</h2>
+      <h2 id="compare-title" data-fr="Comparer les espaces de données de santé">Compare health data space resources</h2>
       <div class="chips" id="compare-controls" aria-label="Comparison layout">
         <button type="button" data-compare="Africa" aria-pressed="false" data-fr="Afrique">Africa</button>
         <button type="button" data-compare="Europe" aria-pressed="false">Europe</button>
         <button type="button" data-compare="both" aria-pressed="true" data-fr="Côte à côte">Side by side</button>
       </div>
       <div id="compare-content" class="compare-grid"></div>
+
+      <h3 data-fr="Explorer l’espace européen des données de santé">Explore the European Health Data Space</h3>
+      <ul>
+        <li>
+          <a href="https://ehdsexplorer.eu/"
+             target="_blank"
+             rel="noopener noreferrer"
+             data-fr="Explorateur du règlement sur l’EEDS">EHDS Regulation Explorer</a>
+          <span data-fr=" · Consultez les articles du règlement."> · Browse the articles of the regulation.</span>
+        </li>
+        <li>
+          <a href="https://tehdas.eu/"
+             target="_blank"
+             rel="noopener noreferrer">TEHDAS2</a>
+          <span data-fr=" · Consultez les lignes directrices et les spécifications techniques sur l’utilisation secondaire des données de santé."> · Browse guidelines and technical specifications for secondary use of health data.</span>
+        </li>
+      </ul>
     </section>
 
     <section id="community" class="community">
@@ -163,11 +184,13 @@
       </ul>
       <a id="zulip-link" class="zulip-qr"
          href="https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/"
-         target="_blank" rel="noopener noreferrer">
+         target="_blank"
+         rel="noopener noreferrer">
         <img src="./zulip-qr.png" width="220" height="220" alt="" loading="lazy">
         <span data-fr="Rejoignez-nous sur Zulip">Join us on Zulip</span>
       </a>
     </section>
+
     <p id="notice" role="status" class="notice"></p>
   </main>
 
