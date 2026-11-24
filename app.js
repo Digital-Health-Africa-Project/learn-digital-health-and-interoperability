@@ -90,7 +90,7 @@ const strings = {
   "Global": "Monde",
   "Recommend resources": "Suggérer des ressources",
   "Interoperability map": "Carte de l’interopérabilité",
-  "Choose a node to find related resources. Standards define what is exchanged, architectures connect systems, and governance sets rules for access and reuse.": "Sélectionnez un élément pour trouver les ressources associées. Les normes définissent les données échangées, les architectures relient les systèmes et la gouvernance fixe les règles d’accès et de réutilisation.",
+  "In OpenHIE, point-of-service systems exchange health data through an interoperability layer that connects them to shared services. Select a node to explore related resources.": "Dans OpenHIE, les systèmes utilisés sur les lieux de prestation échangent des données de santé via une couche d’interopérabilité qui les relie à des services partagés. Sélectionnez un élément pour explorer les ressources associées.",
   "Compare health data space resources": "Comparer les ressources sur les espaces de données de santé",
   "Comparison layout": "Mode de comparaison",
   "Side by side": "Côte à côte",
@@ -100,7 +100,7 @@ const strings = {
   "Ask about standards, architecture or governance.": "Posez vos questions sur les normes, l’architecture ou la gouvernance.",
   "Share courses, guides and useful examples.": "Partagez des cours, des guides et des exemples utiles.",
   "Join us on Zulip": "Nous rejoindre sur Zulip",
-  "GIZ workshop resource · Addis Ababa · 24 November 2026": "Ressource de l’atelier GIZ · Addis-Abeba · 24 novembre 2026",
+  "Prepared as part of the Addis Ababa Digital Health Technical Workshop · 24 November 2026": "Préparé dans le cadre de l’atelier technique sur la santé numérique à Addis-Abeba · 24 novembre 2026",
   "Back to top ↑": "Retour en haut ↑",
   "More filters": "Plus de filtres",
   "Filter by topic": "Filtrer par thème",
@@ -181,6 +181,16 @@ const strings = {
   "Bookmark ": "Ajouter aux favoris : ",
   "Completed: ": "Terminée : ",
   "Remove from learning path: ": "Retirer du parcours : ",
+  "Point-of-service systems": "Systèmes de prestation",
+  "Clinical systems": "Systèmes cliniques",
+  "Interoperability layer": "Couche d’interopérabilité",
+  "OpenHIE framework": "Cadre OpenHIE",
+  "Shared services": "Services partagés",
+  "Registries": "Registres",
+  "Terminology": "Terminologie",
+  "Shared records": "Dossiers partagés",
+  "Exchange through the interoperability layer": "Échange via la couche d’interopérabilité",
+  "Connect to shared services": "Connexion aux services partagés",
   "Filter by ": "Filtrer par : "
 };
 const t = text => french ? (strings[text] ?? text) : text;
@@ -376,7 +386,20 @@ const utahCourse = [
   'interoperability-part-3'
 ];
 
+const ehdsWebinars = [
+  'ehds-primary-use-webinar',
+  'ehds-secondary-use-webinar',
+  'ehds-implementation-webinar'
+];
+
 function ordering(a, b) {
+  const webinarRank = item => {
+    const part = ehdsWebinars.indexOf(item.id);
+    return part < 0 ? ehdsWebinars.length : part;
+  };
+  const webinarOrder = webinarRank(a) - webinarRank(b);
+  if (webinarOrder) return webinarOrder;
+
   if (state.sort === 'beginner') {
     const featured = Number(b.id === 'medblocks-fhir-fundamentals') -
       Number(a.id === 'medblocks-fhir-fundamentals');
@@ -401,6 +424,9 @@ function card(item, words) {
   const part = utahCourse.indexOf(item.id) + 1;
   if (part) {
     badges.append(el('span', translate(`Three-part course · Part ${part} of 3`, `Cours en trois parties · Partie ${part} sur 3`), 'badge ribbon'));
+  } else if (ehdsWebinars.includes(item.id)) {
+    const webinar = ehdsWebinars.indexOf(item.id) + 1;
+    badges.append(el('span', translate(`Start here · Webinar ${webinar} of 3`, `Commencer ici · Webinaire ${webinar} sur 3`), 'badge ribbon'));
   } else if (item.tags.includes('Start here')) {
     badges.append(el('span', 'Start here', 'badge ribbon'));
   }
@@ -590,7 +616,7 @@ $('quiz-form').addEventListener('submit', event => {
     ['medblocks-fhir-fundamentals', 'loinc', 'snomed-ct', 'icd-11', 'ucum', 'dicom'],
     ['openhie-architecture-overview'],
     ['african-union-data-policy-framework', 'african-union-hie-guidelines-and-standards'],
-    ['ahds-project-website', 'ehds-regulation-overview-and-timeline']
+    [...ehdsWebinars, 'ahds-project-website', 'ehds-regulation-overview-and-timeline']
   ];
   // Each position follows the same topic order as the foundations above.
   const pathways = {
@@ -614,7 +640,7 @@ $('quiz-form').addEventListener('submit', event => {
       Beginner: ['digital-health-planning-national-systems', 'health-data-standards',
         'digital-health-platform-handbook', 'digital-health-blueprint', 'digital-health-systems-and-data-sovereignty'],
       Intermediate: ['interoperability-in-healthcare-towards-an-interconnected-future', 'introduction-to-interoperability-and-fhir',
-        'health-information-exchange-maturity-assessment-tool', 'african-continental-health-data-governance-framework', 'ehds-secondary-use-webinar'],
+        'health-information-exchange-maturity-assessment-tool', 'african-continental-health-data-governance-framework', 'ehds-committee-register'],
       Advanced: ['public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
         'digital-adaptation-kits', 'afcfta-digital-trade-annexes', 'european-health-data-space-regulation-eu-2025-327']
     }
@@ -631,8 +657,8 @@ $('quiz-form').addEventListener('submit', event => {
       'Suivez le parcours des données d’un établissement de santé vers une plateforme nationale.'),
     translate('Identify who can access, exchange and reuse health data, and under what rules.',
       'Identifiez qui peut accéder aux données de santé, les échanger et les réutiliser, et à quelles conditions.'),
-    translate('Compare how the African and European initiatives approach health data sharing.',
-      'Comparez les approches africaines et européennes du partage des données de santé.')
+    translate('Watch the three EHDS webinars in order, then compare the African and European approaches to health data sharing.',
+      'Regardez les trois webinaires sur l’EEDS dans l’ordre, puis comparez les approches africaines et européennes du partage des données de santé.')
   ];
   const furtherResources = [
     ['digital-health-planning-national-systems', 'public-health-interoperability-training-catalog'],
@@ -687,25 +713,26 @@ function makeMap() {
     return node;
   }
   const groups = [
-    { title: 'Standards', nodes: ['FHIR', 'LOINC', 'SNOMED CT', 'ICD-11'] },
-    { title: 'Architectures', nodes: ['OpenHIE', 'DHIS2'] },
-    { title: 'Governance', nodes: ['AU frameworks', 'AfCFTA', 'IGAD', 'ECOWAS', 'GDPR'] },
-    { title: 'Health data spaces', nodes: ['AHDS', 'EHDS'] }
+    { title: 'Point-of-service systems', nodes: [['Clinical systems', 'OpenHIE']] },
+    { title: 'Interoperability layer', nodes: [['OpenHIE framework', 'OpenHIE'], ['FHIR', 'FHIR']] },
+    { title: 'Shared services', nodes: [['Registries', 'OpenHIE'], ['Terminology', 'LOINC'], ['Shared records', 'OpenHIE']] },
+    { title: 'Governance', nodes: [['AU frameworks', 'African Union'], ['AfCFTA', 'AfCFTA'], ['GDPR', 'GDPR']] },
+    { title: 'Health data spaces', nodes: [['AHDS', 'AHDS'], ['EHDS', 'EHDS']] }
   ];
-  const connectors = ['Data flows into connected systems', 'Governance shapes access and reuse', 'Governance supports data spaces'];
+  const connectors = ['Exchange through the interoperability layer', 'Connect to shared services'];
   groups.forEach(({ title, nodes }, index) => {
     const diagram = svg('svg', { viewBox: '0 0 310 ' + Math.max(118, 32 + Math.ceil(nodes.length / 2) * 43), role: 'group', 'aria-label': t(title) });
     diagram.append(svg('text', { x: 8, y: 18, fill: 'currentColor' }, title));
-    nodes.forEach((name, i) => {
+    nodes.forEach(([name, query], i) => {
       const x = 8 + (i % 2) * 150;
       const y = 30 + Math.floor(i / 2) * 43;
-      const node = svg('a', { class: 'map-node', href: '#view?' + new URLSearchParams({ q: name }), 'aria-label': t('Filter by ') + t(name) });
+      const node = svg('a', { class: 'map-node', href: '#view?' + new URLSearchParams({ q: query }), 'aria-label': t('Filter by ') + t(name) });
       node.append(svg('rect', { x, y, width: 140, height: 35, rx: 5 }),
         svg('text', { x: x + 70, y: y + 22, 'text-anchor': 'middle' }, name));
       node.addEventListener('click', event => {
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
-        apply({ ...defaults, q: name });
+        apply({ ...defaults, q: query });
         $('directory-title').focus({ preventScroll: true });
         $('directory').scrollIntoView();
       });
