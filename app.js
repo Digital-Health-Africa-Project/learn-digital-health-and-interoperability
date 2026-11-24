@@ -7,6 +7,7 @@ function read(key, fallback) {
   try {
     const value = localStorage.getItem(key);
     if (value === null) return fallback;
+
     try {
       return JSON.parse(value);
     } catch {
@@ -52,24 +53,44 @@ function hasUrl(item) {
 }
 
 let french = read('health-hub-language', 'en') === 'fr';
-let theme = read('health-hub-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+let theme = read(
+  'health-hub-theme',
+  matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+);
 let saved = read('health-hub-path', {});
 let resources = [];
 let comparison = 'both';
 let ready = false;
+
 if (!saved || typeof saved !== 'object' || Array.isArray(saved)) saved = {};
 
 const topicNames = {
-  'start-here': ['I. Start by understanding interoperability', 'I. Comprendre les bases de l’interopérabilité'],
-  'health-data-standards': ['II. Health data standards and terminologies', 'II. Normes et terminologies des données de santé'],
-  'architecture-and-implementation': ['III. Health data interoperability architectures', 'III. Architectures d’interopérabilité des données de santé'],
-  'laws-and-regulations': ['IV. Laws and regulations', 'IV. Législation et gouvernance'],
-  'health-data-spaces': ['V. Health data spaces', 'V. Espaces de données de santé'],
+  'start-here': [
+    'I. Start by understanding interoperability',
+    'I. Comprendre les bases de l’interopérabilité'
+  ],
+  'health-data-standards': [
+    'II. Health data standards and terminologies',
+    'II. Normes et terminologies des données de santé'
+  ],
+  'architecture-and-implementation': [
+    'III. Health data interoperability architectures',
+    'III. Architectures d’interopérabilité des données de santé'
+  ],
+  'laws-and-regulations': [
+    'IV. Laws and regulations',
+    'IV. Législation et gouvernance'
+  ],
+  'health-data-spaces': [
+    'V. Health data spaces',
+    'V. Espaces de données de santé'
+  ],
   communities: ['Communities and discussion forums', 'Communautés et forums']
 };
 
 const mainTopics = Object.keys(topicNames).filter(id => id !== 'communities');
 const topicName = id => topicNames[id] ? tr(...topicNames[id]) : id;
+
 const labels = {
   Beginner: 'Débutant',
   Intermediate: 'Intermédiaire',
@@ -93,24 +114,36 @@ const labels = {
   French: 'Français',
   Spanish: 'Espagnol',
   Portuguese: 'Portugais',
-  Arabic: 'Arabe'
+  Arabic: 'Arabe',
+  German: 'Allemand'
 };
 
 const label = value => french ? labels[value] || value : value;
+
 const utah = [
   'interoperability-intro-and-part-1',
   'interoperability-part-2',
   'interoperability-part-3'
 ];
+
 const webinars = [
   'ehds-primary-use-webinar',
   'ehds-secondary-use-webinar',
   'ehds-implementation-webinar'
 ];
+
 const defaults = {
-  topic: '', type: '', cost: '', certificate: '', level: '',
-  'resource-language': '', time: '', sort: 'beginner', q: ''
+  topic: '',
+  type: '',
+  cost: '',
+  certificate: '',
+  level: '',
+  'resource-language': '',
+  time: '',
+  sort: 'beginner',
+  q: ''
 };
+
 const filterIds = Object.keys(defaults).filter(key => key !== 'q');
 let filters = { ...defaults };
 
@@ -122,14 +155,19 @@ const staticText = [...document.querySelectorAll('[data-fr]')].map(node => ({
 function setLanguageAndTheme() {
   document.documentElement.lang = tr('en', 'fr');
   document.documentElement.dataset.theme = theme;
+
   for (const { node, english } of staticText) {
     node.textContent = tr(english, node.dataset.fr);
   }
+
   $('language-toggle').textContent = tr('Français', 'English');
   $('language-toggle').lang = tr('fr', 'en');
+
   const dark = theme === 'dark';
   $('theme').setAttribute('aria-pressed', String(dark));
-  $('theme').textContent = dark ? tr('Light mode', 'Mode clair') : tr('Dark mode', 'Mode sombre');
+  $('theme').textContent = dark
+    ? tr('Light mode', 'Mode clair')
+    : tr('Dark mode', 'Mode sombre');
 }
 
 function languages(item) {
@@ -148,18 +186,23 @@ function setOptions(id, choices) {
 function filterOptions() {
   const choices = values => unique(values).map(value => [value, label(value)]);
   const all = ['', tr('All', 'Tous')];
-  setOptions('topic', [all, ...unique(resources.map(item => item.topic)).map(id => [id, topicName(id)])
-    .sort((a, b) => a[1].localeCompare(b[1]))]);
+  const topics = [...mainTopics, 'communities']
+    .filter(id => resources.some(item => item.topic === id))
+    .map(id => [id, topicName(id)]);
+
+  setOptions('topic', [all, ...topics]);
   setOptions('type', [all, ...choices(resources.map(item => item.type))]);
   setOptions('cost', [all, ...choices(resources.map(item => item.cost))]);
   setOptions('level', [all, ...choices(resources.map(item => item.level))]);
   setOptions('resource-language', [all, ...choices(resources.flatMap(languages))]);
   setOptions('time', [all, ...choices(resources.map(item => item.timeCommitment))]);
+
   setOptions('certificate', [
     all,
     ['yes', tr('Certificate available', 'Attestation disponible')],
     ['no', tr('No confirmed certificate', 'Aucune attestation confirmée')]
   ]);
+
   setOptions('sort', [
     ['beginner', tr('Beginner first', 'Débutants en premier')],
     ['free', tr('Free first', 'Gratuit en premier')],
@@ -175,7 +218,8 @@ function syncFilters(writeUrl = true) {
     const params = new URLSearchParams(
       Object.entries(filters).filter(([id, value]) => value !== defaults[id])
     );
-    history.replaceState(null, '', location.pathname + location.search + (params.size ? '#view?' + params : '#directory'));
+    const hash = params.size ? '#view?' + params : '#directory';
+    history.replaceState(null, '', location.pathname + location.search + hash);
   }
 
   renderCatalogue();
@@ -183,12 +227,16 @@ function syncFilters(writeUrl = true) {
 
 function loadFilters() {
   if (!location.hash.startsWith('#view?')) return;
+
   const params = new URLSearchParams(location.hash.slice(6));
   filters = { ...defaults };
+
   for (const key of Object.keys(defaults)) {
     if (params.has(key)) filters[key] = params.get(key);
   }
+
   syncFilters(false);
+
   const target = params.get('resource');
   if (target) $(target)?.scrollIntoView();
 }
@@ -197,20 +245,24 @@ function renderNav() {
   $('topic-nav').replaceChildren(...mainTopics.map(id => {
     const anchor = element('a', topicName(id));
     anchor.href = '#' + id;
+
     anchor.addEventListener('click', event => {
       if (!ready || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
       event.preventDefault();
       filters = { ...defaults, topic: id };
       syncFilters();
       $(id)?.scrollIntoView();
     });
+
     return anchor;
   }));
 }
 
 function searchable(item) {
   return [item.title, item.provider, item.description, item.descriptionFr, ...(item.tags || [])]
-    .join(' ').toLowerCase();
+    .join(' ')
+    .toLowerCase();
 }
 
 function matches(item) {
@@ -231,16 +283,29 @@ function featuredOrder(item) {
   return item.id === 'medblocks-fhir-fundamentals' ? 3 : 4;
 }
 
+function readingRank(item) {
+  const levels = { Beginner: 0, 'All levels': 1, Intermediate: 2, Advanced: 3 };
+  const publicationOrPdf = item.type === 'Publication' || (item.tags || []).includes('PDF');
+
+  if (item.level !== 'Beginner' && publicationOrPdf) return 4;
+  return levels[item.level] ?? 4;
+}
+
 function ordering(a, b) {
   const featured = featuredOrder(a) - featuredOrder(b);
   if (featured) return featured;
 
-  const title = a.title.localeCompare(b.title);
-  if (filters.sort === 'provider') return a.provider.localeCompare(b.provider) || title;
-  if (filters.sort === 'title') return title;
-  if (filters.sort === 'free') return Number(b.cost === 'Free') - Number(a.cost === 'Free') || title;
-  const levels = { Beginner: 0, 'All levels': 1, Intermediate: 2, Advanced: 3 };
-  return (levels[a.level] ?? 4) - (levels[b.level] ?? 4) || title;
+  const titleOrder = a.title.localeCompare(b.title);
+
+  if (filters.sort === 'provider') {
+    return a.provider.localeCompare(b.provider) || titleOrder;
+  }
+  if (filters.sort === 'title') return titleOrder;
+  if (filters.sort === 'free') {
+    return Number(b.cost === 'Free') - Number(a.cost === 'Free') || titleOrder;
+  }
+
+  return readingRank(a) - readingRank(b) || titleOrder;
 }
 
 function notify(text) {
@@ -249,11 +314,15 @@ function notify(text) {
 
 async function copyText(text) {
   if (!text) return;
+
   try {
     await navigator.clipboard.writeText(text);
     notify(tr('Copied.', 'Copié.'));
   } catch {
-    notify(tr('Copying is unavailable in this browser.', 'La copie est indisponible dans ce navigateur.'));
+    notify(tr(
+      'Copying is unavailable in this browser.',
+      'La copie est indisponible dans ce navigateur.'
+    ));
   }
 }
 
@@ -273,10 +342,15 @@ function saveButton(item) {
 function toggleSave(item) {
   if (Object.hasOwn(saved, item.id)) delete saved[item.id];
   else saved[item.id] = false;
+
   store('health-hub-path', saved);
+
   for (const control of document.querySelectorAll('[data-bookmark]')) {
-    if (control.dataset.bookmark === item.id) updateSaveControl(control, item.id);
+    if (control.dataset.bookmark === item.id) {
+      updateSaveControl(control, item.id);
+    }
   }
+
   renderPath();
 }
 
@@ -287,29 +361,46 @@ function resourceCard(item) {
   const badges = element('div', '', 'badges');
   const webinar = webinars.indexOf(item.id);
   const lecture = utah.indexOf(item.id);
+
   if (webinar >= 0 || lecture >= 0) {
     const part = Math.max(webinar, lecture) + 1;
-    badges.append(element('span', tr(`Start here · Part ${part} of 3`, `Commencer ici · Partie ${part} sur 3`), 'badge ribbon'));
+    badges.append(element(
+      'span',
+      tr(`Start here · Part ${part} of 3`, `Commencer ici · Partie ${part} sur 3`),
+      'badge ribbon'
+    ));
   }
+
   const facts = [item.provider, item.type, item.level, item.cost, ...languages(item)];
-  for (const fact of facts.filter(Boolean)) badges.append(element('span', label(fact), 'badge'));
+  for (const fact of facts.filter(Boolean)) {
+    badges.append(element('span', label(fact), 'badge'));
+  }
+
   if (item.certificate === true) {
-    badges.append(element('span', tr('Certificate available', 'Attestation disponible'), 'badge'));
+    badges.append(element(
+      'span',
+      tr('Certificate available', 'Attestation disponible'),
+      'badge'
+    ));
   }
 
   card.append(badges, element('h3', item.title));
+
   const description = french ? item.descriptionFr || item.description : item.description;
   if (description) card.append(element('p', description));
+
   const details = [item.duration, item.fee].filter(Boolean).map(label).join(' · ');
   if (details) card.append(element('p', details, 'duration'));
 
   const actions = element('div', '', 'actions');
+
   if (hasUrl(item)) {
     actions.append(
       link(tr('Open resource', 'Ouvrir la ressource'), item.url, 'button'),
       button(tr('Copy link', 'Copier le lien'), () => copyText(item.url))
     );
   }
+
   actions.append(saveButton(item));
   card.append(actions);
   return card;
@@ -317,25 +408,33 @@ function resourceCard(item) {
 
 function renderCatalogue() {
   const matchesFilters = resources.filter(matches);
+
   $('count').textContent = tr(
     `Showing ${matchesFilters.length} of ${resources.length} resources`,
     `${matchesFilters.length} ressources affichées sur ${resources.length}`
   );
 
   const sections = [];
+
   for (const id of [...mainTopics, 'communities']) {
     const entries = matchesFilters.filter(item => item.topic === id).sort(ordering);
     if (!entries.length) continue;
+
     const section = element('section');
     section.id = id;
+
     const list = element('ul', '', 'cards plain');
     list.append(...entries.map(resourceCard));
+
     section.append(element('h3', topicName(id)), list);
     sections.push(section);
   }
 
   $('results').replaceChildren(...(sections.length ? sections : [
-    element('p', tr('No resources match these filters.', 'Aucune ressource ne correspond à ces filtres.'))
+    element('p', tr(
+      'No resources match these filters.',
+      'Aucune ressource ne correspond à ces filtres.'
+    ))
   ]));
 }
 
@@ -346,21 +445,31 @@ function savedResources() {
 function renderPath() {
   const items = savedResources();
   const complete = items.filter(item => saved[item.id] === true).length;
+
   $('progress').max = items.length || 1;
   $('progress').value = complete;
-  $('progress-text').textContent = tr(`${complete} of ${items.length} completed`, `${complete} sur ${items.length} terminées`);
+  $('progress-text').textContent = tr(
+    `${complete} of ${items.length} completed`,
+    `${complete} sur ${items.length} terminées`
+  );
 
   const rows = items.map(item => {
     const row = element('li');
     const checkbox = element('input');
+
     checkbox.type = 'checkbox';
     checkbox.checked = saved[item.id] === true;
-    checkbox.setAttribute('aria-label', tr(`Mark ${item.title} complete`, `Marquer ${item.title} comme terminée`));
+    checkbox.setAttribute('aria-label', tr(
+      `Mark ${item.title} complete`,
+      `Marquer ${item.title} comme terminée`
+    ));
+
     checkbox.addEventListener('change', () => {
       saved[item.id] = checkbox.checked;
       store('health-hub-path', saved);
       renderPath();
     });
+
     row.append(
       checkbox,
       document.createTextNode(' '),
@@ -368,6 +477,7 @@ function renderPath() {
       document.createTextNode(' '),
       button(tr('Remove', 'Retirer'), () => toggleSave(item))
     );
+
     return row;
   });
 
@@ -384,35 +494,84 @@ const foundations = [
   [...webinars, 'ahds-project-website', 'ehds-regulation-overview-and-timeline']
 ];
 
+// Each row follows the order of the five learning topics.
 const pathways = {
   learner: {
-    Beginner: ['digital-health-planning-national-systems', 'health-data-standards',
-      'dhis2-fundamentals', 'digital-health-blueprint', 'frequently-asked-questions-on-the-european-health-data-space'],
-    Intermediate: ['immunization-information-systems-elearning', 'interopen-terminology-learnathon',
-      'digital-health-platform-handbook', 'malabo-convention', 'digital-health-systems-and-data-sovereignty'],
-    Advanced: ['public-health-interoperability-training-catalog', 'nhs-fhir-terminology-exercises',
-      'ihe-technical-framework', 'recommendation-on-health-data-governance', 'fair-health-infrastructure-africa']
+    Beginner: [
+      'digital-health-planning-national-systems',
+      'health-data-standards',
+      'dhis2-fundamentals',
+      'digital-health-blueprint',
+      'frequently-asked-questions-on-the-european-health-data-space'
+    ],
+    Intermediate: [
+      'immunization-information-systems-elearning',
+      'interopen-terminology-learnathon',
+      'digital-health-platform-handbook',
+      'malabo-convention',
+      'digital-health-systems-and-data-sovereignty'
+    ],
+    Advanced: [
+      'public-health-interoperability-training-catalog',
+      'nhs-fhir-terminology-exercises',
+      'ihe-technical-framework',
+      'recommendation-on-health-data-governance',
+      'fair-health-infrastructure-africa'
+    ]
   },
   implementer: {
-    Beginner: ['immunization-information-systems-elearning', 'introduction-to-interoperability-and-fhir',
-      'dhis2-fundamentals', 'digital-health-blueprint', 'frequently-asked-questions-on-the-european-health-data-space'],
-    Intermediate: ['public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-      'dhis2-integration-concepts', 'african-continental-health-data-governance-framework', 'ahds-cross-border-prototype'],
-    Advanced: ['interoperability-in-healthcare-towards-an-interconnected-future', 'nhs-fhir-terminology-exercises',
-      'data-exchange-specification', 'igad-health-data-sharing', 'fair-health-infrastructure-africa']
+    Beginner: [
+      'immunization-information-systems-elearning',
+      'introduction-to-interoperability-and-fhir',
+      'dhis2-fundamentals',
+      'digital-health-blueprint',
+      'frequently-asked-questions-on-the-european-health-data-space'
+    ],
+    Intermediate: [
+      'public-health-interoperability-training-catalog',
+      'interopen-terminology-learnathon',
+      'dhis2-integration-concepts',
+      'african-continental-health-data-governance-framework',
+      'ahds-cross-border-prototype'
+    ],
+    Advanced: [
+      'interoperability-in-healthcare-towards-an-interconnected-future',
+      'nhs-fhir-terminology-exercises',
+      'data-exchange-specification',
+      'igad-health-data-sharing',
+      'fair-health-infrastructure-africa'
+    ]
   },
   policy: {
-    Beginner: ['digital-health-planning-national-systems', 'health-data-standards',
-      'digital-health-platform-handbook', 'digital-health-blueprint', 'digital-health-systems-and-data-sovereignty'],
-    Intermediate: ['interoperability-in-healthcare-towards-an-interconnected-future', 'introduction-to-interoperability-and-fhir',
-      'health-information-exchange-maturity-assessment-tool', 'african-continental-health-data-governance-framework', 'ehds-committee-register'],
-    Advanced: ['public-health-interoperability-training-catalog', 'interopen-terminology-learnathon',
-      'digital-adaptation-kits', 'afcfta-digital-trade-annexes', 'european-health-data-space-regulation-eu-2025-327']
+    Beginner: [
+      'digital-health-planning-national-systems',
+      'health-data-standards',
+      'digital-health-platform-handbook',
+      'digital-health-blueprint',
+      'digital-health-systems-and-data-sovereignty'
+    ],
+    Intermediate: [
+      'interoperability-in-healthcare-towards-an-interconnected-future',
+      'introduction-to-interoperability-and-fhir',
+      'health-information-exchange-maturity-assessment-tool',
+      'african-continental-health-data-governance-framework',
+      'ehds-committee-register'
+    ],
+    Advanced: [
+      'public-health-interoperability-training-catalog',
+      'interopen-terminology-learnathon',
+      'digital-adaptation-kits',
+      'afcfta-digital-trade-annexes',
+      'european-health-data-space-regulation-eu-2025-327'
+    ]
   }
 };
 
 const additional = [
-  ['digital-health-planning-national-systems', 'public-health-interoperability-training-catalog'],
+  [
+    'digital-health-planning-national-systems',
+    'public-health-interoperability-training-catalog'
+  ],
   ['hl7-fhir', 'interopen-terminology-learnathon', 'nhs-fhir-terminology-exercises'],
   ['openhim-design-overview', 'dhis2-fundamentals', 'dhis2-integration-concepts', 'ihe-technical-framework'],
   ['malabo-convention', 'afcfta-digital-trade', 'general-data-protection-regulation-gdpr'],
@@ -421,12 +580,18 @@ const additional = [
 
 function resourceList(items, ordered = false, includeSave = true) {
   const list = element(ordered ? 'ol' : 'ul');
+
   for (const item of items.filter(Boolean)) {
     const row = element('li');
     row.append(hasUrl(item) ? link(item.title, item.url) : element('span', item.title));
-    if (includeSave) row.append(document.createTextNode(' '), saveButton(item));
+
+    if (includeSave) {
+      row.append(document.createTextNode(' '), saveButton(item));
+    }
+
     list.append(row);
   }
+
   return list;
 }
 
@@ -435,39 +600,62 @@ function recommend() {
   if (!picks) return;
 
   if (!ready) {
-    $('quiz-status').textContent = tr('The catalogue is not ready yet.', 'Le catalogue n’est pas encore disponible.');
+    $('quiz-status').textContent = tr(
+      'The catalogue is not ready yet.',
+      'Le catalogue n’est pas encore disponible.'
+    );
     return;
   }
 
   const catalogue = new Map(resources.map(item => [item.id, item]));
+
   const sections = mainTopics.map((topic, index) => {
     const section = element('section');
     const core = foundations[index];
     const tailored = catalogue.get(picks[index]);
     const used = new Set([...core, picks[index]]);
 
-    section.append(element('h3', topicName(topic)), resourceList(core.map(id => catalogue.get(id)), true));
+    section.append(
+      element('h3', topicName(topic)),
+      resourceList(core.map(id => catalogue.get(id)), true)
+    );
+
     if (tailored && !core.includes(tailored.id)) {
       section.append(
-        element('p', tr('Recommended for your role and level', 'Recommandé pour votre rôle et votre niveau')),
+        element('p', tr(
+          'Recommended for your role and level',
+          'Recommandé pour votre rôle et votre niveau'
+        )),
         resourceList([tailored])
       );
     }
 
-    const extras = additional[index].filter(id => !used.has(id)).map(id => catalogue.get(id)).filter(Boolean);
+    const extras = additional[index]
+      .filter(id => !used.has(id))
+      .map(id => catalogue.get(id))
+      .filter(Boolean);
+
     if (extras.length) {
       const details = element('details');
       details.append(
-        element('summary', tr('Additional materials to read', 'Ressources complémentaires à consulter'), 'button secondary'),
+        element(
+          'summary',
+          tr('Additional materials to read', 'Ressources complémentaires à consulter'),
+          'button secondary'
+        ),
         resourceList(extras)
       );
       section.append(details);
     }
+
     return section;
   });
 
   $('recommendations').replaceChildren(...sections);
-  $('quiz-status').textContent = tr('Your suggested learning order', 'Votre parcours d’apprentissage suggéré');
+  $('quiz-status').textContent = tr(
+    'Your suggested learning order',
+    'Votre parcours d’apprentissage suggéré'
+  );
 }
 
 function renderMap() {
@@ -505,13 +693,16 @@ function renderMap() {
   const sections = groups.map(([heading, nodes]) => {
     const section = element('section');
     const controls = element('div', '', 'chips');
+
     for (const [en, fr, destination] of nodes) {
       const text = tr(en, fr);
+
       if (destination.startsWith('https://')) {
         controls.append(link(text, destination, 'button secondary'));
       } else {
         controls.append(button(text, () => {
           if (!ready) return;
+
           filters = { ...defaults, q: destination };
           syncFilters();
           $('directory-title').focus({ preventScroll: true });
@@ -519,27 +710,34 @@ function renderMap() {
         }));
       }
     }
+
     section.append(element('h3', tr(...heading)), controls);
     return section;
   });
+
   $('map-diagram').replaceChildren(...sections);
 }
 
 function renderComparison() {
   const regions = comparison === 'both' ? ['Africa', 'Europe'] : [comparison];
+
   const panels = regions.map(region => {
     const panel = element('div');
     const items = resources.filter(item =>
       ['laws-and-regulations', 'health-data-spaces'].includes(item.topic) &&
       (item.tags || []).includes(region)
-    );
+    ).sort(ordering);
+
     const heading = region === 'Africa'
       ? tr('African Health Data Space', 'Espace africain des données de santé')
       : tr('European Health Data Space', 'Espace européen des données de santé');
+
     panel.append(element('h3', heading), resourceList(items, false, false));
     return panel;
   });
+
   $('compare-content').replaceChildren(...panels);
+
   for (const control of $('compare-controls').querySelectorAll('[data-compare]')) {
     control.setAttribute('aria-pressed', String(control.dataset.compare === comparison));
   }
@@ -550,10 +748,12 @@ function renderAll() {
   renderNav();
   renderMap();
   if (!ready) return;
+
   filterOptions();
   syncFilters(false);
   renderPath();
   renderComparison();
+
   if ($('recommendations').children.length) recommend();
 }
 
@@ -575,51 +775,77 @@ $('quiz-form').addEventListener('submit', event => {
 });
 
 $('filters').addEventListener('submit', event => event.preventDefault());
+
 for (const id of filterIds) {
   $(id).addEventListener('change', () => {
     filters[id] = $(id).value;
     if (id === 'topic') filters.q = '';
-    if (ready) syncFilters();
+
+    if (ready) {
+      syncFilters();
+      if (id === 'sort') renderComparison();
+    }
   });
 }
 
 $('clear').addEventListener('click', () => {
   filters = { ...defaults };
-  if (ready) syncFilters();
+
+  if (ready) {
+    syncFilters();
+    renderComparison();
+  }
 });
 
 $('compare-controls').addEventListener('click', event => {
   const control = event.target.closest('[data-compare]');
   if (!control) return;
+
   comparison = control.dataset.compare;
   if (ready) renderComparison();
 });
 
 $('copy-path').addEventListener('click', () => {
-  copyText(savedResources().map(item => [item.title, hasUrl(item) ? item.url : '']
-    .filter(Boolean).join('\n')).join('\n\n'));
+  const text = savedResources()
+    .map(item => [item.title, hasUrl(item) ? item.url : ''].filter(Boolean).join('\n'))
+    .join('\n\n');
+
+  copyText(text);
 });
 
 $('print-path').addEventListener('click', () => {
   document.body.classList.add('print-path');
   window.print();
 });
-window.addEventListener('afterprint', () => document.body.classList.remove('print-path'));
+
+window.addEventListener('afterprint', () => {
+  document.body.classList.remove('print-path');
+});
 
 $('export-path').addEventListener('click', () => {
-  const entries = savedResources().map(item => ({ id: item.id, completed: saved[item.id] === true }));
-  const file = new Blob([JSON.stringify({ version: 1, entries }, null, 2)], { type: 'application/json' });
+  const entries = savedResources().map(item => ({
+    id: item.id,
+    completed: saved[item.id] === true
+  }));
+
+  const file = new Blob(
+    [JSON.stringify({ version: 1, entries }, null, 2)],
+    { type: 'application/json' }
+  );
   const url = URL.createObjectURL(file);
   const download = element('a');
+
   download.href = url;
   download.download = 'my-learning-path.json';
   document.body.append(download);
   download.click();
   download.remove();
+
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
 $('import-path').addEventListener('click', () => $('import-file').click());
+
 $('import-file').addEventListener('change', async event => {
   const input = event.target;
   const file = input.files[0];
@@ -628,17 +854,23 @@ $('import-file').addEventListener('change', async event => {
   try {
     const data = JSON.parse(await file.text());
     if (!Array.isArray(data.entries)) throw new Error('Invalid learning path');
+
     const ids = new Set(resources.map(item => item.id));
+
     for (const entry of data.entries) {
       if (entry && ids.has(entry.id)) {
         saved[entry.id] = saved[entry.id] === true || entry.completed === true;
       }
     }
+
     store('health-hub-path', saved);
     renderAll();
     notify(tr('Progress imported.', 'Progression importée.'));
   } catch {
-    notify(tr('Choose a valid learning path JSON file.', 'Choisissez un fichier JSON de parcours valide.'));
+    notify(tr(
+      'Choose a valid learning path JSON file.',
+      'Choisissez un fichier JSON de parcours valide.'
+    ));
   } finally {
     input.value = '';
   }
@@ -654,11 +886,15 @@ async function init() {
   try {
     const response = await fetch('./resources.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`resources.json returned HTTP ${response.status}`);
+
     const catalogue = await response.json();
-    if (!Array.isArray(catalogue)) throw new Error('resources.json must contain an array');
+    if (!Array.isArray(catalogue)) {
+      throw new Error('resources.json must contain an array');
+    }
 
     resources = catalogue;
     ready = true;
+
     $('total-stat').textContent = resources.length;
     $('topic-stat').textContent = mainTopics.length;
     $('free-stat').textContent = resources.filter(item => item.cost === 'Free').length;
@@ -666,6 +902,7 @@ async function init() {
 
     renderAll();
     loadFilters();
+    renderComparison();
   } catch (error) {
     $('count').textContent = tr(
       'The catalogue could not be loaded. Check that resources.json is alongside index.html.',
