@@ -1,9 +1,5 @@
 # Learn Health Data Interoperability and Health Data Spaces
 
-## 📚 [Click here to browse the learning resources](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
-
-## 📚 [Cliquez ici pour consulter les ressources](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
-
 [![English](https://img.shields.io/badge/English-0A2540?style=for-the-badge)](#english)
 [![Français](https://img.shields.io/badge/Fran%C3%A7ais-E30613?style=for-the-badge)](#fran%C3%A7ais)
 
@@ -38,6 +34,8 @@ Join the **Digital Health Africa community on Zulip** to ask questions, recommen
 
 [<img src="./zulip-qr.png" alt="Join Digital Health Africa on Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
 
+### 📚 [Click here to open the main page](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
+
 ## Français
 
 Bonjour et bienvenue dans ce dépôt !
@@ -68,3 +66,5 @@ Utilisez **Trouver mon parcours** pour obtenir un parcours suggéré. Dans **Mon
 Rejoignez la **communauté Digital Health Africa sur Zulip** pour poser vos questions, recommander des ressources et partager ce que vous apprenez. Scannez le code QR ou cliquez dessus pour ouvrir l’invitation.
 
 [<img src="./zulip-qr.png" alt="Rejoindre Digital Health Africa sur Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
+
+### 📚 [Cliquez ici pour accéder à la page d’accueil](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
