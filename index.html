@@ -1,123 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Find courses, guides and communities on health data interoperability and health data spaces.">
-  <title>Learn Health Data Interoperability and Health Data Spaces</title>
-  <link rel="stylesheet" href="./style.css?v=0610aff5a2ce">
-  <script src="./app.js?v=4569565d06a9" defer></script>
-  <style>
-    .zulip-qr { display: inline-grid; justify-items: center; gap: .55rem; color: inherit; }
-    .zulip-qr img { display: block; width: min(240px, 100%); height: auto; }
-  </style>
-</head>
-<body id="top">
-<a class="skip" href="#directory">Skip to resources</a>
-<header class="hero">
-  <div class="wrap">
-    <div class="mast"><div class="brand"><span>Digital Health Africa</span></div><div class="actions"><button id="language-toggle" type="button" lang="fr" aria-label="Switch the website language">Français</button><button id="theme" type="button" aria-pressed="false">Dark mode</button></div></div>
-    <div class="hero-copy">
-      <p class="date">Addis workshop · 24 November 2026</p>
-      <h1>Learn Health Data Interoperability and Health Data Spaces</h1>
-      <p>Welcome to the learning hub! You'll find curated courses, videos, guides, and reports on health data standards, interoperability architecture, governance, and the African and European Health Data Spaces.</p>
-      <p>Use the filters to find resources by topic, format, level, cost, language, time commitment, or certificate availability.</p>
-      <a class="button gold" href="#directory">Browse and filter resources</a>
-    </div>
-  </div>
-</header>
-<div class="topic-shell"><nav id="topic-nav" class="wrap" aria-label="Learning topics">
-  <a href="#start-here"><span>I.</span> Start by understanding interoperability</a>
-  <a href="#health-data-standards"><span>II.</span> Health data standards and terminologies</a>
-  <a href="#architecture-and-implementation"><span>III.</span> Health data interoperability architectures</a>
-  <a href="#laws-and-regulations"><span>IV.</span> Laws and regulations</a>
-  <a href="#health-data-spaces"><span>V.</span> Health data spaces</a>
-</nav></div>
-
-<main class="wrap">
-  <p class="stats" id="stats" hidden>
-    <span><strong id="total-stat"></strong> resources</span>
-    <span><strong id="topic-stat"></strong> topics</span>
-    <span><strong id="free-stat"></strong> free</span>
-  </p>
-
-  <div class="intro">
-    <div class="actions"><a class="button" href="#quiz">Find my path</a><a class="button secondary" href="#learning-path">My learning path</a></div>
-  </div>
-
-  <section id="quiz" class="panel" aria-labelledby="quiz-title">
-    <h2 id="quiz-title">Find my path</h2>
-    <form id="quiz-form">
-      <div class="filter-grid">
-        <label>Your role<select id="role" required><option value="">Choose a role</option><option value="learner">Student or learner</option><option value="implementer">Health IT implementer</option><option value="policy">Policy or program lead</option></select></label>
-        <label>Your experience<select id="experience" required><option value="">Choose a level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select></label>
-      </div>
-      <button>Recommend resources</button>
-    </form>
-    <p id="quiz-status" role="status"></p><div id="recommendations"></div>
-  </section>
-
-  <section id="learning-path" tabindex="-1" class="panel" aria-labelledby="path-title">
-    <h2 id="path-title">My learning path</h2>
-    <p>Save resources as you browse, then mark them complete here. Your progress stays in this browser.</p>
-    <p id="progress-text">0 of 0 completed</p>
-    <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
-    <ul id="saved-list" class="plain"></ul>
-    <div class="actions"><button id="copy-path">Copy text list</button><button id="print-path" class="secondary">Print path</button><button id="export-path" class="secondary">Export progress</button><button id="import-path" class="secondary">Import progress</button><input id="import-file" type="file" accept=".json,application/json" hidden></div>
-  </section>
-
-  <section id="directory" aria-labelledby="directory-title">
-    <h2 id="directory-title" tabindex="-1">Filter resources</h2>
-    <form id="filters" class="panel">
-      <div class="filter-grid">
-        <label>Topic<select id="topic"></select></label>
-        <label>Resource type<select id="type"></select></label>
-        <label>Cost<select id="cost"></select></label>
-        <label>Certificate availability<select id="certificate"></select></label>
-        <label>Level<select id="level"></select></label>
-        <label>Resource language<select id="resource-language"></select></label>
-        <label>Time commitment<select id="time"></select></label>
-        <label>Sort by<select id="sort"><option value="beginner">Beginner first</option><option value="free">Free first</option><option value="title">A to Z</option><option value="provider">Provider</option></select></label>
-      </div>
-      <button id="clear" class="secondary" type="button">Clear filters</button>
-    </form>
-    <p id="count" role="status">Loading resources…</p>
-    <noscript><p>Enable JavaScript to search and browse the directory.</p></noscript>
-    <div id="results"></div>
-  </section>
-
-  <section id="map" class="panel" aria-labelledby="map-title">
-    <h2 id="map-title">Interoperability map</h2>
-    <p>In OpenHIE, point-of-service systems exchange health data through an interoperability layer that connects them to shared services. Select a node to explore related resources.</p>
-    <div id="map-diagram"></div>
-  </section>
-
-  <section id="comparison" class="panel" aria-labelledby="compare-title">
-    <h2 id="compare-title">Compare health data space resources</h2>
-    <div class="chips" id="compare-controls" aria-label="Comparison layout">
-      <button data-compare="Africa" aria-pressed="false">Africa</button>
-      <button data-compare="Europe" aria-pressed="false">Europe</button>
-      <button data-compare="both" aria-pressed="true">Side by side</button>
-    </div>
-    <div id="compare-content" class="compare-grid"></div>
-  </section>
-
-  <section id="community" class="community">
-    <h2>Keep the conversation going</h2>
-    <p>Join our Digital Health Africa community on Zulip to ask questions, share resources and discuss implementation experiences.</p>
-    <ul class="plain channels">
-      <li><strong>#Welcome</strong><span>Introduce yourself and your work.</span></li>
-      <li><strong>#interoperability-questions</strong><span>Ask about standards, architecture or governance.</span></li>
-      <li><strong>#learning-resources</strong><span>Share courses, guides and useful examples.</span></li>
-    </ul>
-    <a id="zulip-link" class="zulip-qr" href="https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/" target="_blank" rel="noopener noreferrer">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhwAAAIcAQAAAACVhUrRAAADp0lEQVR4nO2dUY7jIBBEq1fzj2+Q+x9rbwAnqP3oBhpnpPmYxOuIQpHj2OQJPlBB0YARv07tz+8ZgCCCCCKIIIIIIogggggiyFsgNtIB/6DFT78BYAf8mjO/vCSCCPIhkK/4LtW/DQBAwAqtP2E7rFQ243eZ71QdQQT5D5CpI11oWOPjDz2P/0yi8/qSCCLIJ0C+nh+xHQTQjC46heZKFHpU31MSQQT5eEgMeR60B1GIZqywAyTt6DJ0SUkEEeTGkKk7TDfWzDtpAFAIAM3YDnTdWWdU71MdQQS5HNLCOYP7aYXRZBAahEJ78Dnz60siiCCfAQndyTrCZmjG/sGw17oSPYXx3Kc6gghyGQQkSaIwD2SGvcY1eTa/AYBCkqz3qY4gglwGOeuO+2kGWCEAK9UHODHv0wyFaAeGHfeykggiyGdBuu6MVLq+nB5WDK0BED+lO4LsC5ltxztjZPTKom/mydsLZ78ubtR2BNkewgq30dxki8A2syFAPsUDYPhvSZhuVx1BBHk/ZMSz0XrkAPpAJuLZeiQbk882wt5eVxJBBPksyPTZstU2ItmGuEQvLptsUJ9NkJ0h04UGplGA04gmedR4drDVdgTZEZL8gYphpk25qT3GoCy6M65qO4LsClk96jIbUXbbZpM5vVXbEWRfyFz7NudAY1Y0rmMBwgzOmXnq60oiiCCfBelxBRG9doTP5otGPX4A4cJFHHX/pKnT+1RHEEEugySvoCQrgHPUM3pr015b/6g+myBbQpa4gnGdb2vkOecv8goE2RxybgszbKCmtyNznU3MlUhtR5BdIUl3+E0kW36VhAaAYkEF2RyyrN8ZnbekKeuEThoKabwjyN6Qpc+GPBma5GbM7Iy/aLwjyPaQc58NSNEFdbHakAJ1tG5UkO0hSXdywGedoTirxCBnkO4IsjFk2WPKSrW5U24EErBvcoi8Ihs5zOA+1RFEkMsgy34FzGtzfBNdIK5jO1AP3Sl1NrEbVUcQQa6GPB1tcI4iQLPYt60fiEBS5yAIIsgYvIyfwHSn4+ZvbBY6dnfvztv9qiOIIBdCpugUxmYFbR674+ZAPo7nfSURRJBPgHxzDoIn9mUI2SuIVCqasVBrEAQRJKc4YecAADSzRxyFMDY08D1zdP6OIHtDUkxOvqn97WkqZw1C0NyoIBtDep+tzU7Z8J991Vs87D52bDm1dOTuUx1BBLkMYvw5z0+p3ac6gggiiCCCCCKIIIIIIoggI/0Dhpda5hfpTVkAAAAASUVORK5CYII=" width="240" height="240" alt="">
-      <span>Join us on Zulip</span>
-    </a>
-  </section>
-  <p id="notice" role="status" class="notice"></p>
-</main>
-<footer class="wrap"><p>Prepared as part of the Addis Ababa Digital Health Technical Workshop · 24 November 2026</p><a id="top-button" class="button secondary" href="#top">Back to top ↑</a></footer>
-
-</body>
-</html>
+  const groups = [
+    {
+      title: 'Point-of-service systems',
+      nodes: [['Clinical systems', 'OpenHIE']]
+    },
+    {
+      title: 'Interoperability layer',
+      nodes: [
+        ['OpenHIE framework', 'OpenHIE'],
+        ['FHIR', 'FHIR'],
+        ['OpenHIM', 'https://openhim.org/docs/dev-guide/design-overview/']
+      ]
+    },
+    {
+      title: 'Shared services',
+      nodes: [
+        ['Registries', 'OpenHIE'],
+        ['Terminology', 'LOINC'],
+        ['Shared records', 'OpenHIE']
+      ]
+    },
+    {
+      title: 'Governance',
+      nodes: [
+        ['AU frameworks', 'African Union'],
+        ['AfCFTA', 'AfCFTA'],
+        ['GDPR', 'GDPR']
+      ]
+    }
+  ];
