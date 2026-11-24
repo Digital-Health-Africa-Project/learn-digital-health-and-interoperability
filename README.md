@@ -7,7 +7,7 @@
 
 Hello and welcome to this repository!
 
-Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** Prepared for the **GIZ workshop in Addis Ababa on 24 November 2026**, this hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
+Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** Prepared as part of the **Addis Ababa Digital Health Technical Workshop on 24 November 2026**, this hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
 
 ### Start with the basics
 
@@ -30,15 +30,15 @@ Use **Find my path** for a suggested learning sequence. In **My learning path**,
 
 ### Keep the conversation going
 
-Please join the **Digital Health Africa community on Zulip** to ask questions, recommend resources, and share what you’re learning.
+Join the **Digital Health Africa community on Zulip** to ask questions, recommend resources, and share what you’re learning. Scan the QR code or click it to open the invitation.
 
-https://digital-health-africa.zulipchat.com/join/aaazwqd67cg6bue734bhthp5/
+[<img src="./zulip-qr.png" alt="Join Digital Health Africa on Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
 
 ## Français
 
 Bonjour et bienvenue dans ce dépôt !
 
-Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? Préparé pour **l’atelier GIZ du 24 novembre 2026 à Addis-Abeba**, ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
+Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? Préparé dans le cadre de **l’atelier technique sur la santé numérique à Addis-Abeba le 24 novembre 2026**, ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
 
 ### Commencer par les bases
 
@@ -61,6 +61,6 @@ Utilisez **Find my path** pour obtenir un parcours suggéré. Dans **My learning
 
 ### Poursuivre la discussion
 
-Rejoignez la **communauté Digital Health Africa sur Zulip** pour poser vos questions, recommander des ressources et partager ce que vous apprenez.
+Rejoignez la **communauté Digital Health Africa sur Zulip** pour poser vos questions, recommander des ressources et partager ce que vous apprenez. Scannez le code QR ou cliquez dessus pour ouvrir l’invitation.
 
-https://digital-health-africa.zulipchat.com/join/aaazwqd67cg6bue734bhthp5/
+[<img src="./zulip-qr.png" alt="Rejoindre Digital Health Africa sur Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
