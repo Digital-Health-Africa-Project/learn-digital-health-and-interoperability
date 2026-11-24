@@ -1,5 +1,9 @@
 # Learn Health Data Interoperability and Health Data Spaces
 
+## 📚 [Click here to browse the learning resources](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
+
+## 📚 [Cliquez ici pour consulter les ressources](https://yenusayalew.github.io/learn-digital-health-and-interoperability/)
+
 [![English](https://img.shields.io/badge/English-0A2540?style=for-the-badge)](#english)
 [![Français](https://img.shields.io/badge/Fran%C3%A7ais-E30613?style=for-the-badge)](#fran%C3%A7ais)
 
@@ -7,7 +11,7 @@
 
 Hello and welcome to this repository!
 
-Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** This hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
+Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** This hub brings together curated courses, video lectures, guides, articles, and publications.
 
 ### Start with the basics
 
@@ -22,9 +26,9 @@ Begin with Catherine Staes’s three-part introduction from the University of Ut
 - **Health data standards and terminologies.** See how FHIR structures a lab result for exchange, how LOINC identifies the test, and how SNOMED CT represents clinical findings.
 - **Interoperability architecture.** Explore how electronic health records, laboratories, registries, and reporting systems such as DHIS2 connect.
 - **Laws and governance.** Learn how rules shape who can access, share, and reuse health data.
-- **Health data spaces.** Compare resources on the African and European Health Data Spaces.
+- **Health data spaces.** Explore resources on the African and European Health Data Spaces.
 
-Search or filter by topic, resource type, level, cost, certificate availability, language, and time commitment. Resource descriptions are available in English and French.
+Filter resources by topic, type, level, cost, certificate availability, language, and time commitment. Resource descriptions are available in English and French.
 
 Use **Find my path** for a suggested learning sequence. In **My learning path**, you can save resources, mark them complete, and export or import your progress.
 
@@ -38,7 +42,7 @@ Join the **Digital Health Africa community on Zulip** to ask questions, recommen
 
 Bonjour et bienvenue dans ce dépôt !
 
-Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
+Vous souhaitez comprendre **comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ?** Ce portail réunit une sélection de cours, de vidéos, de guides, d’articles et de publications.
 
 ### Commencer par les bases
 
@@ -53,11 +57,11 @@ Commencez par les trois vidéos de Catherine Staes, de l’Université de l’Ut
 - **Normes et terminologies de santé.** Découvrez comment FHIR structure un résultat de laboratoire pour l’échange, comment LOINC identifie l’analyse et comment SNOMED CT représente les observations cliniques.
 - **Architecture d’interopérabilité.** Explorez les liens entre les dossiers de santé, les laboratoires, les registres et les systèmes de rapportage comme DHIS2.
 - **Législation et gouvernance.** Découvrez les règles qui encadrent l’accès aux données de santé, leur partage et leur réutilisation.
-- **Espaces de données de santé.** Comparez les ressources sur les espaces africain et européen des données de santé.
+- **Espaces de données de santé.** Explorez les ressources sur les espaces africain et européen des données de santé.
 
-Recherchez des ressources ou filtrez-les par sujet, type, niveau, coût, disponibilité d’une attestation, langue et durée. Les descriptions sont disponibles en anglais et en français.
+Filtrez les ressources par sujet, type, niveau, coût, disponibilité d’une attestation, langue et durée. Les descriptions sont disponibles en anglais et en français.
 
-Utilisez **Find my path** pour obtenir un parcours suggéré. Dans **My learning path**, vous pouvez enregistrer des ressources, les marquer comme terminées et exporter ou importer vos progrès.
+Utilisez **Trouver mon parcours** pour obtenir un parcours suggéré. Dans **Mon parcours**, vous pouvez enregistrer des ressources, les marquer comme terminées et exporter ou importer votre progression.
 
 ### Poursuivre la discussion
 
