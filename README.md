@@ -7,7 +7,7 @@
 
 Hello and welcome to this repository!
 
-Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** Prepared as part of the **Addis Ababa Digital Health Technical Workshop on 24 November 2026**, this hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
+Would you like to learn **how health systems exchange and use data, and how health data spaces support sharing across organizations and borders?** This hub brings together **66 curated resources**, including courses, video lectures, guides, articles, and publications.
 
 ### Start with the basics
 
@@ -38,7 +38,7 @@ Join the **Digital Health Africa community on Zulip** to ask questions, recommen
 
 Bonjour et bienvenue dans ce dépôt !
 
-Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? Préparé dans le cadre de **l’atelier technique sur la santé numérique à Addis-Abeba le 24 novembre 2026**, ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
+Vous souhaitez comprendre comment les systèmes de santé échangent et utilisent les données, et comment les espaces de données de santé facilitent leur partage entre organisations et pays ? ce portail réunit **66 ressources sélectionnées**, dont des cours, des vidéos, des guides, des articles et des publications.
 
 ### Commencer par les bases
 
