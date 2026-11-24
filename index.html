@@ -6,16 +6,47 @@
   <meta name="description" content="Learning resources on health data interoperability and health data spaces.">
   <title>Learn Health Data Interoperability and Health Data Spaces</title>
   <link rel="stylesheet" href="./style.css">
-  <script src="./app.js?v=openhie-20261124" defer></script>
+  <script src="./app.js?v=vodan-order-20261124" defer></script>
+
   <style>
-    .architecture-figure { margin: 1.5rem 0; }
-    .architecture-figure img { display: block; max-width: 100%; height: auto; }
-    .zulip-qr { display: inline-grid; justify-items: center; gap: .55rem; }
-    .zulip-qr img { width: min(220px, 100%); height: auto; }
-    #map-diagram > section { flex: 1 1 14rem; align-self: stretch; }
-    #map-diagram h3 { margin-top: 0; }
-    #recommendations li { margin-block: .5rem; }
-    #recommendations summary { cursor: pointer; }
+    .architecture-figure {
+      margin: 1.5rem 0;
+    }
+
+    .architecture-figure img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .zulip-qr {
+      display: inline-grid;
+      justify-items: center;
+      gap: .55rem;
+      color: inherit;
+    }
+
+    .zulip-qr img {
+      width: min(220px, 100%);
+      height: auto;
+    }
+
+    #map-diagram > section {
+      flex: 1 1 14rem;
+      align-self: stretch;
+    }
+
+    #map-diagram h3 {
+      margin-top: 0;
+    }
+
+    #recommendations li {
+      margin-block: .5rem;
+    }
+
+    #recommendations summary {
+      cursor: pointer;
+    }
 
     @media print {
       body.print-path > :not(main),
@@ -39,6 +70,7 @@
           <button id="theme" type="button" aria-pressed="false">Dark mode</button>
         </div>
       </div>
+
       <div class="hero-copy">
         <p class="date" data-fr="Atelier d’Addis-Abeba · 24 novembre 2026">Addis workshop · 24 November 2026</p>
         <h1 data-fr="Découvrir l’interopérabilité et les espaces de données de santé">Learn Health Data Interoperability and Health Data Spaces</h1>
@@ -69,6 +101,7 @@
 
     <section id="quiz" class="panel" aria-labelledby="quiz-title">
       <h2 id="quiz-title" data-fr="Trouver mon parcours">Find my path</h2>
+
       <form id="quiz-form">
         <div class="filter-grid">
           <label>
@@ -80,6 +113,7 @@
               <option value="policy" data-fr="Responsable des politiques ou de programme">Policy or program lead</option>
             </select>
           </label>
+
           <label>
             <span data-fr="Votre expérience">Your experience</span>
             <select id="experience" required>
@@ -90,8 +124,10 @@
             </select>
           </label>
         </div>
+
         <button type="submit" data-fr="Recommander des ressources">Recommend resources</button>
       </form>
+
       <p id="quiz-status" role="status"></p>
       <div id="recommendations"></div>
     </section>
@@ -99,9 +135,11 @@
     <section id="learning-path" class="panel" tabindex="-1" aria-labelledby="path-title">
       <h2 id="path-title" data-fr="Mon parcours">My learning path</h2>
       <p data-fr="Enregistrez les ressources, puis marquez-les comme terminées ici. Votre progression reste dans ce navigateur.">Save resources as you browse, then mark them complete here. Your progress stays in this browser.</p>
+
       <p id="progress-text"></p>
       <progress id="progress" max="1" value="0" aria-label="Learning path completion"></progress>
       <ul id="saved-list" class="plain"></ul>
+
       <div class="actions">
         <button id="copy-path" type="button" data-fr="Copier la liste">Copy text list</button>
         <button id="print-path" class="secondary" type="button" data-fr="Imprimer le parcours">Print path</button>
@@ -113,6 +151,7 @@
 
     <section id="directory" aria-labelledby="directory-title">
       <h2 id="directory-title" tabindex="-1" data-fr="Filtrer les ressources">Filter resources</h2>
+
       <form id="filters" class="panel">
         <div class="filter-grid">
           <label><span data-fr="Thème">Topic</span><select id="topic"></select></label>
@@ -124,8 +163,10 @@
           <label><span data-fr="Durée">Time commitment</span><select id="time"></select></label>
           <label><span data-fr="Trier par">Sort by</span><select id="sort"></select></label>
         </div>
+
         <button id="clear" class="secondary" type="button" data-fr="Réinitialiser les filtres">Clear filters</button>
       </form>
+
       <p id="count" role="status">Loading resources…</p>
       <noscript><p>Enable JavaScript to browse the directory.</p></noscript>
       <div id="results"></div>
@@ -134,29 +175,35 @@
     <section id="map" class="panel" aria-labelledby="map-title">
       <h2 id="map-title" data-fr="Carte de l’interopérabilité">Interoperability map</h2>
       <p data-fr="Dans OpenHIE, les systèmes de prestation échangent des données via une couche d’interopérabilité reliée à des services partagés. OpenHIM est une implémentation de référence de cette couche.">In OpenHIE, point-of-service systems exchange health data through an interoperability layer that connects them to shared services. OpenHIM is a reference implementation of that layer.</p>
+
       <figure class="architecture-figure">
-        <img src="https://openhim.org/img/design/Central-HIM-componentv2.png"
-             alt="OpenHIM interoperability layer and its connections to client systems and shared services"
-             loading="lazy"
-             decoding="async">
+        <img
+          src="https://openhim.org/img/design/Central-HIM-componentv2.png"
+          alt="OpenHIM interoperability layer and its connections to client systems and shared services"
+          loading="lazy"
+          decoding="async">
         <figcaption>
           <a href="https://openhim.org/docs/dev-guide/design-overview/#the-architecture"
              data-fr="Architecture de la couche d’interopérabilité OpenHIM">OpenHIM interoperability layer architecture</a>
         </figcaption>
       </figure>
+
       <div id="map-diagram"></div>
     </section>
 
     <section id="comparison" class="panel" aria-labelledby="compare-title">
-      <h2 id="compare-title" data-fr="Comparer les espaces de données de santé">Compare health data space resources</h2>
-      <div class="chips" id="compare-controls" aria-label="Comparison layout">
+      <h2 id="compare-title" data-fr="Ressources sur les espaces de données de santé">Resources about Health Data Spaces</h2>
+
+      <div class="chips" id="compare-controls" aria-label="Health data space regions">
         <button type="button" data-compare="Africa" aria-pressed="false" data-fr="Afrique">Africa</button>
         <button type="button" data-compare="Europe" aria-pressed="false">Europe</button>
-        <button type="button" data-compare="both" aria-pressed="true" data-fr="Côte à côte">Side by side</button>
+        <button type="button" data-compare="both" aria-pressed="true" data-fr="Les deux régions">Both regions</button>
       </div>
+
       <div id="compare-content" class="compare-grid"></div>
 
       <h3 data-fr="Explorer l’espace européen des données de santé">Explore the European Health Data Space</h3>
+
       <ul>
         <li>
           <a href="https://ehdsexplorer.eu/"
@@ -166,22 +213,87 @@
           <span data-fr=" · Consultez les articles du règlement."> · Browse the articles of the regulation.</span>
         </li>
         <li>
-          <a href="https://tehdas.eu/"
-             target="_blank"
-             rel="noopener noreferrer">TEHDAS2</a>
+          <a href="https://tehdas.eu/" target="_blank" rel="noopener noreferrer">TEHDAS2</a>
           <span data-fr=" · Consultez les lignes directrices et les spécifications techniques sur l’utilisation secondaire des données de santé."> · Browse guidelines and technical specifications for secondary use of health data.</span>
         </li>
       </ul>
     </section>
 
+    <section id="keep-learning" class="panel" aria-labelledby="keep-learning-title">
+      <h2 id="keep-learning-title" data-fr="Continuer à apprendre et échanger">Keep learning and connect</h2>
+
+      <div class="compare-grid">
+        <div>
+          <h3 data-fr="Organisations à suivre">Organizations to follow</h3>
+          <ul>
+            <li>
+              <a href="https://academy.ohie.org/?page_id=69">OpenHIE Academy</a>
+              <span data-fr=" · Cours sur les échanges de données de santé, les normes et l’architecture."> · Courses on health information exchange, standards, and architecture.</span>
+            </li>
+            <li>
+              <a href="https://blog.hl7.org/">HL7 International</a>
+              <span data-fr=" · Articles et actualités sur FHIR et les normes d’échange."> · Articles and updates on FHIR and exchange standards.</span>
+            </li>
+            <li>
+              <a href="https://africacdc.org/news-item/digital-health-systems-and-data-sovereignty/">Africa CDC</a>
+              <span data-fr=" · Santé numérique, interopérabilité et souveraineté des données en Afrique."> · Digital health, interoperability, and data sovereignty in Africa.</span>
+            </li>
+            <li>
+              <a href="https://tehdas.eu/">TEHDAS2</a>
+              <span data-fr=" · Lignes directrices sur l’utilisation secondaire des données de santé dans l’EEDS."> · Guidance on secondary use of health data in the EHDS.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 data-fr="Groupes et communautés à suivre">Groups and communities to follow</h3>
+          <ul>
+            <li>
+              <a href="https://www.linkedin.com/groups/14002633/">FHIR® Proficiency Preparation Support Group</a>
+              <span data-fr=" · Groupe LinkedIn pour étudier FHIR et préparer l’examen."> · LinkedIn study group for learning FHIR and preparing for the proficiency exam.</span>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/company/global-digital-health-network/">Global Digital Health Network</a>
+              <span data-fr=" · Actualités sur LinkedIn."> · Updates on LinkedIn.</span>
+              <a href="https://groups.io/g/gdhn" data-fr="Rejoindre le forum">Join the discussion forum</a>.
+            </li>
+            <li>
+              <a href="https://discourse.ohie.org/">OpenHIE Discourse</a>
+              <span data-fr=" · Échangez avec les équipes qui mettent en œuvre les échanges de données de santé."> · Ask questions and learn from health information exchange implementers.</span>
+            </li>
+            <li>
+              <a href="https://chat.fhir.org/">HL7 FHIR Community</a>
+              <span data-fr=" · Discutez des profils, des ressources et des questions de mise en œuvre de FHIR."> · Discuss FHIR profiles, resources, and implementation questions.</span>
+            </li>
+            <li>
+              <a href="https://github.com/YenusAyalew/learn-digital-health-and-interoperability/discussions"
+                 data-fr="Discussions du portail sur GitHub">Learning hub discussions on GitHub</a>
+              <span data-fr=" · Posez une question ou proposez une ressource en français ou en anglais."> · Ask a question or suggest a resource in English or French.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section id="community" class="community">
       <h2 data-fr="Poursuivre la discussion">Keep the conversation going</h2>
       <p data-fr="Rejoignez la communauté Digital Health Africa sur Zulip pour poser vos questions et partager des ressources ou vos expériences.">Join our Digital Health Africa community on Zulip to ask questions, share resources, and discuss implementation experiences.</p>
+
       <ul class="plain channels">
-        <li><strong>#Welcome</strong><span data-fr="Présentez-vous et présentez votre travail.">Introduce yourself and your work.</span></li>
-        <li><strong>#interoperability-questions</strong><span data-fr="Posez vos questions sur les normes, l’architecture ou la gouvernance.">Ask about standards, architecture, or governance.</span></li>
-        <li><strong>#learning-resources</strong><span data-fr="Partagez des cours, des guides et des exemples utiles.">Share courses, guides, and useful examples.</span></li>
+        <li>
+          <strong>#Welcome</strong>
+          <span data-fr="Présentez-vous et présentez votre travail.">Introduce yourself and your work.</span>
+        </li>
+        <li>
+          <strong>#interoperability-questions</strong>
+          <span data-fr="Posez vos questions sur les normes, l’architecture ou la gouvernance.">Ask about standards, architecture, or governance.</span>
+        </li>
+        <li>
+          <strong>#learning-resources</strong>
+          <span data-fr="Partagez des cours, des guides et des exemples utiles.">Share courses, guides, and useful examples.</span>
+        </li>
       </ul>
+
       <a id="zulip-link" class="zulip-qr"
          href="https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/"
          target="_blank"
