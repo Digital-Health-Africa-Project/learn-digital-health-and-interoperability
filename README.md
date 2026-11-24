@@ -34,12 +34,6 @@ Join the **Digital Health Africa community on Zulip** to ask questions, recommen
 
 [<img src="./zulip-qr.png" alt="Join Digital Health Africa on Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
 
-### Open the learning hub
-
-Scan the QR code to open the resource website.
-
-[<img src="./learning-hub-qr.png" alt="QR code for the learning hub website" width="180">](https://digital-health-africa-project.github.io/learn-digital-health-and-interoperability/)
-
 ### 📚 [Click here to open the main page](https://digital-health-africa-project.github.io/learn-digital-health-and-interoperability/)
 
 ## Français
@@ -72,11 +66,5 @@ Utilisez **Trouver mon parcours** pour obtenir un parcours suggéré. Dans **Mon
 Rejoignez la **communauté Digital Health Africa sur Zulip** pour poser vos questions, recommander des ressources et partager ce que vous apprenez. Scannez le code QR ou cliquez dessus pour ouvrir l’invitation.
 
 [<img src="./zulip-qr.png" alt="Rejoindre Digital Health Africa sur Zulip" width="180">](https://digital-health-africa.zulipchat.com/join/bgccwfwc56pngf4n473muigh/)
-
-### Accéder au portail de ressources
-
-Scannez le code QR pour accéder au site.
-
-[<img src="./learning-hub-qr.png" alt="Code QR du portail de ressources" width="180">](https://digital-health-africa-project.github.io/learn-digital-health-and-interoperability/)
 
 ### 📚 [Cliquez ici pour accéder à la page d’accueil](https://digital-health-africa-project.github.io/learn-digital-health-and-interoperability/)
